@@ -19,7 +19,7 @@ public class ReplicateGUI extends JFrame{
 	private tablero tableroInicio;
 	private Clip c;
 	private ReplicateGUI(){
-		super("Poob Hunt");
+		super("Donkey Poob");
 		prepareElementos();
 		
 		
