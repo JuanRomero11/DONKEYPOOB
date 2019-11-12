@@ -12,7 +12,7 @@ import javax.swing.*;
 public class tablero extends JPanel{
 	public static final String fondoInit = "resources/fondo2.png";
 	private BufferedImage fondo;
-	protected JButton jugdor1, jugador2 ,abrir,controles, salir;
+	protected JButton jugdor1, jugador2 ,abrir,controles, salir, JvsD, JvsJ, JvsM, JvsM2 ,playM, playK, goBack,imagencontrol;
 	public tablero(String root){
 		super(null);
 		prepareElementosInicio();
@@ -36,6 +36,30 @@ public class tablero extends JPanel{
 
 		
 		 
+		repaint();
+	}
+	public void prepareElementosControl() {
+		removeAll();
+		imagencontrol = new Boton("instrucciones",170,340);
+		add(imagencontrol);
+		goBack = new Boton("abandonar",270,550);
+		add(goBack);
+		repaint();
+	}
+	
+	
+	public void prepareElementos2J(){
+		removeAll();
+		JvsJ = new Boton("JvsJ", 340, 300);
+		add(JvsJ);
+		
+		JvsM = new Boton("JvsM", 340, 360);
+		add(JvsM);
+		JvsM2 = new Boton("JvsM2",340,420);
+		add(JvsM2);
+		
+		goBack = new Boton("atras", 320, 540);
+		add(goBack);
 		repaint();
 	}
 	public void paintComponent(Graphics g) {

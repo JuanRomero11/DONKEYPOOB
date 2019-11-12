@@ -21,8 +21,7 @@ public class ReplicateGUI extends JFrame{
 	private ReplicateGUI(){
 		super("Donkey Poob");
 		prepareElementos();
-		
-		
+		prepareAcciones();
 	}
 	private void prepareElementos() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,15 +48,26 @@ public class ReplicateGUI extends JFrame{
 		JOptionPane.showMessageDialog(null,"en construccion");
 		
 	}
-
-
-	
-	
-
-	public void prepareAcciones(){
-	
-		
-		
+	public void prepareAcciones() {
+		tableroInicio.salir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cerrar();
+			}
+		});
+		tableroInicio.controles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tableroInicio.prepareElementosControl();
+				prepareAccionesControl();
+			}
+		});
+	}
+	public void prepareAccionesControl() {
+		tableroInicio.goBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tableroInicio.prepareElementosInicio();
+				prepareAcciones();
+			}
+		});
 	}
 	public void cerrar(){
 		int res = JOptionPane.showConfirmDialog(null,"Desea salir", "Atencion!", JOptionPane.YES_NO_OPTION);
