@@ -12,12 +12,16 @@ import javax.swing.*;
 
 public class ReplicateGUI extends JFrame{
 	//Menu
-	
 	private JFileChooser file;
 	private JPanel principal;
 	private CardLayout layout;
 	private tablero tableroInicio;
+	private BoardJuego tableroJuego;
 	private Clip c;
+	private DonkeyPoob juego;
+	
+	private Thread t;
+	
 	private ReplicateGUI(){
 		super("Donkey Poob");
 		prepareElementos();
@@ -29,7 +33,6 @@ public class ReplicateGUI extends JFrame{
 		setResizable(false);
 		setLocationRelativeTo(null);
 		prepararElementosTablero();
-
 	}
 	public void refresque(){
         this.revalidate();
@@ -58,6 +61,16 @@ public class ReplicateGUI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				tableroInicio.prepareElementosControl();
 				prepareAccionesControl();
+			}
+		});
+		tableroInicio.jugador1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					prepareElementosJuego(1);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 	}
@@ -91,7 +104,14 @@ public class ReplicateGUI extends JFrame{
 			layout.show(principal, "tini");
 			sonidoIntro();
 	 }
-	 
+	 private void prepareElementosJuego(int players) throws IOException{
+			tableroJuego = new BoardJuego(players);
+			
+			principal.add(tableroJuego, "tjue");
+			layout.show(principal, "tjue");
+			setSize(new Dimension(767, 645));
+			
+		}
 	 private void sonidoIntro(){
 			try{
 				InputStream is = ReplicateGUI.class.getResourceAsStream("/sonidos/title.wav");
@@ -105,6 +125,51 @@ public class ReplicateGUI extends JFrame{
 				e.printStackTrace();
 			}
 		}
+	 public void run(){
+			try {
+				while (!juego.isFinished()) {
+					juego.ronda();
+					tableroJuego.showedGame();
+					actualizar();
+					Thread.sleep(100);
+					while (!juego.isRondaFinished()) {
+						if(!juego.enPausa()){
+							juego.mover();
+							actualizar();
+						}
+						Thread.sleep(20);
+					}
+				}
+				End();
+				
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	 private void actualizarPatos(){
+			for (int i = 0; i < 2; i++) {
+				Sprite s;
+				try {
+					s = tableroJuego.getSprite(i);
+				} catch (IndexOutOfBoundsException ex) {
+					tableroJuego.addSprite();
+					s = tableroJuego.getSprite(i);
+				}
+				if (juego.getBarril(i).isVisible()) {
+					s.setX(juego.getBarril(i).getX());
+					s.setY(juego.getBarril(i).getY());
+					s.setRoot(juego.getBarril(i).getRoot());
+				} 
+				s.setVisible(juego.getBarril(i).isVisible());
+			}
+		}
+	 public void actualizar() {
+		 actualizarPatos();
+		 
+	 }
+	 private void End(){
+	 }
+	 
 	
 	
 }

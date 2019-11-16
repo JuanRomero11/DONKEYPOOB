@@ -12,10 +12,11 @@ import javax.swing.*;
 public class tablero extends JPanel{
 	public static final String fondoInit = "resources/fondo2.png";
 	private BufferedImage fondo;
-	protected JButton jugdor1, jugador2 ,abrir,controles, salir, JvsD, JvsJ, JvsM, JvsM2 ,playM, playK, goBack,imagencontrol;
+	protected JButton jugador1, jugador2 ,abrir,controles, salir, JvsD, JvsJ, JvsM, JvsM2 ,playM, playK, goBack,imagencontrol;
 	public tablero(String root){
 		super(null);
 		prepareElementosInicio();
+		
 		try{
 			fondo = ImageIO.read(new File(root));
 		}catch(IOException e){
@@ -24,8 +25,9 @@ public class tablero extends JPanel{
 	}
 	public void prepareElementosInicio(){
 		removeAll();
-		jugdor1 = new Boton("1J", 300, 340);
-		add(jugdor1);
+		
+		jugador1 = new Boton("1J", 300, 340);
+		add(jugador1);
 		
 		jugador2 = new  Boton("2J", 300, 400);
 		add(jugador2);
