@@ -12,11 +12,13 @@ import presentacion.ReplicateGUI;
 public class DonkeyPoob{
 	public static final int PLATAFORMA_X_NIVEL = 7;         
 	public ArrayList<plataformas> plataforma; 
+	private ArrayList<Object> list=new ArrayList<Object>();
 	public barril[] barriles;
 	private boolean visible=true;
 	public static final int barrilesRonda = 2;
 	private boolean playMouse,enPausa,onMute;
 	public static final long segundo = 1000000000;
+	private ArrayList<barril> gotas=new ArrayList<barril>();
 	public DonkeyPoob() throws IOException{
 		preparePlataformas();
 		
@@ -139,8 +141,14 @@ public class DonkeyPoob{
     public boolean enPausa(){
 		return enPausa;
 	}
-    public void mover(){
-    	
+    public void mover(int x){
+            BarrilNormal gota= new BarrilNormal(x);   
+            CrearBarriles(gota);    
 	}
+    private void CrearBarriles(barril gota){
+        gota.fall(this);
+        list.add(0,gota);
+        gotas.add(gota); 
+    }
   
 }

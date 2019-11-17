@@ -10,7 +10,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.swing.*;
 
-public class ReplicateGUI extends JFrame{
+public class ReplicateGUI extends JFrame implements Runnable{
 	//Menu
 	private JFileChooser file;
 	private JPanel principal;
@@ -106,10 +106,11 @@ public class ReplicateGUI extends JFrame{
 	 }
 	 private void prepareElementosJuego(int players) throws IOException{
 			tableroJuego = new BoardJuego(players);
-			
+			t = new Thread(this);
 			principal.add(tableroJuego, "tjue");
 			layout.show(principal, "tjue");
 			setSize(new Dimension(767, 645));
+			t.start();
 			
 		}
 	 private void sonidoIntro(){
@@ -127,14 +128,14 @@ public class ReplicateGUI extends JFrame{
 		}
 	 public void run(){
 			try {
-				while (!juego.isFinished()) {
+				while(!juego.isFinished()) {
 					juego.ronda();
 					tableroJuego.showedGame();
 					actualizar();
 					Thread.sleep(100);
 					while (!juego.isRondaFinished()) {
 						if(!juego.enPausa()){
-							juego.mover();
+							juego.mover(18);
 							actualizar();
 						}
 						Thread.sleep(20);
@@ -165,7 +166,6 @@ public class ReplicateGUI extends JFrame{
 		}
 	 public void actualizar() {
 		 actualizarPatos();
-		 
 	 }
 	 private void End(){
 	 }

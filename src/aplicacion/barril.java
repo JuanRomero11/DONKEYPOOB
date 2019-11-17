@@ -37,12 +37,6 @@ public abstract class barril extends Elemento
 		setRoot(mov);
 		alive = true;
 	}
-
-   
-    
-  
-    
-    
     public abstract void fall(DonkeyPoob DonkeyPoob);
     
     public void falling(DonkeyPoob DonkeyPoob,barril w){
@@ -58,8 +52,6 @@ public abstract class barril extends Elemento
                 yPos+=1;                
             }
             //path o camino de agua
-           
-            
             double h[]={getX(),getY(),t};
             pos=w.touch(h,DonkeyPoob);
             
