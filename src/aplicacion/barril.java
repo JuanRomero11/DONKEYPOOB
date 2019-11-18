@@ -30,7 +30,7 @@ public abstract class barril extends Elemento
     public barril(int x, int y, int scoreKill, int MvSec,String root){
 		super(x,y,20,20);
 		//finals
-		mov = "resources/"+root+".png";
+		mov =root;
 		
 		time = System.nanoTime();
 		this.MvSec = MvSec;

@@ -2,8 +2,10 @@ package presentacion;
 import aplicacion.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 
+import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -19,7 +21,7 @@ public class ReplicateGUI extends JFrame implements Runnable{
 	private BoardJuego tableroJuego;
 	private Clip c;
 	private DonkeyPoob juego;
-	
+	private int p=0;
 	private Thread t;
 	
 	private ReplicateGUI(){
@@ -106,11 +108,13 @@ public class ReplicateGUI extends JFrame implements Runnable{
 	 }
 	 private void prepareElementosJuego(int players) throws IOException{
 			tableroJuego = new BoardJuego(players);
+			juego=new DonkeyPoob();
 			t = new Thread(this);
 			principal.add(tableroJuego, "tjue");
 			layout.show(principal, "tjue");
 			setSize(new Dimension(767, 645));
 			t.start();
+			
 			
 		}
 	 private void sonidoIntro(){
@@ -127,28 +131,22 @@ public class ReplicateGUI extends JFrame implements Runnable{
 			}
 		}
 	 public void run(){
-			try {
-				while(!juego.isFinished()) {
-					juego.ronda();
-					tableroJuego.showedGame();
+		
+				while(juego.isFinished()) {
+					 
 					actualizar();
-					Thread.sleep(100);
-					while (!juego.isRondaFinished()) {
-						if(!juego.enPausa()){
-							juego.mover(18);
-							actualizar();
-						}
-						Thread.sleep(20);
+					try {
+						t.sleep(700);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 				End();
-				
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			
 		}
-	 private void actualizarPatos(){
-			for (int i = 0; i < 2; i++) {
+	 private void actualizarBarriles(){
+			for(int i = 0; i < 1; i++){
 				Sprite s;
 				try {
 					s = tableroJuego.getSprite(i);
@@ -156,16 +154,25 @@ public class ReplicateGUI extends JFrame implements Runnable{
 					tableroJuego.addSprite();
 					s = tableroJuego.getSprite(i);
 				}
-				if (juego.getBarril(i).isVisible()) {
+					System.out.println(juego.getBarril(i).getRoot()+" "+juego.getBarril(i).getX()+" "+juego.getBarril(i).getY());
 					s.setX(juego.getBarril(i).getX());
 					s.setY(juego.getBarril(i).getY());
 					s.setRoot(juego.getBarril(i).getRoot());
-				} 
-				s.setVisible(juego.getBarril(i).isVisible());
+					s.setVisible(true);
 			}
+			tableroJuego.repaint();
 		}
 	 public void actualizar() {
-		 actualizarPatos();
+		 actualizarBarriles();
+		 actualizarDonkey();
+	 }
+	 public void actualizarDonkey() {
+		if(tableroJuego.getSpriteDonkey().getRoot().equals("resources/bailar1.png")) {
+			tableroJuego.getSpriteDonkey().setRoot("bailar2");
+		}else {
+			tableroJuego.getSpriteDonkey().setRoot("bailar1");
+		}
+		tableroJuego.repaint();
 	 }
 	 private void End(){
 	 }

@@ -16,7 +16,7 @@ public class plataformas {
 	private double m;
 	private double b;
 	private double[] puntos;
-	private ArrayList<Escalera> escaleras;
+	private ArrayList<Escalera> escaleras=new ArrayList<Escalera>();
 	public plataformas(int[] posicionesIniciales, int[] posicionesFinales) {
 		
 		this.inferior=posicionesIniciales;

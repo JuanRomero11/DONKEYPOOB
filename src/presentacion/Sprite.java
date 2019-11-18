@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 public class Sprite {
 
 	private BufferedImage imagen;
+	private String rut;
 	private int x,y,width, height;
 	private boolean visible;
 
@@ -37,18 +38,23 @@ public class Sprite {
 
 	public void setRoot(String root) {
 		try {
+			rut="resources/"+root+".png";
 			imagen = ImageIO.read(new File("resources/"+root+".png"));
+	
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	public String getRoot() {
+		return rut;
+	}
 
-	public void paint(Graphics2D g) {
+	public void paint(Graphics graphics) {
 		if (visible)
 			if(width==0 && height == 0)
-				g.drawImage(imagen, x, y, null);
+				graphics.drawImage(imagen, x, y, null);
 			else
-				g.drawImage(imagen, x, y, width, height, null);
+				graphics.drawImage(imagen, x, y, width, height, null);
 	}
 
 }

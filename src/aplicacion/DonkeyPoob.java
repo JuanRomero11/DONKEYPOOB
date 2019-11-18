@@ -16,12 +16,12 @@ public class DonkeyPoob{
 	public barril[] barriles;
 	private boolean visible=true;
 	public static final int barrilesRonda = 2;
-	private boolean playMouse,enPausa,onMute;
+	private boolean enPausa=false,onMute;
 	public static final long segundo = 1000000000;
 	private ArrayList<barril> gotas=new ArrayList<barril>();
 	public DonkeyPoob() throws IOException{
 		preparePlataformas();
-		
+		mover(30);
 	}
 	
 	public void preparePlataformas() throws IOException{
@@ -57,7 +57,7 @@ public class DonkeyPoob{
 
     }
     public boolean isFinished(){
-		boolean ans = false;
+		boolean ans = true;
 		return ans;
 	}
     private double[] nearTrap(double pendiente,boolean xTrue, double[] posgota,double lon, int t){
@@ -144,6 +144,8 @@ public class DonkeyPoob{
     public void mover(int x){
             BarrilNormal gota= new BarrilNormal(x);   
             CrearBarriles(gota);    
+            barriles=new barril[1];
+            barriles[0]=gota;
 	}
     private void CrearBarriles(barril gota){
         gota.fall(this);
