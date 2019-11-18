@@ -19,12 +19,12 @@ public class BoardJuego extends JPanel{
 	public BoardJuego(int n) throws IOException {
 		plataforms=new Sprite(0,0,true,767,616);
 		plataforms.setRoot("fondoJuego");
-		Sprite BarrilUno=new Sprite(30,0,true,20,20);
+		Sprite BarrilUno=new Sprite(30,0,true,40,40);
 		BarrilUno.setRoot("barril");
 		barriles =new ArrayList<Sprite>();
 		barriles.add(BarrilUno);
 		
-		donkey=new Sprite(15,120,true,70,70);
+		donkey=new Sprite(15,135,true,70,70);
 		donkey.setRoot("bailar1");
 		
 		

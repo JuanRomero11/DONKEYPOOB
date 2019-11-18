@@ -135,8 +135,10 @@ public class ReplicateGUI extends JFrame implements Runnable{
 				while(juego.isFinished()) {
 					 
 					actualizar();
+					
 					try {
-						t.sleep(700);
+						t.sleep(70);
+						juego.mover(0);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

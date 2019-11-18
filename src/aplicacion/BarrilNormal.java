@@ -16,7 +16,7 @@ public class BarrilNormal extends barril
  
 	
     public BarrilNormal(int x){
-        super(x,x, x, 1000000, "barril");
+        super(x,165, x, 1000000, "barril");
     }
     public void fall(DonkeyPoob DonkeyPoob){
         super.falling(DonkeyPoob,this);

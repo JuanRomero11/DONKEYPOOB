@@ -31,7 +31,8 @@ public abstract class barril extends Elemento
 		super(x,y,20,20);
 		//finals
 		mov =root;
-		
+		xPos=x;
+		yPos=y;
 		time = System.nanoTime();
 		this.MvSec = MvSec;
 		setRoot(mov);
@@ -41,23 +42,20 @@ public abstract class barril extends Elemento
     
     public void falling(DonkeyPoob DonkeyPoob,barril w){
         double pos[]={0,0};
-    
-        while(yPos<490){
+        while(yPos<580){
             double t=0;
             if (pos[0]>0 && Math.round(pos[1])==yPos){
                 xPos+=1;t+=1;
             }else if (pos[0]<0 && Math.round(pos[1])==yPos){               
                 xPos-=1;t-=1;
-            }else{               
+            }else{
                 yPos+=1;                
             }
             //path o camino de agua
             double h[]={getX(),getY(),t};
             pos=w.touch(h,DonkeyPoob);
-            
         }
-        
-        
+         
     }
     
     

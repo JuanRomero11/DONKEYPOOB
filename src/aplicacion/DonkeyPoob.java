@@ -21,9 +21,13 @@ public class DonkeyPoob{
 	private ArrayList<barril> gotas=new ArrayList<barril>();
 	public DonkeyPoob() throws IOException{
 		preparePlataformas();
-		mover(30);
+		prepareBarriles();
 	}
-	
+	public void prepareBarriles() {
+		BarrilNormal gota= new BarrilNormal(30); 
+		barriles=new barril[1];
+        barriles[0]=gota;
+	}
 	public void preparePlataformas() throws IOException{
 		plataformas pINf= new plataformas(new int[]{302,132},new int[]{468,132});
 		plataformas p0=new plataformas(new int[]{0,202},new int[]{717,202});
@@ -39,8 +43,7 @@ public class DonkeyPoob{
 		plataforma.add(p2);
 		plataforma.add(p3);
 		plataforma.add(p4);
-		plataforma.add(p5);
-		
+		plataforma.add(p5);	
 	}
 
     private void  ordenar(){
@@ -142,10 +145,7 @@ public class DonkeyPoob{
 		return enPausa;
 	}
     public void mover(int x){
-            BarrilNormal gota= new BarrilNormal(x);   
-            CrearBarriles(gota);    
-            barriles=new barril[1];
-            barriles[0]=gota;
+    	barriles[x].setX(barriles[x].getX()+1);    
 	}
     private void CrearBarriles(barril gota){
         gota.fall(this);
