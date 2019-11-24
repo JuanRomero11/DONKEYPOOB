@@ -15,19 +15,22 @@ public class BarrilNormal extends barril
 {
  
 	
-    public BarrilNormal(int x){
-        super(x,165, x, 1000000, "barril");
-    }
-    public void fall(DonkeyPoob DonkeyPoob){
-        super.falling(DonkeyPoob,this);
+    public BarrilNormal(int x,int y){
+        super(x,y, x, 1000000, "barril");
     }
     
-    public double[] touch(double[] h,DonkeyPoob DonkeyPoob){
-        return DonkeyPoob.platafor(h,0);
-    }
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void fall(DonkeyPoob DonkeyPoob) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void setRoot(String s) {
+    	super.setRoot(s);
+    }
 }

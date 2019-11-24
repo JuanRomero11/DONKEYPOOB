@@ -112,7 +112,7 @@ public class ReplicateGUI extends JFrame implements Runnable{
 			t = new Thread(this);
 			principal.add(tableroJuego, "tjue");
 			layout.show(principal, "tjue");
-			setSize(new Dimension(767, 645));
+			setSize(new Dimension(740,620));
 			t.start();
 			
 			
@@ -131,20 +131,24 @@ public class ReplicateGUI extends JFrame implements Runnable{
 			}
 		}
 	 public void run(){
-		
+		try {	
+
+			
 				while(juego.isFinished()) {
-					 
-					actualizar();
+			
+					actualizarDonkey();
+					juego.mover(0);
+					actualizarBarriles();
+					t.sleep(7);
 					
-					try {
-						t.sleep(70);
-						juego.mover(0);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					
+				
 				}
+				
 				End();
+		}catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 			
 		}
 	 private void actualizarBarriles(){
@@ -156,10 +160,11 @@ public class ReplicateGUI extends JFrame implements Runnable{
 					tableroJuego.addSprite();
 					s = tableroJuego.getSprite(i);
 				}
-					System.out.println(juego.getBarril(i).getRoot()+" "+juego.getBarril(i).getX()+" "+juego.getBarril(i).getY());
 					s.setX(juego.getBarril(i).getX());
 					s.setY(juego.getBarril(i).getY());
 					s.setRoot(juego.getBarril(i).getRoot());
+					//System.out.println(juego.getBarril(i).getRoot()+" "+juego.getBarril(i).getX()+" "+juego.getBarril(i).getY());
+
 					s.setVisible(true);
 			}
 			tableroJuego.repaint();
@@ -169,10 +174,10 @@ public class ReplicateGUI extends JFrame implements Runnable{
 		 actualizarDonkey();
 	 }
 	 public void actualizarDonkey() {
-		if(tableroJuego.getSpriteDonkey().getRoot().equals("resources/bailar1.png")) {
-			tableroJuego.getSpriteDonkey().setRoot("bailar2");
+		if(tableroJuego.getSpriteDonkey().getRoot().equals("resources/DonkeyDerecha.png")) {
+			tableroJuego.getSpriteDonkey().setRoot("DonkeyIzquierda");
 		}else {
-			tableroJuego.getSpriteDonkey().setRoot("bailar1");
+			tableroJuego.getSpriteDonkey().setRoot("DonkeyDerecha");
 		}
 		tableroJuego.repaint();
 	 }

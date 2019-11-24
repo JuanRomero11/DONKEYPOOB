@@ -21,29 +21,22 @@ public class plataformas {
 		
 		this.inferior=posicionesIniciales;
 		this.superior=posicionesFinales;
-		m=(posicionesFinales[1]-posicionesIniciales[1])/(posicionesFinales[0]-posicionesIniciales[0]);
-		
-		b=posicionesFinales[1]-(m*posicionesFinales[0]);
-		superior=posicionesFinales;
-	       inferior=posicionesIniciales;  
-	       if (posicionesFinales[1]>inferior[1]){
-	           supe=posicionesIniciales;
-	           infe=posicionesFinales;
-	       }
-	       else{
-	           supe=posicionesFinales;
-	           infe=posicionesIniciales;
-	       }
+		this.m=(posicionesFinales[1]-posicionesIniciales[1])/(posicionesFinales[0]-posicionesIniciales[0]);
+		this.b=posicionesFinales[1]-(m*posicionesFinales[0]);
+	
+	       
 		
 	}
 	 public int[] getSuperior(){   
-	       return supe;
+	       return superior;
 	   }   
 	   
 	   public int[] getInferior(){    
-	       return infe;
+	       return inferior;
 	   }
-	   
+	   public double calcular(double x) {
+		   return x*m+b;
+	   }
 	   public int[] getescaleras(){
 	       int[] temp=new int[escaleras.size()];
 	       for(int i=0; i<escaleras.size(); i++){
@@ -99,6 +92,13 @@ public class plataformas {
 	       b=inferior[1]-(m*inferior[0]);
 	       
 	    }
+	   public int intersecta() {
+		   return inferior[1];
+	   }
+	   
+	   public double corte() {
+		   return b;
+	   }
 	   public boolean hayEscalera(int x){
 	          
 	       for(int i=0; i<escaleras.size(); i++){

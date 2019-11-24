@@ -19,23 +19,24 @@ public class DonkeyPoob{
 	private boolean enPausa=false,onMute;
 	public static final long segundo = 1000000000;
 	private ArrayList<barril> gotas=new ArrayList<barril>();
+	private int bajar=0;
 	public DonkeyPoob() throws IOException{
 		preparePlataformas();
 		prepareBarriles();
 	}
 	public void prepareBarriles() {
-		BarrilNormal gota= new BarrilNormal(30); 
+		BarrilNormal gota= new BarrilNormal(0,171); 
 		barriles=new barril[1];
         barriles[0]=gota;
 	}
 	public void preparePlataformas() throws IOException{
-		plataformas pINf= new plataformas(new int[]{302,132},new int[]{468,132});
-		plataformas p0=new plataformas(new int[]{0,202},new int[]{717,202});
-		plataformas p1=new plataformas(new int[]{52,292},new int[]{766,263});
-		plataformas p2 =new plataformas(new int[]{0,343},new int[]{716,372});;
-		plataformas p3=new plataformas(new int[]{52,453},new int[]{765,424});;
-		plataformas p4=new plataformas(new int[]{0,504},new int[]{716,535});;
-		plataformas p5=new plataformas(new int[]{0,600},new int[]{765,584});;
+		plataformas pINf= new plataformas(new int[]{294,121},new int[]{453,121});
+		plataformas p0=new plataformas(new int[]{0,191},new int[]{700,191});
+		plataformas p1=new plataformas(new int[]{30,249},new int[]{744,249});
+		plataformas p2 =new plataformas(new int[]{0,329},new int[]{693,329});;
+		plataformas p3=new plataformas(new int[]{30,410},new int[]{724,410});;
+		plataformas p4=new plataformas(new int[]{0,490},new int[]{693,490});;
+		plataformas p5=new plataformas(new int[]{0,570},new int[]{745,570});;
 		plataforma = new ArrayList<plataformas>();
 		plataforma.add(pINf);
 		plataforma.add(p0);
@@ -63,60 +64,8 @@ public class DonkeyPoob{
 		boolean ans = true;
 		return ans;
 	}
-    private double[] nearTrap(double pendiente,boolean xTrue, double[] posgota,double lon, int t){
-        double y=-1,count=10000000;
-        boolean xTemp;
-        for(int i=0; i< plataforma.size(); i++){
-            int lim[]= plataforma.get(i).getLimx();
-            if (posgota[0]>=lim[0] && posgota[0]<=lim[1]){
-                double equa[]=plataforma.get(i).getEQ();
-                double posY1=equa[0]*posgota[0]+equa[1];
-                xTemp=plataforma.get(i).hayEscalera((int)posgota[0]);
-                double dis=posY1-posgota[1];
-                if(count>=dis && dis>=0){
-                    count=dis;
-                    y=posY1;
-                    lon=(double)i;
-                    xTrue=xTemp;
-                    pendiente=equa[0] ;
-                }
-
-            }
-        }
-        
-        double h[]={y,pendiente,lon};
-        return h;
-    }
-    public double[] platafor(double[] posgota,int t){
-        int lon=-1;
-        double y=-1,pendiente=0,res[]=nearTrap(0,false,posgota,-1,t);
-        y=res[0];
-        pendiente = res[1];
-        lon=(int)res[2];
-        if (pendiente>=0){ y = y-5;
-        }else{y = y-15;}
-        if(plataforma.size()>0 && lon>-1){
-            if (t==1){
-                if (plataforma.get(lon).hayEscalera((int)posgota[0])){
-                    pendiente=0;
-                }else{
-                    int n= plataforma.size();
-                    hacerEscalera(lon,(int)posgota[0]);
-                    if (n==plataforma.size()){
-                        if (plataforma.get(lon).hayEscalera((int)posgota[0])){
-                            pendiente=0;
-                            }
-                    }
-                    else{
-                    	pendiente=0;
-                    }
-                }
-            }
-        }
-
-        double h[]= {pendiente,y};
-        return h;
-    }
+    
+  
     public void ronda(){
 		
 	}
@@ -145,7 +94,25 @@ public class DonkeyPoob{
 		return enPausa;
 	}
     public void mover(int x){
-    	barriles[x].setX(barriles[x].getX()+1);    
+    	for(int i =1 ;i<plataforma.size();i++) {
+    		if(barriles[x].getY()==plataforma.get(i).getInferior()[1]-20 && barriles[x].getX()>=plataforma.get(i).getInferior()[0] && barriles[x].getX() <=plataforma.get(i).getSuperior()[0] && i%2!=0 ) {
+    			barriles[x].setX(barriles[x].getX()+1);
+    			
+    			break;
+    		}
+    		
+    		else if (barriles[x].getY()==plataforma.get(i).getInferior()[1]-20 && barriles[x].getX()>=plataforma.get(i).getInferior()[0] && barriles[x].getX() <=plataforma.get(i).getSuperior()[0] && i%2==0 ){
+    			barriles[x].setX(barriles[x].getX()-1);
+    			break;
+    		}
+    		else if(barriles[x].getY()!=plataforma.get(i).getInferior()[1]-20 && i==plataforma.size()-1){
+    			barriles[x].setY(barriles[x].getY()+1);
+    			
+    			break;
+    		}
+    	}
+    	 
+    	 
 	}
     private void CrearBarriles(barril gota){
         gota.fall(this);

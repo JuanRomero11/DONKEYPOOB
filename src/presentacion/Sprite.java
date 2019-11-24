@@ -9,7 +9,8 @@ public class Sprite {
 
 	private BufferedImage imagen;
 	private String rut;
-	private int x,y,width, height;
+	private int x,width, height;
+	private double y;
 	private boolean visible;
 
 	public Sprite(int x, int y, boolean visible) {
@@ -52,9 +53,9 @@ public class Sprite {
 	public void paint(Graphics graphics) {
 		if (visible)
 			if(width==0 && height == 0)
-				graphics.drawImage(imagen, x, y, null);
+				graphics.drawImage(imagen, x, (int) y, null);
 			else
-				graphics.drawImage(imagen, x, y, width, height, null);
+				graphics.drawImage(imagen, x, (int) y, width, height, null);
 	}
 
 }

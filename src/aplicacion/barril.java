@@ -20,7 +20,7 @@ public abstract class barril extends Elemento
     private int vis=0;
     private String color;
     private boolean alive;
-    /**
+    /**s
      * Constructor for objects of class barril
      */
     private final String mov;
@@ -39,38 +39,27 @@ public abstract class barril extends Elemento
 		alive = true;
 	}
     public abstract void fall(DonkeyPoob DonkeyPoob);
-    
-    public void falling(DonkeyPoob DonkeyPoob,barril w){
-        double pos[]={0,0};
-        while(yPos<580){
-            double t=0;
-            if (pos[0]>0 && Math.round(pos[1])==yPos){
-                xPos+=1;t+=1;
-            }else if (pos[0]<0 && Math.round(pos[1])==yPos){               
-                xPos-=1;t-=1;
-            }else{
-                yPos+=1;                
-            }
-            //path o camino de agua
-            double h[]={getX(),getY(),t};
-            pos=w.touch(h,DonkeyPoob);
-        }
-         
-    }
-    
-    
-    
-    public double[] touch(double[] h,DonkeyPoob DonkeyPoob){
-        return DonkeyPoob.platafor(h,0);
-    }
-    
-    
     public int getX(){
         return xPos;
     } 
     
-    public void setX(int x){xPos=x;}
-    
+    public void setX(int x){
+    	xPos=x;
+    	if(getRoot().equals("barril")) {
+    		
+    		setRoot("barrilCuatro");
+    	}else if(getRoot().equals("barrilCuatro")) {
+    		
+    		setRoot("barrilDos");
+    	}   else if(getRoot().equals("barrilDos")) {
+    		
+    		setRoot("barrilTres");
+    	}    	else if(getRoot().equals("barrilTres")) {
+    		
+    		setRoot("barril");
+    	}  }
+    public void setY(int y){yPos=y;}
+   
     public int getY(){
         return yPos;
     }

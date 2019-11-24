@@ -17,15 +17,15 @@ public class BoardJuego extends JPanel{
 	private boolean showAway;
 	private ArrayList<Sprite> barriles;
 	public BoardJuego(int n) throws IOException {
-		plataforms=new Sprite(0,0,true,767,616);
-		plataforms.setRoot("fondoJuego");
-		Sprite BarrilUno=new Sprite(30,0,true,40,40);
+		plataforms=new Sprite(0,0,true,746,600);
+		plataforms.setRoot("fondoJuego2");
+		Sprite BarrilUno=new Sprite(0,211,true,20,20);
 		BarrilUno.setRoot("barril");
 		barriles =new ArrayList<Sprite>();
 		barriles.add(BarrilUno);
 		
-		donkey=new Sprite(15,135,true,70,70);
-		donkey.setRoot("bailar1");
+		donkey=new Sprite(0,117,true,60,74);
+		donkey.setRoot("DonkeyIzquierda");
 		
 		
 	}
