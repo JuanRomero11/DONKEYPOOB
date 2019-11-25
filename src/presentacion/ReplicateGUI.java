@@ -1,5 +1,7 @@
 package presentacion;
 import aplicacion.*;
+
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -161,7 +163,8 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 		}
 	 public void keyPressed(KeyEvent e) {
 			int keyCode = e.getKeyCode();
-			System.out.println("entre");
+			System .out.println("entre");
+ 
 			if(keyCode == KeyEvent.VK_UP) j1Up = true;
 			if(keyCode == KeyEvent.VK_DOWN) j1Down = true;
 			if(keyCode == KeyEvent.VK_RIGHT) j1Right = true;
@@ -183,10 +186,7 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 		private void actualizarJugadores() {
 			for(int i = 0; i < 1; i++){
 				Sprite s;
-				
-					s = tableroJuego.getJugador(i);
-	
-				
+					s = tableroJuego.getJugador(i);	
 					s.setX(juego.getJugador(i).getX());
 					s.setY(juego.getJugador(i).getY());
 					s.setRoot(juego.getJugador(i).getRoot());
@@ -194,7 +194,7 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 					s.setVisible(true);
 			}
 			tableroJuego.repaint();		
-	}
+		}
 		public void keyReleased(KeyEvent e) {
 			int keyCode = e.getKeyCode();
 			System.out.println("entre");
@@ -220,16 +220,13 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 			if(j1Down) juego.JugadorNDown(0);actualizarJugadores();
 			if(j1Right) juego.JugadorNRight(0);actualizarJugadores();
 			if(j1Left) juego.JugadorNLeft(0);actualizarJugadores();
-			if(j2Up) {
+			if(j2Up) juego.jummping(0);
 				
-				}
 			
 			actualizarJugadores();
 			juego.Jugadornormal(0);
 		}
-	
-	
-	 
+		
 	 private void actualizarBarriles(){
 			for(int i = 0; i < 1; i++){
 				Sprite s;

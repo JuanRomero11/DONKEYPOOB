@@ -21,6 +21,7 @@ public class DonkeyPoob{
 	private ArrayList<barril> gotas=new ArrayList<barril>();
 	private ArrayList<jugador> jugadores=new ArrayList<jugador>();
 	private int bajar=0;
+	private boolean jumping=false;
 	public DonkeyPoob() throws IOException{
 		preparePlataformas();
 		prepareBarriles();
@@ -94,12 +95,59 @@ public class DonkeyPoob{
 		return jugadores.get(i);
 	}
   //Move el jugador
-  	public void JugadorNUp(int n){jugadores.get(n).moveUp();}
-  	public void JugadorNDown(int n){jugadores.get(n).moveDown();}
-  	public void JugadorNLeft(int n){jugadores.get(n).moveLeft();}
-  	public void JugadorNRight(int n){jugadores.get(n).moveRight();}
+  	public void JugadorNUp(int n){
+  
+  		jugadores.get(n).moveUp();
+  		}
+  	public void JugadorNDown(int n){
+  		jugadores.get(n).moveDown();
+  		}
+  	public void JugadorNLeft(int n){
+  		if(jumping) {
+  			jugadores.get(n).moveLeft();
+  			jugadores.get(n).moveUp();
+  			jumping=jugadores.get(n).validarSalto();
+  		}else if(!EstaEnLona(jugadores.get(n))) {
+  			jugadores.get(n).moveDown();
+  			jugadores.get(n).moveLeft();
+  			
+  		}else {
+  			jugadores.get(n).moveLeft();
+  		}
+  		
+  		}
+  	private boolean EstaEnLona(jugador jugador) {
+  		boolean bandera=false;
+  		for(int i =1 ;i<plataforma.size();i++) {
+    		if(jugador.getY()==plataforma.get(i).getInferior()[1]-20 && jugador.getX()>=plataforma.get(i).getInferior()[0] && jugador.getX() <=plataforma.get(i).getSuperior()[0] ) {
+    			bandera=true;
+    			
+    			break;
+    		}
+    		else if(jugador.getY()!=plataforma.get(i).getInferior()[1]-20 && jugador.getX()<=plataforma.get(i).getInferior()[0] && jugador.getX() >=plataforma.get(i).getSuperior()[0] ){
+    			bandera=false;
+    			break;
+    		}
+    	}
+		return bandera;
+	}
+	public void JugadorNRight(int n){
+		if(jumping) {
+			jugadores.get(n).moveRight();
+  			jugadores.get(n).moveUp();
+  			jumping=jugadores.get(n).validarSalto();
+  		}else if(!EstaEnLona(jugadores.get(n))) {
+  			jugadores.get(n).moveDown();
+  			jugadores.get(n).moveRight();
+  		}else {
+  			jugadores.get(n).moveRight();
+  		}
+		
+		}
   	public void Jugadornormal(int n) {jugadores.get(n).moveNormal();	
 	}
+  	
+  	
   	
     public boolean isRondaFinished(){
 		boolean ans = true;
@@ -140,6 +188,11 @@ public class DonkeyPoob{
 	public int getJugadores() {
 		// TODO Auto-generated method stub
 		return 1;
+	}
+	public void jummping(int i) {
+		jumping=true;
+		jugadores.get(i).jummping();
+		
 	}
 	
   
