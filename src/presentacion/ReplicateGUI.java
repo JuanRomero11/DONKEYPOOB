@@ -150,6 +150,13 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 				while(juego.isFinished()) {
 					actualizarDonkey();
 					juego.mover(0); 
+					
+					
+				
+						juego.JugadorNUp(0);
+					
+					juego.JugadorNDown(0);
+					
 					actualizarBarriles();
 					actualizarJugadores();
 					t.sleep(7);
@@ -169,17 +176,15 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 			if(keyCode == KeyEvent.VK_DOWN) j1Down = true;
 			if(keyCode == KeyEvent.VK_RIGHT) j1Right = true;
 			if(keyCode == KeyEvent.VK_LEFT) j1Left = true;
-			if(keyCode==KeyEvent.VK_SPACE) j2Up=true;
+			if(keyCode==KeyEvent.VK_SPACE && !juego.jumping  && !juego.enAire) j2Up=true;
 			if(j1Up) juego.JugadorNUp(0);actualizarJugadores();
 			if(j1Down) juego.JugadorNDown(0);actualizarJugadores();
 			if(j1Right) juego.JugadorNRight(0);actualizarJugadores();
 			if(j1Left) juego.JugadorNLeft(0);actualizarJugadores();
-			if(j2Up) {
+			if(j2Up) 
 				
-				}
-		
 			actualizarJugadores();
-			juego.Jugadornormal(0);
+			
 			}
 		
 
@@ -202,20 +207,20 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 			if(keyCode == KeyEvent.VK_DOWN) j1Down = false;
 			if(keyCode == KeyEvent.VK_RIGHT) j1Right = false;
 			if(keyCode == KeyEvent.VK_LEFT) j1Left = false;
-			if(keyCode==KeyEvent.VK_SPACE) j2Up=false;
-			if(!j1Up && !j1Down && !j1Right && !j1Left && !j2Up) {
-				juego.Jugadornormal(0);
-			}
+			if(keyCode==KeyEvent.VK_SPACE ) j2Up=false;
+			juego.Jugadornormal(0);
+				
+			
 		}
 		public void keyTyped(KeyEvent e) {
-			int key = e.getKeyCode(); 
+			 
 			int keyCode = e.getKeyCode();
 			System.out.println("entre");
 			if(keyCode == KeyEvent.VK_UP) j1Up = true;
 			if(keyCode == KeyEvent.VK_DOWN) j1Down = true;
 			if(keyCode == KeyEvent.VK_RIGHT) j1Right = true;
 			if(keyCode == KeyEvent.VK_LEFT) j1Left = true;
-			if(keyCode==KeyEvent.VK_SPACE) j2Up=true;
+			if(keyCode==KeyEvent.VK_SPACE && !juego.jumping && !juego.enAire) j2Up=true;
 			if(j1Up) juego.JugadorNUp(0);actualizarJugadores();
 			if(j1Down) juego.JugadorNDown(0);actualizarJugadores();
 			if(j1Right) juego.JugadorNRight(0);actualizarJugadores();
@@ -224,7 +229,8 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 				
 			
 			actualizarJugadores();
-			juego.Jugadornormal(0);
+			
+			
 		}
 		
 	 private void actualizarBarriles(){

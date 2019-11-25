@@ -13,7 +13,7 @@ public class jugador{
 	private static final int LIMIT_Y = 650;
 	private static final int LIMIT_X = 900;
 	private int limiteY;
-	private boolean saltando=false;
+	public boolean saltando=false;
 	public jugador(int x, int y, String root) {
 		this.x = x;
 		this.y = y;
@@ -24,14 +24,20 @@ public class jugador{
 	}
 	//Metodos de movimiento
 		public void moveUp(){
-			setRoot("MarioSubiendo1");
-				y-=5;
+			if(getRoot().equals("MarioCorriendoDerecha") ||getRoot().equals("MarioDerecha")) {
+				setRoot("MarioCorriendoDerecha2");
+			}else if (getRoot().equals("Mario") || getRoot().equals("MarioCaminando")) {}
+			setRoot("MarioCaminando2");
+				y-=2;
 
 		}
 		
 		public void moveDown(){
-			setRoot("MarioSubiendo1");
-				y+=5;
+			if(getRoot().equals("MarioCorriendoDerecha") ||getRoot().equals("MarioDerecha")) {
+				setRoot("MarioCorriendoDerecha2");
+			}else if (getRoot().equals("Mario") || getRoot().equals("MarioCaminando")) {}
+			setRoot("MarioCaminando2");
+				y+=2;
 		}
 		
 		public void moveRight(){
@@ -90,5 +96,6 @@ public class jugador{
 		return bandera;
 		
 	}
+	
 
 }

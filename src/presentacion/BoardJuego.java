@@ -28,7 +28,7 @@ public class BoardJuego extends JPanel{
 		donkey=new Sprite(0,117,true,60,74);
 		donkey.setRoot("DonkeyIzquierda");
 		
-		Sprite Mario=new Sprite(0,570,true,40,40);
+		Sprite Mario=new Sprite(0,550,true,20,20);
 		Mario.setRoot("MarioDerecha");
 		jugadores =new ArrayList<Sprite>();
 		jugadores.add(Mario);

@@ -21,14 +21,15 @@ public class DonkeyPoob{
 	private ArrayList<barril> gotas=new ArrayList<barril>();
 	private ArrayList<jugador> jugadores=new ArrayList<jugador>();
 	private int bajar=0;
-	private boolean jumping=false;
+	public boolean jumping=false;
+	public boolean enAire=false;
 	public DonkeyPoob() throws IOException{
 		preparePlataformas();
 		prepareBarriles();
 		prepareJugadores();
 	}
 	private void prepareJugadores() {
-		jugador mario= new jugador(0,570,"MarioDerecha"); 
+		jugador mario= new jugador(0,550,"MarioDerecha"); 
 		jugadores.add(mario);
 		
 	}
@@ -96,24 +97,26 @@ public class DonkeyPoob{
 	}
   //Move el jugador
   	public void JugadorNUp(int n){
-  
-  		jugadores.get(n).moveUp();
-  		}
-  	public void JugadorNDown(int n){
-  		jugadores.get(n).moveDown();
-  		}
-  	public void JugadorNLeft(int n){
   		if(jumping) {
-  			jugadores.get(n).moveLeft();
   			jugadores.get(n).moveUp();
   			jumping=jugadores.get(n).validarSalto();
-  		}else if(!EstaEnLona(jugadores.get(n))) {
+  			
+  		}
+  		}
+  	public void JugadorNDown(int n){
+  		if(!EstaEnLona(jugadores.get(n)) && !jumping) {
   			jugadores.get(n).moveDown();
+  			jumping=jugadores.get(n).validarSalto();
+  			enAire=true;
+  		}else {
+  			enAire=false;
+  		}
+  		}
+  	public void JugadorNLeft(int n){   
+  		
   			jugadores.get(n).moveLeft();
   			
-  		}else {
-  			jugadores.get(n).moveLeft();
-  		}
+  		
   		
   		}
   	private boolean EstaEnLona(jugador jugador) {
@@ -131,17 +134,25 @@ public class DonkeyPoob{
     	}
 		return bandera;
 	}
+  	private boolean EstaEnLonaSuperior(jugador jugador) {
+  		boolean bandera=false;
+  		for(int i =1 ;i<plataforma.size();i++) {
+    		if(jugador.getY()==plataforma.get(i).getInferior()[1]+20 && jugador.getX()>=plataforma.get(i).getInferior()[0] && jugador.getX() <=plataforma.get(i).getSuperior()[0] ) {
+    			bandera=true;
+    			
+    			break;
+    		}
+    		else if(jugador.getY()!=plataforma.get(i).getInferior()[1]+20 && jugador.getX()<=plataforma.get(i).getInferior()[0] && jugador.getX() >=plataforma.get(i).getSuperior()[0] ){
+    			bandera=false;
+    			break;
+    		}
+    	}
+		return bandera;
+	}
 	public void JugadorNRight(int n){
-		if(jumping) {
+	
 			jugadores.get(n).moveRight();
-  			jugadores.get(n).moveUp();
-  			jumping=jugadores.get(n).validarSalto();
-  		}else if(!EstaEnLona(jugadores.get(n))) {
-  			jugadores.get(n).moveDown();
-  			jugadores.get(n).moveRight();
-  		}else {
-  			jugadores.get(n).moveRight();
-  		}
+  			
 		
 		}
   	public void Jugadornormal(int n) {jugadores.get(n).moveNormal();	
