@@ -19,10 +19,17 @@ public class DonkeyPoob{
 	private boolean enPausa=false,onMute;
 	public static final long segundo = 1000000000;
 	private ArrayList<barril> gotas=new ArrayList<barril>();
+	private ArrayList<jugador> jugadores=new ArrayList<jugador>();
 	private int bajar=0;
 	public DonkeyPoob() throws IOException{
 		preparePlataformas();
 		prepareBarriles();
+		prepareJugadores();
+	}
+	private void prepareJugadores() {
+		jugador mario= new jugador(0,570,"MarioDerecha"); 
+		jugadores.add(mario);
+		
 	}
 	public void prepareBarriles() {
 		BarrilNormal gota= new BarrilNormal(0,171); 
@@ -83,6 +90,17 @@ public class DonkeyPoob{
     public Elemento getBarril(int i){
 		return barriles[i];
 	}
+    public jugador getJugador(int i){
+		return jugadores.get(i);
+	}
+  //Move el jugador
+  	public void JugadorNUp(int n){jugadores.get(n).moveUp();}
+  	public void JugadorNDown(int n){jugadores.get(n).moveDown();}
+  	public void JugadorNLeft(int n){jugadores.get(n).moveLeft();}
+  	public void JugadorNRight(int n){jugadores.get(n).moveRight();}
+  	public void Jugadornormal(int n) {jugadores.get(n).moveNormal();	
+	}
+  	
     public boolean isRondaFinished(){
 		boolean ans = true;
 		for(barril p: barriles){
@@ -119,5 +137,10 @@ public class DonkeyPoob{
         list.add(0,gota);
         gotas.add(gota); 
     }
+	public int getJugadores() {
+		// TODO Auto-generated method stub
+		return 1;
+	}
+	
   
 }
