@@ -148,13 +148,14 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 	 public void run(){
 		try {	
 				while(juego.isFinished()) {
+					actualizarElementos();
 					actualizarDonkey();
 					moverBarriles();
-					
 					juego.JugadorNUp(0);
 					juego.JugadorNDown(0);
 					actualizarBarriles();
 					actualizarJugadores();
+					
 					t.sleep(7);
 		}
 				
@@ -163,7 +164,9 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 			e.printStackTrace();
 		}
 		}
+	 
 	 private void moverBarriles() {
+		
 		for(int i=0;i<tableroJuego.numeroBarriles();i++) {
 			juego.mover(i); 
 		}
@@ -212,6 +215,26 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 		}
 		public void keyTyped(KeyEvent e) {}
 		
+	private void actualizarElementos() {
+		if(tableroJuego.numElementos()<3) {
+			for(int i=0;i<2;i++) {
+				tableroJuego.addElemento(juego.getElemento(i).getX(),juego.getElemento(i).getY(),juego.getElemento(i).getRoot());
+			}
+			tableroJuego.repaint();
+			
+		}else {
+			System.out.println(juego.numElementos());
+			for(int i = 0; i < juego.numElementos(); i++){
+				if(!juego.getElemento(i).isVisible()) {
+					tableroJuego.deleteElemento(i);		
+					tableroJuego.repaint();
+				}
+				
+			}
+			
+		}
+		
+	}
 	 private void actualizarBarriles(){
 		 int x =juego.sizeBarriles();
 		 juego.prepareBarriles();
@@ -237,6 +260,7 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 			}
 			tableroJuego.repaint();
 		}
+	 
 	 public void actualizar() {
 		 actualizarBarriles();
 		 actualizarDonkey();

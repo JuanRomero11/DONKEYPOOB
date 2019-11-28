@@ -1,6 +1,7 @@
 package aplicacion;
 
 
+import java.awt.Component;
 import java.io.*;
 import java.util.*;
 
@@ -14,6 +15,7 @@ public class DonkeyPoob{
 	public ArrayList<plataformas> plataforma; 
 	private ArrayList<Object> list=new ArrayList<Object>();
 	public ArrayList<barril> barriles=new ArrayList<barril>();
+	public ArrayList<Elemento> elementos=new ArrayList<Elemento>();
 	private boolean visible=true;
 	public static final int barrilesRonda = 2;
 	
@@ -30,6 +32,34 @@ public class DonkeyPoob{
 		prepareBarriles();
 		prepareJugadores();
 		prepareEscaleras();
+		for(int i=0;i<2;i++) {
+			prepareElementos();
+		}
+		
+		
+	}
+	private void prepareElementos() {
+		int lona= (int) Math.random()*plataforma.size()+2;
+		
+		int k=(int) (Math.random()*4);
+		if(k==0) {
+			martillo uno=new martillo(plataforma.get(lona).getInferior()[0],plataforma.get(2).getInferior()[1],"martillo");
+			elementos.add(uno);	
+		}else if(k==1) {
+			Cereza element= new Cereza(plataforma.get(lona).getSuperior()[0],plataforma.get(3).getInferior()[1],"cereza"); 
+		     elementos.add(element);
+		}else if(k==2) {
+			Corazon element= new Corazon(plataforma.get(lona).getSuperior()[0],plataforma.get(3).getInferior()[1],"corazon");
+		    elementos.add(element);
+		}else if(k==3){
+			Hongo element= new Hongo(plataforma.get(lona).getSuperior()[0],plataforma.get(3).getInferior()[1],"hongo");
+		    elementos.add(element);
+		}
+		
+	}
+	private boolean sorpresaEnPlataforma(int i, int j, String string) {
+		
+		return false;
 	}
 	private void prepareEscaleras() {
 		EscaleraBarril nueva =new EscaleraBarril(217,251,570,470);
@@ -64,6 +94,9 @@ public class DonkeyPoob{
 		jugador mario= new jugador(2,550,"MarioDerecha"); 
 		jugadores.add(mario);
 		
+	}
+	public int numElementos() {
+		return elementos.size();
 	}
 	public void prepareBarriles() {
 		if(barriles.size()==0) {
@@ -158,6 +191,7 @@ public class DonkeyPoob{
   			enAire=false;
   		}
   		}
+  	
   	public void JugadorNDown(int n){
   		
   		if(!EstaEnLona(jugadores.get(n)) && !jumping && !Escalando ){
@@ -337,6 +371,10 @@ public class DonkeyPoob{
 	public int sizeBarriles() {
 		
 		return barriles.size();
+	}
+	public Elemento getElemento(int i) {
+	
+		return elementos.get(i);
 	}
 	
 	
