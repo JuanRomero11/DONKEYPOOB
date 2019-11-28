@@ -13,7 +13,7 @@ public class DonkeyPoob{
 	public static final int PLATAFORMA_X_NIVEL = 7;         
 	public ArrayList<plataformas> plataforma; 
 	private ArrayList<Object> list=new ArrayList<Object>();
-	public barril[] barriles;
+	public ArrayList<barril> barriles=new ArrayList<barril>();
 	private boolean visible=true;
 	public static final int barrilesRonda = 2;
 	
@@ -42,7 +42,7 @@ public class DonkeyPoob{
 		EscaleraMario nuevaSiete =new EscaleraMario(72,104,329,230);
 		EscaleraMario nuevaOcho =new EscaleraMario(203,235,329,230);
 		EscaleraBarril nuevaNueve =new EscaleraBarril(579,610,329,229);
-		EscaleraBarril nuevaDiez =new EscaleraBarril(246,281,249,171);
+		EscaleraBarril nuevaDiez =new EscaleraBarril(243,281,249,170);
 		EscaleraMario nuevaOnce =new EscaleraMario(598,626,249,172);
 		EscaleraMario nuevaDoce =new EscaleraMario(427,186,191,102);
 		escaleras = new ArrayList<Escalera>();
@@ -61,14 +61,32 @@ public class DonkeyPoob{
 
 	}
 	private void prepareJugadores() {
-		jugador mario= new jugador(0,550,"MarioDerecha"); 
+		jugador mario= new jugador(2,550,"MarioDerecha"); 
 		jugadores.add(mario);
 		
 	}
 	public void prepareBarriles() {
-		BarrilNormal gota= new BarrilNormal(0,171); 
-		barriles=new barril[1];
-        barriles[0]=gota;
+		if(barriles.size()==0) {
+			BarrilNormal gota= new BarrilNormal(0,171); 
+	        barriles.add(gota);
+		}else if(barriles.get(barriles.size()-1).getY()>191){
+			int k=(int) (Math.random()*4);
+			if(k==0) {
+				BarrilNormal gota= new BarrilNormal(0,171); 
+		        barriles.add(gota);
+			}else if(k==1) {
+				BarrilAzul gota= new BarrilAzul(0,171); 
+		        barriles.add(gota);
+			}else if(k==2) {
+				barrilRojo gota= new barrilRojo(0,171); 
+		        barriles.add(gota);
+			}else if(k==3){
+				BarrilVerde gota= new BarrilVerde(0,171); 
+		        barriles.add(gota);
+			}
+			
+		}
+		
 	}
 	public void preparePlataformas() throws IOException{
 		plataformas pINf= new plataformas(new int[]{294,121},new int[]{453,121});
@@ -122,7 +140,7 @@ public class DonkeyPoob{
        
     } 
     public Elemento getBarril(int i){
-		return barriles[i];
+		return barriles.get(i);
 	}
     public jugador getJugador(int i){
 		return jugadores.get(i);
@@ -152,11 +170,8 @@ public class DonkeyPoob{
   		}
   		
   		}
-  	public void JugadorNLeft(int n){   
-  		System.out.println(EstaEnLona(jugadores.get(n))+" "+jumping+" "+Escalando+" "+enAire);
-  		jugadores.get(n).moveLeft();
-  			
-  		
+  	public void JugadorNLeft(int n){ 
+  	  		jugadores.get(n).moveLeft();
   		
   		}
   	public void JugadorNEscalar(int n){ 
@@ -210,8 +225,9 @@ public class DonkeyPoob{
 	
   	
 	public void JugadorNRight(int n){
-		System.out.println(EstaEnLona(jugadores.get(n))+" "+jumping+" "+Escalando+" "+enAire);
 			jugadores.get(n).moveRight();
+		
+		
   			
 		
 		}
@@ -229,25 +245,77 @@ public class DonkeyPoob{
 	}
     
     public void mover(int x){
-    	for(int i =1 ;i<plataforma.size();i++) {
-    		if(barriles[x].getY()==plataforma.get(i).getInferior()[1]-20 && barriles[x].getX()>=plataforma.get(i).getInferior()[0] && barriles[x].getX() <=plataforma.get(i).getSuperior()[0] && i%2!=0 ) {
-    			barriles[x].setX(barriles[x].getX()+1);
-    			break;
-    		}
+    	if(barriles.get(x) instanceof BarrilNormal || barriles.get(x) instanceof BarrilVerde) {
+    		moverBarrilNormal(x);
     		
-    		else if (barriles[x].getY()==plataforma.get(i).getInferior()[1]-20 && barriles[x].getX()>=plataforma.get(i).getInferior()[0] && barriles[x].getX() <=plataforma.get(i).getSuperior()[0] && i%2==0 ){
-    			barriles[x].setX(barriles[x].getX()-1);
-    			break;
-    		}
-    		else if(barriles[x].getY()!=plataforma.get(i).getInferior()[1]-20 && i==plataforma.size()-1){
-    			barriles[x].setY(barriles[x].getY()+1);
-    			break;
-    		}
+    	}else if(barriles.get(x) instanceof BarrilAzul) {
+    		moverBarriAzul(x);
+    	}else if(barriles.get(x) instanceof barrilRojo) {
+    		barriles.get(x).setY(barriles.get(x).getY()+1);
     	}
+    	
     	 
     	 
 	}
-    private void CrearBarriles(barril gota){
+    private void moverBarriAzul(int x) {
+    	for(int i =1 ;i<plataforma.size();i++) {
+    		System.out.println("no se si "+ barrilEnEscalera(barriles.get(x)));
+
+
+    			if( barrilEnEscalera(barriles.get(x)) ){
+        			barriles.get(x).setY(barriles.get(x).getY()+1);
+        			break;
+        		
+    		}
+    		
+    		else if(barriles.get(x).getY()==plataforma.get(i).getInferior()[1]-20 && barriles.get(x).getX()>=plataforma.get(i).getInferior()[0] && barriles.get(x).getX() <=plataforma.get(i).getSuperior()[0] && i%2!=0) {
+    			barriles.get(x).setX(barriles.get(x).getX()+1);
+    			break;
+    		}
+    		
+    		else if (barriles.get(x).getY()==plataforma.get(i).getInferior()[1]-20 && barriles.get(x).getX()>=plataforma.get(i).getInferior()[0] && barriles.get(x).getX() <=plataforma.get(i).getSuperior()[0] && i%2==0 ){
+    			barriles.get(x).setX(barriles.get(x).getX()-1);
+    			break;
+    		}
+    		else if(barriles.get(x).getY()!=plataforma.get(i).getInferior()[1]-20 && i==plataforma.size()-1){
+    			barriles.get(x).setY(barriles.get(x).getY()+1);
+    			break;
+    		}
+    	}
+    }
+    private void moverBarrilNormal(int x) {
+    	for(int i =1 ;i<plataforma.size();i++) {
+    		if(barriles.get(x).getY()==plataforma.get(i).getInferior()[1]-20 && barriles.get(x).getX()>=plataforma.get(i).getInferior()[0] && barriles.get(x).getX() <=plataforma.get(i).getSuperior()[0] && i%2!=0 ) {
+    			barriles.get(x).setX(barriles.get(x).getX()+1);
+    			break;
+    		}
+    		
+    		else if (barriles.get(x).getY()==plataforma.get(i).getInferior()[1]-20 && barriles.get(x).getX()>=plataforma.get(i).getInferior()[0] && barriles.get(x).getX() <=plataforma.get(i).getSuperior()[0] && i%2==0 ){
+    			barriles.get(x).setX(barriles.get(x).getX()-1);
+    			break;
+    		}
+    		else if(barriles.get(x).getY()!=plataforma.get(i).getInferior()[1]-20 && i==plataforma.size()-1){
+    			barriles.get(x).setY(barriles.get(x).getY()+1);
+    			break;
+    		}
+    	}
+		
+	}
+    private boolean barrilEnEscalera(barril barril) {
+    	boolean f=false;
+    	
+    	for(int i=0;i<escaleras.size();i++) {
+  			if(barril.getX()>=escaleras.get(i).getPosicionesX()[0] && barril.getX()<=escaleras.get(i).getPosicionesX()[1] && barril.getY()<=escaleras.get(i).getPosicionesY()[0]-25 && barril.getY()>=escaleras.get(i).getPosicionesY()[1] ) {
+  				f=true;
+  				break;
+  			
+  			}
+  			
+  		}
+  		return f;
+    	
+    }
+	private void CrearBarriles(barril gota){
         gota.fall(this);
         list.add(0,gota);
         gotas.add(gota); 
@@ -266,6 +334,11 @@ public class DonkeyPoob{
 		}
 		
 	}
+	public int sizeBarriles() {
+		
+		return barriles.size();
+	}
+	
 	
   
 }

@@ -30,7 +30,7 @@ public class BoardJuego extends JPanel{
 		donkey=new Sprite(0,117,true,60,74);
 		donkey.setRoot("DonkeyIzquierda");
 		
-		Sprite Mario=new Sprite(0,550,true,20,20);
+		Sprite Mario=new Sprite(2,550,true,20,20);
 		Mario.setRoot("MarioDerecha");
 		jugadores =new ArrayList<Sprite>();
 		jugadores.add(Mario);
@@ -66,5 +66,13 @@ public class BoardJuego extends JPanel{
 		}
 	 public void addSprite() {
 			barriles.add(new Sprite(0, 0, false));
+		}
+	 public int numeroBarriles() {
+		 return barriles.size();
+	 }
+	 public void addSprite(int x,int y,String root) {
+		 Sprite n=new Sprite(0,117,true,20,20);
+		n.setRoot(root);
+			barriles.add(n);
 		}
 }

@@ -149,7 +149,8 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 		try {	
 				while(juego.isFinished()) {
 					actualizarDonkey();
-					juego.mover(0); 
+					moverBarriles();
+					
 					juego.JugadorNUp(0);
 					juego.JugadorNDown(0);
 					actualizarBarriles();
@@ -161,9 +162,14 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 		}catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-			
 		}
-	 public void keyPressed(KeyEvent e) {
+	 private void moverBarriles() {
+		for(int i=0;i<tableroJuego.numeroBarriles();i++) {
+			juego.mover(i); 
+		}
+		
+	}
+	public void keyPressed(KeyEvent e) {
 			int keyCode = e.getKeyCode();
 			
 			if(keyCode == KeyEvent.VK_UP) j1Up = true;
@@ -177,12 +183,9 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 			if(j1Left) juego.JugadorNLeft(0);
 			if(j2Up) {juego.jummping(0,gravity=50);
 			j2Up=false;}
-				
 			actualizarJugadores();
 			
 			}
-		
-
 		private void actualizarJugadores() {
 			for(int i = 0; i < 1; i++){
 				Sprite s;
@@ -210,7 +213,15 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 		public void keyTyped(KeyEvent e) {}
 		
 	 private void actualizarBarriles(){
-			for(int i = 0; i < 1; i++){
+		 int x =juego.sizeBarriles();
+		 juego.prepareBarriles();
+		 int y=juego.sizeBarriles();
+		 Sprite g;
+		 if(x<y) {
+			tableroJuego.addSprite(0,171,juego.getBarril(y-1).getRoot());
+		 }
+		 
+			for(int i = 0; i < juego.sizeBarriles(); i++){
 				Sprite s;
 				try {
 					s = tableroJuego.getSprite(i);
@@ -222,7 +233,6 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 					s.setY(juego.getBarril(i).getY());
 					s.setRoot(juego.getBarril(i).getRoot());
 					//System.out.println(juego.getBarril(i).getRoot()+" "+juego.getBarril(i).getX()+" "+juego.getBarril(i).getY());
-
 					s.setVisible(true);
 			}
 			tableroJuego.repaint();
