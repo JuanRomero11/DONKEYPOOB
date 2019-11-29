@@ -57,22 +57,22 @@ public class jugador{
 		public void moveRight(){
 			if(movimiento) {
 				setRoot("marioCorriendoDer");
-				x+=3;
+				x+=5;
 				movimiento=false;
 			}else {
 				setRoot("marioCorriendoDer2");
-				x+=3;
+				x+=5;
 				movimiento=true;
 			}
 		}
 		public void moveLeft(){
 			if(movimiento) {
 				setRoot("marioCorriendoIzq");
-				x-=3;
+				x-=5;
 				movimiento=false;
 			}else {
 				setRoot("marioCorriendoIzq2");
-				x-=3;
+				x-=5;
 				movimiento=true;
 			}
 		}

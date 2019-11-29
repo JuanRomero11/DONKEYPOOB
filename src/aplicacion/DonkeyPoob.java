@@ -18,7 +18,7 @@ public class DonkeyPoob{
 	public ArrayList<Elemento> elementos=new ArrayList<Elemento>();
 	private boolean visible=true;
 	public static final int barrilesRonda = 2;
-	
+	public boolean invertir=false;
 	public static final long segundo = 1000000000;
 	private ArrayList<barril> gotas=new ArrayList<barril>();
 	private ArrayList<jugador> jugadores=new ArrayList<jugador>();
@@ -27,6 +27,7 @@ public class DonkeyPoob{
 	public boolean jumping=false;
 	public boolean enAire=false;
 	public boolean Escalando=false;
+	
 	public DonkeyPoob() throws IOException{
 		preparePlataformas();
 		prepareBarriles();
@@ -76,10 +77,7 @@ public class DonkeyPoob{
 		}
 		return cualquiera;
 	}
-	private boolean sorpresaEnPlataforma(int i, int j, String string) {
-		
-		return false;
-	}
+	
 	private void prepareEscaleras() {
 		EscaleraBarril nueva =new EscaleraBarril(217,251,570,470);
 		EscaleraMario nuevaUno =new EscaleraMario(624,653,570,471);	
@@ -158,25 +156,12 @@ public class DonkeyPoob{
 		plataforma.add(p5);	
 	}
 
-    private void  ordenar(){
-        plataformas temp;
-        for(int i=2; i<plataforma.size(); i++){
-            for(int j=1; j<plataforma.size()-i; j++){
-                if(plataforma.get(j).getLimx()[0]>plataforma.get(j+1).getLimx()[0]){
-                    temp=plataforma.get(j);
-                    plataforma.add(j,plataforma.get(j+1));
-                    plataforma.add(j+1,temp);
-                }
-            }
-        }
-
-    }
+  
     public boolean isFinished(){
 		boolean ans = true;
 		return ans;
 	}
-    
-  
+
     public void ronda(){
 		
 	}
@@ -224,9 +209,13 @@ public class DonkeyPoob{
   		}
   		
   		}
-  	public void JugadorNLeft(int n){ 
+  	public void JugadorNLeft(int n){
   		validarElementos(jugadores.get(n)) ;
+  		if(!invertir) {
   	  		jugadores.get(n).moveLeft();
+  		}else {
+  			jugadores.get(n).moveRight();
+  		}
   		
   		}
   	public void JugadorNEscalar(int n){ 
@@ -287,6 +276,13 @@ public class DonkeyPoob{
 			jugador.sumeScore(10);
 		}else if(elemento instanceof Manzana) {
 			jugador.sumeScore(5);
+		}else if(elemento instanceof Hongo) {
+			if(invertir) {
+				invertir=false;
+			}else {
+			invertir=true;
+			}
+			
 		}
 		
 	}
@@ -319,7 +315,13 @@ public class DonkeyPoob{
   	
 	public void JugadorNRight(int n){
 		validarElementos(jugadores.get(n)) ;
+		
+		 if(!invertir) {
 			jugadores.get(n).moveRight();
+		}else {
+			jugadores.get(n).moveLeft();
+		}
+			
 		
 		
   			
@@ -354,8 +356,6 @@ public class DonkeyPoob{
     private void moverBarriAzul(int x) {
     	for(int i =1 ;i<plataforma.size();i++) {
     		System.out.println("no se si "+ barrilEnEscalera(barriles.get(x)));
-
-
     			if( barrilEnEscalera(barriles.get(x)) ){
         			barriles.get(x).setY(barriles.get(x).getY()+1);
         			break;
@@ -401,7 +401,6 @@ public class DonkeyPoob{
   			if(barril.getX()>=escaleras.get(i).getPosicionesX()[0] && barril.getX()<=escaleras.get(i).getPosicionesX()[1] && barril.getY()<=escaleras.get(i).getPosicionesY()[0]-25 && barril.getY()>=escaleras.get(i).getPosicionesY()[1] ) {
   				f=true;
   				break;
-  			
   			}
   			
   		}

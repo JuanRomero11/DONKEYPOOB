@@ -154,7 +154,7 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 					actualizarDonkey();
 					actualizarScore();
 					moverBarriles();
-					juego.JugadorNUp(0);
+					juego.JugadorNUp(0); 
 					juego.JugadorNDown(0);
 					actualizarBarriles();
 					actualizarJugadores();
@@ -183,13 +183,17 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 	public void keyPressed(KeyEvent e) {
 			int keyCode = e.getKeyCode();
 			
-			if(keyCode == KeyEvent.VK_UP) j1Up = true;
+			if(keyCode == KeyEvent.VK_UP)j1Up = true;
 			if(keyCode == KeyEvent.VK_DOWN) j1Down = true;
 			if(keyCode == KeyEvent.VK_RIGHT) j1Right = true;
 			if(keyCode == KeyEvent.VK_LEFT) j1Left = true;
 			if(keyCode==KeyEvent.VK_SPACE && !juego.jumping  && !juego.Escalando && !juego.enAire) j2Up=true;
-			if(j1Up) juego.JugadorNEscalar(0);
-			if(j1Down) juego.JugadorNDown(0);
+			
+			if(juego.invertir && j1Down ) {
+				 juego.JugadorNEscalar(0);
+			}
+			
+			if(j1Up) {if(!juego.invertir) {juego.JugadorNEscalar(0);}}
 			if(j1Right) juego.JugadorNRight(0);
 			if(j1Left) juego.JugadorNLeft(0);
 			if(j2Up) {juego.jummping(0,gravity=50);
