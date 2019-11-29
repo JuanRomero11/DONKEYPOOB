@@ -30,6 +30,7 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 	private Thread t;
 	public int gravity=0;
 	private boolean j1Up, j1Down, j1Right, j1Left, j2Up;
+	private boolean invertir=false;
 	private ReplicateGUI(){
 		super("Donkey Poob");
 		
@@ -118,6 +119,7 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 	 private void prepareElementosJuego(int players) throws IOException{
 			tableroJuego = new BoardJuego(players);
 			juego=new DonkeyPoob();
+			prepareElementosJuego();
 			t = new Thread(this);
 			principal.add(tableroJuego, "tjue");
 			layout.show(principal, "tjue");
@@ -150,6 +152,7 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 				while(juego.isFinished()) {
 					actualizarElementos();
 					actualizarDonkey();
+					actualizarScore();
 					moverBarriles();
 					juego.JugadorNUp(0);
 					juego.JugadorNDown(0);
@@ -164,7 +167,12 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 			e.printStackTrace();
 		}
 		}
-	 
+	 private void actualizarScore() {
+			
+				tableroJuego.setScore(0, juego.puntajes()[0]);
+				tableroJuego.setScore(1, juego.puntajes()[1]);
+				tableroJuego.repaint();
+		}
 	 private void moverBarriles() {
 		
 		for(int i=0;i<tableroJuego.numeroBarriles();i++) {
@@ -216,25 +224,30 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 		public void keyTyped(KeyEvent e) {}
 		
 	private void actualizarElementos() {
-		if(tableroJuego.numElementos()<3) {
-			for(int i=0;i<2;i++) {
-				tableroJuego.addElemento(juego.getElemento(i).getX(),juego.getElemento(i).getY(),juego.getElemento(i).getRoot());
+		tableroJuego.removeAll();
+			for(int i = 0; i < tableroJuego.numElementos(); i++){
+				if(!juego.getElemento(i).isVisible()) {
+					
+					System.out.println("entreeeeeeeeeeeeqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+					tableroJuego.deleteElemento(i);	
+					
+				}
 			}
 			tableroJuego.repaint();
 			
-		}else {
-			System.out.println(juego.numElementos());
-			for(int i = 0; i < juego.numElementos(); i++){
-				if(!juego.getElemento(i).isVisible()) {
-					tableroJuego.deleteElemento(i);		
-					tableroJuego.repaint();
-				}
-				
-			}
 			
 		}
 		
+	private void prepareElementosJuego() {
+		
+		for(int i=0;i<juego.numElementos();i++) {
+			if(juego.getElemento(i).isVisible()) {
+				tableroJuego.addElemento(juego.getElemento(i).getX(),juego.getElemento(i).getY(),juego.getElemento(i).getRoot());
+			}
+		}
+		tableroJuego.repaint();
 	}
+
 	 private void actualizarBarriles(){
 		 int x =juego.sizeBarriles();
 		 juego.prepareBarriles();
@@ -264,6 +277,7 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 	 public void actualizar() {
 		 actualizarBarriles();
 		 actualizarDonkey();
+		 
 	 }
 	 public void actualizarDonkey() {
 		if(tableroJuego.getSpriteDonkey().getRoot().equals("resources/DonkeyDerecha.png")) {

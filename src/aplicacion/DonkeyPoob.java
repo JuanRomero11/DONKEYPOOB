@@ -32,30 +32,49 @@ public class DonkeyPoob{
 		prepareBarriles();
 		prepareJugadores();
 		prepareEscaleras();
-		for(int i=0;i<2;i++) {
+		int k=(int) (Math.random()*3+1);
+		for(int i=0;i<k;i++) {
+		
 			prepareElementos();
 		}
 		
 		
 	}
 	private void prepareElementos() {
+		if(elementos.size()>0) {
+			Elemento nuevo=elementoAzar();
+			
+			if(nuevo.getX()==elementos.get(0).getX() && nuevo.getY()==elementos.get(0).getY()) {
+				nuevo.setX(nuevo.getX()+500);
+				elementos.add(nuevo);
+			}else {
+				elementos.add(nuevo);
+			}
+		}else {
+			Elemento nuevo=elementoAzar();
+			elementos.add(nuevo);
+		}
+		
+	}
+	private Elemento elementoAzar() {
 		int lona= (int) Math.random()*plataforma.size()+2;
 		
 		int k=(int) (Math.random()*4);
+		Elemento cualquiera = null;
 		if(k==0) {
-			martillo uno=new martillo(plataforma.get(lona).getInferior()[0],plataforma.get(2).getInferior()[1],"martillo");
-			elementos.add(uno);	
+			 cualquiera=new martillo(plataforma.get(lona).getInferior()[0],plataforma.get(2).getInferior()[1]+40,"martillo");
+			
 		}else if(k==1) {
-			Cereza element= new Cereza(plataforma.get(lona).getSuperior()[0],plataforma.get(3).getInferior()[1],"cereza"); 
-		     elementos.add(element);
+			cualquiera= new Cereza(plataforma.get(lona).getInferior()[0],plataforma.get(3).getInferior()[1]+40,"cereza"); 
+		     
 		}else if(k==2) {
-			Corazon element= new Corazon(plataforma.get(lona).getSuperior()[0],plataforma.get(3).getInferior()[1],"corazon");
-		    elementos.add(element);
+			cualquiera= new Corazon(plataforma.get(lona).getInferior()[0],plataforma.get(3).getInferior()[1]+40,"corazon");
+		   
 		}else if(k==3){
-			Hongo element= new Hongo(plataforma.get(lona).getSuperior()[0],plataforma.get(3).getInferior()[1],"hongo");
-		    elementos.add(element);
+			cualquiera= new Hongo(plataforma.get(lona).getInferior()[0],plataforma.get(3).getInferior()[1]+40,"hongo");
+		  
 		}
-		
+		return cualquiera;
 	}
 	private boolean sorpresaEnPlataforma(int i, int j, String string) {
 		
@@ -179,7 +198,8 @@ public class DonkeyPoob{
 		return jugadores.get(i);
 	}
   //Move el jugador
-  	public void JugadorNUp(int n){ 		
+  	public void JugadorNUp(int n){ 	
+  		validarElementos(jugadores.get(n)) ;
   		if(jumping && jugadores.get(n).validarSalto() && !Escalando && !enAire) {
   			System.out.println("  adjaoijdoiasjd "+jumping+" "+jugadores.get(n).validarSalto()+" "+Escalando+" "+enAire);
   			jugadores.get(n).moveUp();
@@ -193,7 +213,7 @@ public class DonkeyPoob{
   		}
   	
   	public void JugadorNDown(int n){
-  		
+  		validarElementos(jugadores.get(n)) ;
   		if(!EstaEnLona(jugadores.get(n)) && !jumping && !Escalando ){
   			System.out.println(EstaEnLona(jugadores.get(n))+" "+jumping+" "+Escalando+" "+enAire);
   			jugadores.get(n).moveDown();
@@ -205,10 +225,12 @@ public class DonkeyPoob{
   		
   		}
   	public void JugadorNLeft(int n){ 
+  		validarElementos(jugadores.get(n)) ;
   	  		jugadores.get(n).moveLeft();
   		
   		}
   	public void JugadorNEscalar(int n){ 
+  		validarElementos(jugadores.get(n)) ;
 		System.out.println(EstaEnLona(jugadores.get(n))+" "+jumping+" "+Escalando+" "+enAire);
 
   		for(int i=0;i<escaleras.size();i++) {
@@ -228,13 +250,50 @@ public class DonkeyPoob{
   				break;
   			}
   		}
-			
-		
-		
 		}
 
-  	
-  	private boolean EstaEnLona(jugador jugador) {
+  	private void validarElementos(jugador jugador) {
+  		for(int i=0;i<elementos.size();i++) {
+  			if(!elementos.get(i).isVisible()) {
+  				elementos.remove(i);
+  				break;
+  			}
+  			else if(elementos.get(i).getX()>=jugador.getX() && elementos.get(i).getX()<=jugador.getX()+20 && elementos.get(i).getY()>=jugador.getY() && elementos.get(i).getY()<=jugador.getY()+20) {
+  				
+  				activeElemento(elementos.get(i));
+  				elementos.get(i).setVisible(false);
+  				
+  				break;
+  			}
+  			else if((elementos.get(i).getX()+20>=jugador.getX() && elementos.get(i).getX()+20<=jugador.getX()+20 && elementos.get(i).getY()>=jugador.getY() && elementos.get(i).getY()<=jugador.getY()+20)) {
+  				activeElemento(elementos.get(i));
+  				elementos.get(i).setVisible(false);
+  				
+  				break;
+  			}
+  			else if((elementos.get(i).getX()<=jugador.getX()+20 && elementos.get(i).getX()+20>=jugador.getX()+20 && elementos.get(i).getY()>=jugador.getY() && elementos.get(i).getY()<=jugador.getY()+20)) {
+  				activeElemento(elementos.get(i));
+  				elementos.get(i).setVisible(false);
+  				
+  				break;
+  			}
+  			
+  		}
+  	}
+  	private void activeElemento(Elemento elemento) {
+		if(elemento instanceof Corazon) {
+			jugador.sumeVida(1);
+		}else if(elemento instanceof Cereza) {
+			jugador.sumeScore(10);
+		}else if(elemento instanceof Manzana) {
+			jugador.sumeScore(5);
+		}
+		
+	}
+  	public int[] puntajes() {
+  		return new int[] {jugador.vidas,jugador.score};
+  	}
+	private boolean EstaEnLona(jugador jugador) {
   		
   		boolean bandera=false;
   		for(int i =0 ;i<plataforma.size();i++) {
@@ -259,6 +318,7 @@ public class DonkeyPoob{
 	
   	
 	public void JugadorNRight(int n){
+		validarElementos(jugadores.get(n)) ;
 			jugadores.get(n).moveRight();
 		
 		
@@ -337,7 +397,6 @@ public class DonkeyPoob{
 	}
     private boolean barrilEnEscalera(barril barril) {
     	boolean f=false;
-    	
     	for(int i=0;i<escaleras.size();i++) {
   			if(barril.getX()>=escaleras.get(i).getPosicionesX()[0] && barril.getX()<=escaleras.get(i).getPosicionesX()[1] && barril.getY()<=escaleras.get(i).getPosicionesY()[0]-25 && barril.getY()>=escaleras.get(i).getPosicionesY()[1] ) {
   				f=true;

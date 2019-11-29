@@ -45,4 +45,8 @@ public abstract class Elemento implements Serializable {
 		visible = v;
 	}
 
+	public void setX(int i) {
+		x+=i;
+	}
+
 }

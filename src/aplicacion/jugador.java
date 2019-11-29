@@ -13,6 +13,8 @@ public class jugador{
 	private static final int LIMIT_Y = 650;
 	private static final int LIMIT_X = 900;
 	private int limiteY;
+	public static int vidas;
+	public static int score;
 	public boolean saltando=false;
 	public boolean falling=true;
 	public boolean movimiento=true;
@@ -24,6 +26,8 @@ public class jugador{
 		this.limiteY=y;
 		this.pisoy=y;
 		this.root=root;
+		this.vidas=1;
+		this.score=0;
 		visible = true;
 	}
 	//Metodos de movimiento
@@ -33,8 +37,7 @@ public class jugador{
 			}else if (getRoot().equals("Mario") || getRoot().equals("MarioCaminando")) {
 				setRoot("MarioCaminando2");
 			}
-			
-			
+
 				y-=1;
 			
 			
@@ -147,6 +150,23 @@ public class jugador{
 			setRoot("marioSubiendoEscalera2");
 		}
 		// TODO Auto-generated method stub
+		
+	}
+	public int score(int x) {
+		int r=0;
+		if(x==0) {
+			r=vidas;
+		}else {
+			r=score;
+		}
+		return r;
+	}
+	public static  void sumeVida(int i) {
+		vidas+=i;
+		
+	}
+	public static  void sumeScore(int i) {
+		score+=i;
 		
 	}
 	

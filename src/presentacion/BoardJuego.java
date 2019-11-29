@@ -18,7 +18,10 @@ public class BoardJuego extends JPanel{
 	private ArrayList<Sprite> barriles;
 	private ArrayList<Sprite> jugadores;
 	private ArrayList<Sprite> elementos;
+	private ArrayList<String> scores;
 	public BoardJuego(int n) throws IOException {
+		scores = new ArrayList<String>();
+		addScore();
 		plataforms=new Sprite(0,0,true,746,600);
 		plataforms.setRoot("fondoJuego2");
 		
@@ -38,11 +41,25 @@ public class BoardJuego extends JPanel{
 		
 		
 	}
+	public void addScore(){
+		scores.add("1");
+		scores.add("0");
+	}
+	public void setScore(int n,int i) {
+		scores.set(n, Integer.toString(i));
+	}
 	public void paintComponent(Graphics g) {
 		
 		super.paintComponent(g);
         plataforms.paint((Graphics2D) g);
         donkey.paint((Graphics2D) g);
+       
+        g.setFont(new Font("Tahoma", Font.BOLD, 20));
+        g.setColor(Color.RED);
+        g.drawString(scores.get(0),420 ,40);
+        g.setColor(Color.white);
+        g.drawString(scores.get(1), 680, 50);
+      
         for(Sprite s:barriles) {
         	s.paint((Graphics2D) g);
         }
@@ -52,6 +69,7 @@ public class BoardJuego extends JPanel{
         for(Sprite k:elementos) {
         	k.paint((Graphics2D) g);
         }
+       
         
     }
 	 public void showedGame(){
@@ -92,5 +110,6 @@ public class BoardJuego extends JPanel{
 	 }
 	 public void deleteElemento(int x) {
 			elementos.remove(x);
+			
 	 }
 }
