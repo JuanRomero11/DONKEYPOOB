@@ -33,7 +33,6 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 	private boolean invertir=false;
 	private ReplicateGUI(){
 		super("Donkey Poob");
-		
 		prepareElementos();
 		prepareAcciones();
 		addKeyListener(this);
@@ -61,7 +60,6 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 		JFileChooser file = new JFileChooser();
 		file.showSaveDialog(this);
 		JOptionPane.showMessageDialog(null,"en construccion");
-		
 	}
 	public void prepareAcciones() {
 		tableroInicio.salir.addActionListener(new ActionListener() {
@@ -80,7 +78,6 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 				try {
 					prepareElementosJuego(1);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -120,6 +117,7 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 			tableroJuego = new BoardJuego(players);
 			juego=new DonkeyPoob();
 			prepareElementosJuego();
+			
 			t = new Thread(this);
 			principal.add(tableroJuego, "tjue");
 			layout.show(principal, "tjue");
@@ -149,11 +147,12 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 		}
 	 public void run(){
 		try {	
-				while(juego.isFinished()) {
+				while(!juego.isFinished()) {
 					actualizarElementos();
 					actualizarDonkey();
 					actualizarScore();
 					moverBarriles();
+					actualizarPrincesa();
 					juego.JugadorNUp(0); 
 					juego.JugadorNDown(0);
 					actualizarBarriles();
@@ -175,7 +174,7 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 		}
 	 private void moverBarriles() {
 		
-		for(int i=0;i<tableroJuego.numeroBarriles();i++) {
+		for(int i=0;i<juego.barriles.size();i++) {
 			juego.mover(i); 
 		}
 		
@@ -228,15 +227,14 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 		public void keyTyped(KeyEvent e) {}
 		
 	private void actualizarElementos() {
-		tableroJuego.removeAll();
-			for(int i = 0; i < tableroJuego.numElementos(); i++){
+		
+			for(int i = 0; i < juego.numElementos(); i++){
 				if(!juego.getElemento(i).isVisible()) {
-					
 					System.out.println("entreeeeeeeeeeeeqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
-					tableroJuego.deleteElemento(i);	
-					
+					tableroJuego.deleteElemento(i);
 				}
 			}
+			
 			tableroJuego.repaint();
 			
 			
@@ -249,49 +247,108 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 				tableroJuego.addElemento(juego.getElemento(i).getX(),juego.getElemento(i).getY(),juego.getElemento(i).getRoot());
 			}
 		}
+		tableroJuego.addDonkey(juego.getDonkey().getX(),juego.getDonkey().getY(),juego.getDonkey().getRoot());
+		tableroJuego.addPrincesa(juego.getPrincesa().getX(),juego.getPrincesa().getY(),juego.getPrincesa().getRoot());
+
 		tableroJuego.repaint();
 	}
 
 	 private void actualizarBarriles(){
-		 int x =juego.sizeBarriles();
-		 juego.prepareBarriles();
-		 int y=juego.sizeBarriles();
-		 Sprite g;
-		 if(x<y) {
-			tableroJuego.addSprite(0,171,juego.getBarril(y-1).getRoot());
-		 }
 		 
-			for(int i = 0; i < juego.sizeBarriles(); i++){
-				Sprite s;
-				try {
-					s = tableroJuego.getSprite(i);
-				} catch (IndexOutOfBoundsException ex) {
-					tableroJuego.addSprite();
-					s = tableroJuego.getSprite(i);
-				}
-					s.setX(juego.getBarril(i).getX());
-					s.setY(juego.getBarril(i).getY());
-					s.setRoot(juego.getBarril(i).getRoot());
-					//System.out.println(juego.getBarril(i).getRoot()+" "+juego.getBarril(i).getX()+" "+juego.getBarril(i).getY());
-					s.setVisible(true);
+		 if(!juego.termino) {
+			 int x =juego.sizeBarriles();
+			 juego.prepareBarriles();
+			 int y=juego.sizeBarriles();
+			 Sprite g;
+			 if(x<y ) {
+				tableroJuego.addSprite(0,171,juego.getBarril(y-1).getRoot());}
+		 }
+		
+		 
+		 
+			for(int i = 0; i < tableroJuego.numeroBarriles(); i++){
+				
+				
+					if(!juego.getBarril(i).isVisible()) {
+						
+						System.out.println("entreeeeeeeeeeeeqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+						tableroJuego.deleteBarril(i);	
+						
+					}else {
+						Sprite s;
+						try {
+							s = tableroJuego.getSprite(i);
+						} catch (IndexOutOfBoundsException ex) {
+							tableroJuego.addSprite();
+							s = tableroJuego.getSprite(i);
+							
+						}
+						tableroJuego.repaint();
+						s.setX(juego.getBarril(i).getX());
+						s.setY(juego.getBarril(i).getY());
+						s.setRoot(juego.getBarril(i).getRoot());
+						s.setVisible(true);
+						//System.out.println(juego.getBarril(i).getRoot()+" "+juego.getBarril(i).getX()+" "+juego.getBarril(i).getY());
+						
+					}
 			}
+			
 			tableroJuego.repaint();
 		}
 	 
 	 public void actualizar() {
 		 actualizarBarriles();
 		 actualizarDonkey();
+		 actualizarPrincesa();
 		 
 	 }
 	 public void actualizarDonkey() {
-		if(tableroJuego.getSpriteDonkey().getRoot().equals("resources/DonkeyDerecha.png")) {
-			tableroJuego.getSpriteDonkey().setRoot("DonkeyIzquierda");
-		}else {
-			tableroJuego.getSpriteDonkey().setRoot("DonkeyDerecha");
-		}
+		 
+				Sprite s;
+					s = tableroJuego.getDonkey();	
+					s.setX(juego.getDonkey().getX());
+					s.setY(juego.getDonkey().getY());
+					s.setRoot(juego.getDonkey().getRoot());
+					//System.out.println(juego.getBarril(i).getRoot()+" "+juego.getBarril(i).getX()+" "+juego.getBarril(i).getY());
+					s.setVisible(true);
+				
+			
+				
 		tableroJuego.repaint();
+	 }public void actualizarPrincesa() {
+		 Sprite princesa;
+			princesa= tableroJuego.getPrincesa();	
+			princesa.setX(juego.getPrincesa().getX());
+			princesa.setY(juego.getPrincesa().getY());
+			princesa.setRoot(juego.getPrincesa().getRoot());
+				//System.out.println(juego.getBarril(i).getRoot()+" "+juego.getBarril(i).getX()+" "+juego.getBarril(i).getY());
+			princesa.setVisible(true);
+			tableroJuego.repaint();
 	 }
+	 public void prepareReinicio(){
+			tableroJuego.reiniciar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					reiniciar();
+				}
+			});
+		}
 	 private void End(){
+		 tableroJuego.End(juego.Gano());
+		 prepareReinicio();
+	 }
+	 private void reiniciar(){
+		 c.stop();
+			sonidoIntro();
+			tableroInicio.prepareElementosInicio();
+			prepareAcciones();
+			layout.show(principal, "tini");
+			tableroInicio.repaint();
+			try {
+				t.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		
 	 }
 	
 }

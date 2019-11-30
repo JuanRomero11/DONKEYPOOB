@@ -3,11 +3,11 @@ package aplicacion;
 import java.io.Serializable;
 public class jugador{
 
-	protected int x;
-	protected int y;
+	protected int x,xInicial;
+	protected int y,yInicial;
 	protected int dx;
 	protected int dy;
-	protected String root;
+	protected static String root;
 	protected boolean visible;
 	protected static final int VELOCIDAD = 30;
 	private static final int LIMIT_Y = 650;
@@ -15,6 +15,7 @@ public class jugador{
 	private int limiteY;
 	public static int vidas;
 	public static int score;
+	public int gano=0;
 	public boolean saltando=false;
 	public boolean falling=true;
 	public boolean movimiento=true;
@@ -22,11 +23,13 @@ public class jugador{
 	public jugador(int x, int y, String root) {
 		this.x = x;
 		this.y = y;
+		this.xInicial = x;
+		this.yInicial = y;
 		this.dy=y;
 		this.limiteY=y;
 		this.pisoy=y;
 		this.root=root;
-		this.vidas=1;
+		this.vidas=3;
 		this.score=0;
 		visible = true;
 	}
@@ -94,7 +97,7 @@ public class jugador{
 		return visible;
 	}
 
-	public void setRoot(String r) {
+	public static void setRoot(String r) {
 		root = r;
 	}
 	
@@ -109,6 +112,15 @@ public class jugador{
 		}
 		
 		
+	}
+	public String gano() {
+		String s=null;
+		if(gano==0) {
+			s="perdio";
+		}else if(gano==1) {
+			s="gano";
+		}
+		return s;
 	}
 	public void jummping(int gravity) {
 		pisoy=y;
@@ -151,6 +163,7 @@ public class jugador{
 		}
 		// TODO Auto-generated method stub
 		
+		
 	}
 	public int score(int x) {
 		int r=0;
@@ -167,6 +180,12 @@ public class jugador{
 	}
 	public static  void sumeScore(int i) {
 		score+=i;
+		
+	}
+	public void inicial() {
+		this.x=xInicial;
+		this.y=yInicial;
+		
 		
 	}
 	

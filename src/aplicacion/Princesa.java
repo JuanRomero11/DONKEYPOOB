@@ -12,11 +12,11 @@ import java.util.ArrayList;
  * @author (your name here)
  * @version (version number or date here)
  */
-public class DonkeyKong extends personaje
+public class Princesa extends personaje
 {
   
-    public DonkeyKong(int x, int y,String root){
-		super(x,y,80,60);
+    public Princesa(int x, int y,String root){
+		super(x,y,20,20);
 		//finals
 		super.setRoot(root);
 		

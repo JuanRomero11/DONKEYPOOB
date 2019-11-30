@@ -13,12 +13,15 @@ public class BoardJuego extends JPanel{
 	private BufferedImage fondo;
 	private Sprite plataforms;
 	private Sprite donkey;
+	private Sprite princesa;
 	private Graphics2D k;
 	private boolean showAway;
-	private ArrayList<Sprite> barriles;
+	public ArrayList<Sprite> barriles;
 	private ArrayList<Sprite> jugadores;
 	private ArrayList<Sprite> elementos;
 	private ArrayList<String> scores;
+	protected Boton reiniciar;
+	
 	public BoardJuego(int n) throws IOException {
 		scores = new ArrayList<String>();
 		addScore();
@@ -31,8 +34,7 @@ public class BoardJuego extends JPanel{
 		barriles =new ArrayList<Sprite>();
 		barriles.add(BarrilUno);
 		
-		donkey=new Sprite(0,117,true,60,74);
-		donkey.setRoot("DonkeyIzquierda");
+		
 		
 		Sprite Mario=new Sprite(2,550,true,20,20);
 		Mario.setRoot("MarioDerecha");
@@ -40,6 +42,15 @@ public class BoardJuego extends JPanel{
 		jugadores.add(Mario);
 		
 		
+	}
+	public void End(String boton){
+		if(boton.equals("gano")) {
+			reiniciar = new Boton("winner", 10, 70);  add(reiniciar);
+			repaint();
+		}else {
+			reiniciar = new Boton("restart", 10, 70);  add(reiniciar);
+			repaint();
+		}
 	}
 	public void addScore(){
 		scores.add("1");
@@ -53,7 +64,7 @@ public class BoardJuego extends JPanel{
 		super.paintComponent(g);
         plataforms.paint((Graphics2D) g);
         donkey.paint((Graphics2D) g);
-       
+        princesa.paint((Graphics2D) g);
         g.setFont(new Font("Tahoma", Font.BOLD, 20));
         g.setColor(Color.RED);
         g.drawString(scores.get(0),420 ,40);
@@ -92,9 +103,18 @@ public class BoardJuego extends JPanel{
 	 public void addSprite() {
 			barriles.add(new Sprite(0, 0, false));
 		}
+	 public void addDonkey(int x,int y,String root) {
+		 donkey=new Sprite(x,y,true,60,60);
+		donkey.setRoot("donkeyIzquierda");
+		}
+	 public void addPrincesa(int x,int y,String root) {
+		 princesa=new Sprite(x,y,true,20,20);
+		princesa.setRoot("princesa");
+		}
 	 public int numeroBarriles() {
 		 return barriles.size();
 	 }
+	 
 	 public void addSprite(int x,int y,String root) {
 		 Sprite n=new Sprite(0,117,true,20,20);
 		n.setRoot(root);
@@ -112,4 +132,17 @@ public class BoardJuego extends JPanel{
 			elementos.remove(x);
 			
 	 }
+	 public void deleteBarril(int x) {
+			barriles.remove(x);
+			
+	 }
+	public Sprite getDonkey() {
+		
+		return donkey;
+	}
+	public Sprite getPrincesa() {
+		// TODO Auto-generated method stub
+		return princesa;
+	}
+	
 }
