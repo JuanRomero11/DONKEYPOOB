@@ -31,6 +31,7 @@ public class DonkeyPoob{
 	public boolean jumping=false;
 	public boolean enAire=false;
 	public boolean Escalando=false;
+	public boolean enMovimiento=true;
 	
 	
 	public DonkeyPoob() throws IOException{
@@ -229,7 +230,7 @@ public class DonkeyPoob{
   		validarPrincesa(jugadores.get(n));
   		if(!EstaEnLona(jugadores.get(n)) && !jumping && !Escalando ){
   			System.out.println(EstaEnLona(jugadores.get(n))+" "+jumping+" "+Escalando+" "+enAire);
-  			jugadores.get(n).moveDown();
+  			jugadores.get(n).moveDown(); 
   			enAire=true;
   		}else if(jugadores.get(n).validarSalto()  && !EstaEnLona(jugadores.get(n))) {
   			jumping=jugadores.get(n).validarSalto();
@@ -241,13 +242,17 @@ public class DonkeyPoob{
   		validarElementos(jugadores.get(n)) ;
   		validarJugador(jugadores.get(n));
   		validarPrincesa(jugadores.get(n));
-  		if(!termino) {
-  			if(!invertir) {
-  	  	  		jugadores.get(n).moveLeft();
-  	  		}else {
-  	  			jugadores.get(n).moveRight();
-  	  		}
+  		if(jugadores.get(0).getX()>12) {
+  			if(!termino && enMovimiento) {
+  	  			if(!invertir) {
+  	  	  	  		jugadores.get(n).moveLeft();
+  	  	  		}else {
+  	  	  			jugadores.get(n).moveRight();
+  	  	  		}
+  	  		}else {JugadorNRight(n);}
+  	  			
   		}
+  		
   		
   		
   		}
@@ -263,6 +268,7 @@ public class DonkeyPoob{
   				jugadores.get(n).setSubir();
   				jumping=false;
   				enAire=false;
+  				enMovimiento=false;
   				jugadores.get(n).moveUp();
   				break;
   			
@@ -271,6 +277,7 @@ public class DonkeyPoob{
   			else if(i==escaleras.size()-1 && (!escaleras.get(i).getRoot().equals("EscaleraMario") || jugadores.get(n).getX()<escaleras.get(i).getPosicionesX()[0] || jugadores.get(n).getX()>escaleras.get(i).getPosicionesX()[1] ||  jugadores.get(n).getY()>=escaleras.get(i).getPosicionesY()[0] || jugadores.get(n).getY()<=escaleras.get(i).getPosicionesY()[1] )) {
   				
   				Escalando=false;
+  				enMovimiento=true;
   				break;
   			}
   		}
@@ -417,13 +424,18 @@ public class DonkeyPoob{
 	public void JugadorNRight(int n){
 		validarElementos(jugadores.get(n)) ;
 		validarJugador(jugadores.get(n));
-		if(!termino) {
-			 if(!invertir) {
-					jugadores.get(n).moveRight();
-				}else {
-					jugadores.get(n).moveLeft();
-				}
+		if(jugadores.get(0).getX()<710 && enMovimiento) {
+			if(!termino) {
+				 if(!invertir) {
+						jugadores.get(n).moveRight();
+					}else {
+						jugadores.get(n).moveLeft();
+					}
+			}else {
+				JugadorNLeft(n);
+			}
 		}
+		
 		
 			
 		
@@ -503,7 +515,8 @@ public class DonkeyPoob{
     private boolean barrilEnEscalera(barril barril) {
     	boolean f=false;
     	for(int i=0;i<escaleras.size();i++) {
-  			if(barril.getX()>=escaleras.get(i).getPosicionesX()[0] && barril.getX()<=escaleras.get(i).getPosicionesX()[1] && barril.getY()<=escaleras.get(i).getPosicionesY()[0]-25 && barril.getY()>=escaleras.get(i).getPosicionesY()[1] ) {
+    		
+  			if(barril.getX()>=escaleras.get(i).getPosicionesX()[0] && barril.getX()<=escaleras.get(i).getPosicionesX()[1] && barril.getY()<=escaleras.get(i).getPosicionesY()[0]-25 && barril.getY()>=escaleras.get(i).getPosicionesY()[1] -25) {
   				f=true;
   				break;
   			}
@@ -545,7 +558,6 @@ public class DonkeyPoob{
 		// TODO Auto-generated method stub
 		return princesa;
 	}
-	
 	
   
 }

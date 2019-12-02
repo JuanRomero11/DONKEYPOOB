@@ -16,6 +16,8 @@ public class jugador{
 	public static int vidas;
 	public static int score;
 	public int gano=0;
+	private int xPos;
+    private int yPos;
 	public boolean saltando=false;
 	public boolean falling=true;
 	public boolean movimiento=true;
@@ -23,6 +25,8 @@ public class jugador{
 	public jugador(int x, int y, String root) {
 		this.x = x;
 		this.y = y;
+		xPos=x;
+		yPos=y;
 		this.xInicial = x;
 		this.yInicial = y;
 		this.dy=y;
@@ -88,10 +92,12 @@ public class jugador{
 	public int getX() {
 		return x;
 	}
+	
 
 	public int getY() {
 		return y;
 	}
+	
 
 	public boolean isVisible() {
 		return visible;
