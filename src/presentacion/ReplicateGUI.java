@@ -263,17 +263,10 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 			 if(x<y ) {
 				tableroJuego.addSprite(0,171,juego.getBarril(y-1).getRoot());}
 		 }
-		
-		 
-		 
 			for(int i = 0; i < tableroJuego.numeroBarriles(); i++){
-				
-				
 					if(!juego.getBarril(i).isVisible()) {
-						
 						System.out.println("entreeeeeeeeeeeeqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
-						tableroJuego.deleteBarril(i);	
-						
+						tableroJuego.deleteBarril(i);
 					}else {
 						Sprite s;
 						try {
@@ -281,7 +274,6 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 						} catch (IndexOutOfBoundsException ex) {
 							tableroJuego.addSprite();
 							s = tableroJuego.getSprite(i);
-							
 						}
 						tableroJuego.repaint();
 						s.setX(juego.getBarril(i).getX());
