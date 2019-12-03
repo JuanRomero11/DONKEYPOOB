@@ -18,10 +18,15 @@ public class jugador{
 	public int gano=0;
 	private int xPos;
     private int yPos;
+    private final long segundo = 1000000000;
+    private int MvSec;
+    private long time;
 	public boolean saltando=false;
 	public boolean falling=true;
 	public boolean movimiento=true;
 	public int pisoy;
+	public int mr=0;
+	public int mi=0;
 	public jugador(int x, int y, String root) {
 		this.x = x;
 		this.y = y;
@@ -36,6 +41,8 @@ public class jugador{
 		this.vidas=3;
 		this.score=0;
 		visible = true;
+		time = System.nanoTime();
+		this.MvSec = MvSec;
 	}
 	//Metodos de movimiento
 		public void moveUp(){
@@ -118,6 +125,44 @@ public class jugador{
 		}
 		
 		
+	}
+	public void moveMartilloRight() {
+		if(mr==0) {
+			setRoot("mariorojo16");
+			x+=5;
+			mr+=1;
+		}else if(mr==1){
+			setRoot("mariorojo17");
+			x+=5;
+			mr+=1;
+		}else if(mr==2) {
+			setRoot("mariorojo18");
+			x+=5;
+			mr+=1;
+		}else {
+			setRoot("mariorojo19");
+			x+=5;
+			mr-=3;
+		}
+	}
+	public void moveMartilloLeft() {
+		if(mi==0) {
+			setRoot("mariorojo7");
+			x-=5;
+			mi+=1;
+		}else if(mi==1){
+			setRoot("mariorojo8");
+			x-=5;
+			mi+=1;
+		}else if(mi==2) {
+			setRoot("mariorojo9");
+			x-=5;
+			mi+=1;
+		}else {
+			setRoot("mariorojo10");
+			x-=5;
+			mi-=3;
+		}
 	}
 	public String gano() {
 		String s=null;

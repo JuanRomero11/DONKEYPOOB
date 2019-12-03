@@ -32,6 +32,7 @@ public class DonkeyPoob{
 	public boolean enAire=false;
 	public boolean Escalando=false;
 	public boolean enMovimiento=true;
+	public boolean martillando=false;
 	
 	
 	public DonkeyPoob() throws IOException{
@@ -238,17 +239,25 @@ public class DonkeyPoob{
   		}
   		
   		}
+
+		
   	public void JugadorNLeft(int n){
   		validarElementos(jugadores.get(n)) ;
   		validarJugador(jugadores.get(n));
   		validarPrincesa(jugadores.get(n));
   		if(jugadores.get(0).getX()>12) {
   			if(!termino && enMovimiento) {
-  	  			if(!invertir) {
-  	  	  	  		jugadores.get(n).moveLeft();
-  	  	  		}else {
-  	  	  			jugadores.get(n).moveRight();
-  	  	  		}
+  				if(!martillando) {
+  					if(!invertir) {
+  	  	  	  	  		jugadores.get(n).moveLeft();
+  	  	  	  		}else {
+  	  	  	  			jugadores.get(n).moveRight();
+  	  	  	  		}
+  					
+  				}else {
+  					jugadores.get(n).moveMartilloLeft();
+  				}
+  	  			
   	  		}else {JugadorNRight(n);}
   	  			
   		}
@@ -391,6 +400,9 @@ public class DonkeyPoob{
 			invertir=true;
 			}
 			
+		}else if(elemento instanceof martillo) {
+			martillando=true;
+			invertir=false;
 		}
 		
 	}
@@ -426,14 +438,23 @@ public class DonkeyPoob{
 		validarJugador(jugadores.get(n));
 		if(jugadores.get(0).getX()<710 && enMovimiento) {
 			if(!termino) {
-				 if(!invertir) {
+				if(!martillando) {
+					if(!invertir) {
 						jugadores.get(n).moveRight();
 					}else {
 						jugadores.get(n).moveLeft();
 					}
+				}else {
+					jugadores.get(n).moveMartilloRight();
+				}
+				
+				 
 			}else {
 				JugadorNLeft(n);
 			}
+		}
+		
+		
 		}
 		
 		
@@ -442,7 +463,7 @@ public class DonkeyPoob{
 		
   			
 		
-		}
+		
   	
 	public void Jugadornormal(int n) {jugadores.get(n).moveNormal();	
 	}
