@@ -51,6 +51,7 @@ public class jugador{
 		 * Realiza el movimiento hacia arriba del jugador
 		 */
 		public void moveUp(){
+			
 			if(getRoot().equals("MarioCorriendoDerecha") ||getRoot().equals("MarioDerecha")) {
 				setRoot("MarioCorriendoDerecha2");
 			}else if (getRoot().equals("Mario") || getRoot().equals("MarioCaminando")) {

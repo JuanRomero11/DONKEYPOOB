@@ -28,7 +28,7 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 	private DonkeyPoob juego;
 	private int p=0;
 	private Thread t;
-	public int gravity=0;
+	
 	private boolean j1Up, j1Down, j1Right, j1Left, j2Up;
 	private boolean invertir=false;
 	private ReplicateGUI(){
@@ -157,7 +157,6 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 					juego.JugadorNDown(0);
 					actualizarBarriles();
 					actualizarJugadores();
-					
 					t.sleep(7);
 		}
 				
@@ -195,7 +194,7 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 			if(j1Up) {if(!juego.invertir) {juego.JugadorNEscalar(0);}}
 			if(j1Right) juego.JugadorNRight(0);
 			if(j1Left) juego.JugadorNLeft(0);
-			if(j2Up) {juego.jummping(0,gravity=50);
+			if(j2Up) {juego.jummping(0,50);
 			j2Up=false;}
 			actualizarJugadores();
 			
@@ -264,6 +263,7 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 				tableroJuego.addSprite(0,171,juego.getBarril(y-1).getRoot());}
 		 }
 			for(int i = 0; i < tableroJuego.numeroBarriles(); i++){
+					
 					if(!juego.getBarril(i).isVisible()) {
 						System.out.println("entreeeeeeeeeeeeqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
 						tableroJuego.deleteBarril(i);
@@ -334,6 +334,7 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 			tableroInicio.prepareElementosInicio();
 			prepareAcciones();
 			layout.show(principal, "tini");
+			setSize(new Dimension(740,620));
 			tableroInicio.repaint();
 			try {
 				t.join();

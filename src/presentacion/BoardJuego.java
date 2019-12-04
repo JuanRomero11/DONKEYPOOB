@@ -69,7 +69,7 @@ public class BoardJuego extends JPanel{
         g.setColor(Color.RED);
         g.drawString(scores.get(0),420 ,40);
         g.setColor(Color.white);
-        g.drawString(scores.get(1), 680, 50);
+        g.drawString(scores.get(1), 650, 55);
       
         for(Sprite s:barriles) {
         	s.paint((Graphics2D) g);
