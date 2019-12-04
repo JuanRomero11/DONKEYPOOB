@@ -464,10 +464,7 @@ public class DonkeyPoob{
 			
 		}
 		else {
-			if(barril instanceof BarrilVerde) {
-				jugador.sumeVida(1);
-				barril.setVisible(false);
-			}else {
+			
 				jugador.setRoot("MarioMuerto");
 				jugador.sumeVida(-1);
 				
@@ -477,7 +474,7 @@ public class DonkeyPoob{
 					invertir=false;
 					reinicieJuego();	
 				}
-			}
+			
 			
 		}
 		
