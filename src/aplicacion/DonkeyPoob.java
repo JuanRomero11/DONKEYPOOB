@@ -464,15 +464,21 @@ public class DonkeyPoob{
 			
 		}
 		else {
-			jugador.setRoot("MarioMuerto");
-			jugador.sumeVida(-1);
-			
-			if(jugador.vidas==0) {
-				termino=true;
+			if(barril instanceof BarrilVerde) {
+				jugador.sumeVida(1);
+				barril.setVisible(false);
 			}else {
-				invertir=false;
-				reinicieJuego();	
+				jugador.setRoot("MarioMuerto");
+				jugador.sumeVida(-1);
+				
+				if(jugador.vidas==0) {
+					termino=true;
+				}else {
+					invertir=false;
+					reinicieJuego();	
+				}
 			}
+			
 		}
 		
 	}
@@ -648,7 +654,7 @@ public class DonkeyPoob{
     	boolean f=false;
     	for(int i=0;i<escaleras.size();i++) {
     		
-  			if(barril.getX()>=escaleras.get(i).getPosicionesX()[0] && barril.getX()<=escaleras.get(i).getPosicionesX()[1] && barril.getY()<=escaleras.get(i).getPosicionesY()[0]-25 && barril.getY()>=escaleras.get(i).getPosicionesY()[1] -25) {
+  			if(barril.getX()>=escaleras.get(i).getPosicionesX()[0] && barril.getX()<=escaleras.get(i).getPosicionesX()[1] && barril.getY()<=escaleras.get(i).getPosicionesY()[0]-25 && barril.getY()>=escaleras.get(i).getPosicionesY()[1]-25) {
   				if(barril.getX()==escaleras.get(i).getPosicionesX()[0]) {
   					
   					f=true;

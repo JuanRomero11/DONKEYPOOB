@@ -17,6 +17,7 @@ public abstract class barril extends Elemento
     private int ini;//posicion de nacimiento
     private int xPos;
     private int yPos;
+    private int tipe;
     private int vis=0;
     private String color;
     private boolean alive;
@@ -27,12 +28,13 @@ public abstract class barril extends Elemento
     private int MvSec;
 	private final long segundo = 1000000000;
 	private long time;
-    public barril(int x, int y, int scoreKill, int MvSec,String root){
+    public barril(int x, int y, int scoreKill, int MvSec,String root,int tipo){
 		super(x,y,20,20);
 		//finals
 		mov =root;
 		xPos=x;
 		yPos=y;
+		tipe=tipo;
 		time = System.nanoTime();
 		this.MvSec = MvSec;
 		setRoot(mov);
@@ -50,22 +52,55 @@ public abstract class barril extends Elemento
     /*
      * Valida cada x por el que el carril se mueve con el fin de cambiarle el root
      */
+    
     public void setX(int x){
     	xPos=x;
-    	if(getRoot().equals("barril")) {
+    	if(tipe==0) {
+    		if(getRoot().equals("barrilamarillo1")) {
+        		
+        		setRoot("barrilamarillo2");
+        	}else if(getRoot().equals("barrilamarillo2")) {
+        		
+        		setRoot("barrilamarillo3");
+        	}   else if(getRoot().equals("barrilamarillo3")) {
+        		
+        		setRoot("barrilamarillo4");
+        	}    	else if(getRoot().equals("barrilamarillo4")) {
+        		
+        		setRoot("barrilamarillo1");
+        	}
+    	}else if(tipe==2){
+    		if(getRoot().equals("barrilazul1")) {
+        		
+        		setRoot("barrilazul2");
+        	}else if(getRoot().equals("barrilazul2")) {
+        		
+        		setRoot("barrilazul3");
+        	}   else if(getRoot().equals("barrilazul3")) {
+        		
+        		setRoot("barrilazul4");
+        	}    	else if(getRoot().equals("barrilazul4")) {
+        		
+        		setRoot("barrilazul1");
+        	}
+    	}else if(tipe==3) {
+    		if(getRoot().equals("barrilverde1")) {
+        		
+        		setRoot("barrilverde2");
+        	}else if(getRoot().equals("barrilverde2")) {
+        		
+        		setRoot("barrilverde3");
+        	}   else if(getRoot().equals("barrilverde3")) {
+        		
+        		setRoot("barrilverde4");
+        	}    	else if(getRoot().equals("barrilverde4")) {
+        		
+        		setRoot("barrilverde1");
+        	}
     		
-    		setRoot("barrilCuatro");
-    	}else if(getRoot().equals("barrilCuatro")) {
-    		
-    		setRoot("barrilDos");
-    	}   else if(getRoot().equals("barrilDos")) {
-    		
-    		setRoot("barrilTres");
-    	}    	else if(getRoot().equals("barrilTres")) {
-    		
-    		setRoot("barril");
-    	}  }
-    
+    	}
+    	  }
+    	
     /*
      * le sagina al barril una nueva posicion en y
      */

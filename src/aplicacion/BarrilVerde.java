@@ -16,7 +16,7 @@ public class BarrilVerde extends barril
  
 	
     public BarrilVerde(int x,int y){
-        super(x,y, x, 1000000, "barrilVerde");
+        super(x,y, x, 1000000, "barrilverde1",3);
     }
     
 	@Override

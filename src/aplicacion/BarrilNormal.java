@@ -16,7 +16,7 @@ public class BarrilNormal extends barril
  
 	
     public BarrilNormal(int x,int y){
-        super(x,y, x, 1000000, "barril");
+        super(x,y, x, 1000000, "barrilamarillo1",0);
     }
     
 	@Override
