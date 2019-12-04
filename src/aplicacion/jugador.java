@@ -44,7 +44,12 @@ public class jugador{
 		time = System.nanoTime();
 		this.MvSec = MvSec;
 	}
+	
 	//Metodos de movimiento
+		
+		/*
+		 * Realiza el movimiento hacia arriba del jugador
+		 */
 		public void moveUp(){
 			if(getRoot().equals("MarioCorriendoDerecha") ||getRoot().equals("MarioDerecha")) {
 				setRoot("MarioCorriendoDerecha2");
@@ -58,6 +63,9 @@ public class jugador{
 
 		}
 		
+		/*
+		 * Realiza el movimiento hacia abajo del jugador
+		 */
 		public void moveDown(){
 			if(getRoot().equals("MarioCorriendoDerecha") ||getRoot().equals("MarioDerecha")) {
 				setRoot("marioSaltandoIzq");
@@ -68,6 +76,9 @@ public class jugador{
 			y+=1;
 		}
 		
+		/*
+		 * Realiza el movimiento hacia la derecha del jugador
+		 */
 		public void moveRight(){
 			if(movimiento) {
 				setRoot("marioCorriendoDer");
@@ -79,6 +90,10 @@ public class jugador{
 				movimiento=true;
 			}
 		}
+		
+		/*
+		 * Realiza el movimiento hacia la izquierda del jugador
+		 */
 		public void moveLeft(){
 			if(movimiento) {
 				setRoot("marioCorriendoIzq");
@@ -91,29 +106,44 @@ public class jugador{
 			}
 		}
 	
-
+		/*
+		 * retorna el root de cada sprite del jugador
+		 */
 	public String getRoot() {
 		return root;
 	}
-
+	
+	/*
+	 * returna la posicion en x del jugador
+	 */
 	public int getX() {
 		return x;
 	}
 	
-
+	/*
+	 * returna la posicion en y del jugador
+	 */
 	public int getY() {
 		return y;
 	}
 	
-
+	/*
+	 * returna si es visible o no el jugador
+	 */
 	public boolean isVisible() {
 		return visible;
 	}
-
+	
+	/*
+	 * Asigna un nuevo root 
+	 */
 	public static void setRoot(String r) {
 		root = r;
 	}
 	
+	/*
+	 * Hace visible o no al jugador
+	 */
 	public void setVisible(boolean v){
 		visible = v;
 	}
@@ -126,6 +156,10 @@ public class jugador{
 		
 		
 	}
+	
+	/*
+	 * Realiza el movimiento hacia la derecha del jugador teniendo el martillo
+	 */
 	public void moveMartilloRight() {
 		if(mr==0) {
 			setRoot("mariorojo16");
@@ -145,6 +179,10 @@ public class jugador{
 			mr-=3;
 		}
 	}
+	
+	/*
+	 * Realiza el movimiento hacia la izquierda del jugador teniendo el martillo
+	 */
 	public void moveMartilloLeft() {
 		if(mi==0) {
 			setRoot("mariorojo7");
@@ -164,6 +202,10 @@ public class jugador{
 			mi-=3;
 		}
 	}
+	
+	/*
+	 * retorna si gano o no la partida
+	 */
 	public String gano() {
 		String s=null;
 		if(gano==0) {
@@ -173,6 +215,9 @@ public class jugador{
 		}
 		return s;
 	}
+	/*
+	 * Valida el movimiento del salto del jugador
+	 */
 	public void jummping(int gravity) {
 		pisoy=y;
 		gravity-=1;
@@ -192,6 +237,10 @@ public class jugador{
 			
 		}
 	}
+	
+	/*
+	 * valida si el jugador esta saltando o no
+	 */
 	public boolean validarSalto() {
 		boolean bandera=true;
 		if(y<=limiteY) {
@@ -206,6 +255,10 @@ public class jugador{
 		return bandera;
 		
 	}
+	
+	/*
+	 * Valida que el jugador suba por las escaleras
+	 */
 	public void setSubir() {
 		if(!root.equals("marioSubiendoEscalera")) {
 			setRoot("marioSubiendoEscalera");
@@ -216,6 +269,10 @@ public class jugador{
 		
 		
 	}
+	
+	/*
+	 * validad el score de la partida
+	 */
 	public int score(int x) {
 		int r=0;
 		if(x==0) {
@@ -225,10 +282,18 @@ public class jugador{
 		}
 		return r;
 	}
+	
+	/*
+	 * Suma vidas al jugador
+	 */
 	public static  void sumeVida(int i) {
 		vidas+=i;
 		
 	}
+	
+	/*
+	 * suma puntajes al jugador
+	 */
 	public static  void sumeScore(int i) {
 		score+=i;
 		

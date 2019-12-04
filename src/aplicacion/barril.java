@@ -39,10 +39,17 @@ public abstract class barril extends Elemento
 		alive = true;
 	}
     public abstract void fall(DonkeyPoob DonkeyPoob);
+    
+    /*
+     * returna la posicion en x del barril
+     */
     public int getX(){
         return xPos;
     } 
     
+    /*
+     * Valida cada x por el que el carril se mueve con el fin de cambiarle el root
+     */
     public void setX(int x){
     	xPos=x;
     	if(getRoot().equals("barril")) {
@@ -58,8 +65,15 @@ public abstract class barril extends Elemento
     		
     		setRoot("barril");
     	}  }
+    
+    /*
+     * le sagina al barril una nueva posicion en y
+     */
     public void setY(int y){yPos=y;}
    
+    /*
+     * retorna la posicion en y del barril
+     */
     public int getY(){
         return yPos;
     }

@@ -51,10 +51,18 @@ public class DonkeyPoob{
 		
 		
 	}
+	
+	/*
+	 * Crea el DonkeyKong y la princesa
+	 */
 	private void prepareDonkeyPrincesa() {
 		Donkey=new DonkeyKong(0,131,"DonkeyIzquierda");
 		princesa = new Princesa(300,171,"princesa");
 	}
+	
+	/*
+	 * Crea los elementos 
+	 */
 	private void prepareElementos() {
 		if(elementos.size()>0) {
 			Elemento nuevo=elementoAzar();
@@ -71,6 +79,10 @@ public class DonkeyPoob{
 		}
 		
 	}
+	
+	/*
+	 * Crea elementos al azar y los ubica en diferentes ubicaciones
+	 */
 	private Elemento elementoAzar() {
 		int lona= (int) Math.random()*plataforma.size()+2;
 		
@@ -95,6 +107,9 @@ public class DonkeyPoob{
 		return cualquiera;
 	}
 	
+	/*
+	 * Crea las escaleras tanto de los jugadores como de los barriles y guarda sus respectivas coordenadas
+	 */
 	private void prepareEscaleras() {
 		EscaleraBarril nueva =new EscaleraBarril(217,251,570,470);
 		EscaleraMario nuevaUno =new EscaleraMario(624,653,570,471);	
@@ -125,14 +140,27 @@ public class DonkeyPoob{
 		escaleras.add(nuevaDoce);
 
 	}
+	
+	/*
+	 * Crea el o los jugadores 
+	 */
 	private void prepareJugadores() {
 		jugador mario= new jugador(2,550,"MarioDerecha"); 
 		jugadores.add(mario);
 		
 	}
+	
+	/*
+	 * retorna la cantidad de elementos que hay
+	 * @return
+	 */
 	public int numElementos() {
 		return elementos.size();
 	}
+	
+	/*
+	 * Crea los barriles de una forma aleatoria
+	 */
 	public void prepareBarriles() {
 		if(barriles.size()==0) {
 			
@@ -164,6 +192,10 @@ public class DonkeyPoob{
 		}
 		
 	}
+	
+	/*
+	 * Crea las plataformas y  guarda sus respectivas coordenadas
+	 */
 	public void preparePlataformas() throws IOException{
 		plataformas pINf= new plataformas(new int[]{294,121},new int[]{453,121});
 		plataformas p0=new plataformas(new int[]{0,191},new int[]{700,191});
@@ -182,7 +214,10 @@ public class DonkeyPoob{
 		plataforma.add(p5);	
 	}
 
-  
+	/*
+	 * Retorna si es juego ya se acabo o no
+	 * @returns
+	 */
     public boolean isFinished(){
 		return termino;
 	}
@@ -201,13 +236,28 @@ public class DonkeyPoob{
         }
        
     } 
+    
+    /*
+     * Retorna una barril en una posicion dada de su Arraylist
+     * @return
+     */
     public Elemento getBarril(int i){
-		return barriles.get(i);
+    	return barriles.get(i);
 	}
+    
+    /*
+     * Retorna una jugador en una posicion dada de su Arraylist
+     * @return
+     */
     public jugador getJugador(int i){
 		return jugadores.get(i);
 	}
+    
   //Move el jugador
+    
+    /*
+     * Realiza el salto para el o los jugadores
+     */
   	public void JugadorNUp(int n){ 	
   		validarElementos(jugadores.get(n)) ;
   		
@@ -225,6 +275,9 @@ public class DonkeyPoob{
   		}
   		}
   	
+  	/*
+  	 * Realiza la caída del jugador ya sea de un salto o al bajar de una plataforma
+  	 */
   	public void JugadorNDown(int n){
   		validarElementos(jugadores.get(n)) ;
   		validarJugador(jugadores.get(n));
@@ -240,7 +293,9 @@ public class DonkeyPoob{
   		
   		}
 
-		
+	/*
+	 * Realiza el movimiento hacia la izquierda del jugador o los jugadores 	
+	 */
   	public void JugadorNLeft(int n){
   		validarElementos(jugadores.get(n)) ;
   		validarJugador(jugadores.get(n));
@@ -265,6 +320,10 @@ public class DonkeyPoob{
   		
   		
   		}
+  	
+  	/*
+  	 * Hace que el jugador pueda subir de una plataforma a otra mediante la escalera
+  	 */
   	public void JugadorNEscalar(int n){ 
   		validarElementos(jugadores.get(n)) ;
   		validarJugador(jugadores.get(n));
@@ -291,7 +350,10 @@ public class DonkeyPoob{
   			}
   		}
 		}
-
+  	
+  	/*
+  	 * Validad si el jugador ya uso el o los elementos de la partida
+  	 */
   	private void validarElementos(jugador jugador) {
   		for(int i=0;i<elementos.size();i++) {
   			if(!elementos.get(i).isVisible()) {
@@ -320,6 +382,10 @@ public class DonkeyPoob{
   			
   		}
   	}
+  	
+  	/*
+  	 * Valida si el jugador hace contacto con los barriles 
+  	 */
   	private void validarJugador(jugador jugador) {
   		for(int i=0;i<barriles.size();i++) {
   			if(!barriles.get(i).isVisible()) {
@@ -344,6 +410,10 @@ public class DonkeyPoob{
   			
   		}
   	}
+  	
+  	/*
+  	 * Valida si el jugador llego a la posicion de la princesa y termina el juego
+  	 */
   	private void validarPrincesa(jugador jugador) {
   		
   			if(princesa.getX()>=jugador.getX() && princesa.getX()<=jugador.getX()+20 && princesa.getY()>=jugador.getY() && princesa.getY()<=jugador.getY()+20) {
@@ -361,6 +431,10 @@ public class DonkeyPoob{
   			
   		
   	}
+  	
+  	/*
+  	 * Reinicia el juego tanto para el jugador como para los barriles
+  	 */
   	private void reinicieJuego() {
 		jugadores.get(0).inicial();
 		for(int i=0;i<barriles.size();i++) {
@@ -368,6 +442,10 @@ public class DonkeyPoob{
 		}
 		termino=false;
 	}
+  	
+  	/*
+  	 * Valida que barriles quitan y dan una vida
+  	 */
 	private void activeBarril(barril barril) {
 		if(barril instanceof BarrilVerde) {
 			jugador.sumeVida(1);
@@ -385,7 +463,10 @@ public class DonkeyPoob{
 		}
 		
 	}
-
+	
+	/*
+	 * Valida que hace cada sorpresa
+	 */
 	private void activeElemento(Elemento elemento) {
 		if(elemento instanceof Corazon) {
 			jugador.sumeVida(1);
@@ -406,9 +487,17 @@ public class DonkeyPoob{
 		}
 		
 	}
+	
+	/*
+	 * Valida el puntaje del jugador durante las rondas de la partida
+	 */
   	public int[] puntajes() {
   		return new int[] {jugador.vidas,jugador.score};
   	}
+  	
+  	/*
+  	 * Valida si el jugador esta o no en una plataforma
+  	 */
 	private boolean EstaEnLona(jugador jugador) {
   		
   		boolean bandera=false;
@@ -432,7 +521,9 @@ public class DonkeyPoob{
 		return bandera;
   	}
 	
-  	
+	/*
+	 * Realiza el movimiento hacia la derecha del jugador o los jugadores 	
+	 */
 	public void JugadorNRight(int n){
 		validarElementos(jugadores.get(n)) ;
 		validarJugador(jugadores.get(n));
@@ -469,7 +560,9 @@ public class DonkeyPoob{
 	}
   	
   	
-  	
+  	/*
+  	 * Valida si la ronda ya termino
+  	 */
     public boolean isRondaFinished(){
 		boolean ans = true;
 		for(barril p: barriles){
@@ -478,6 +571,9 @@ public class DonkeyPoob{
 		return ans;
 	}
     
+    /*
+     * Valida el movimiento respectivo de cada barril
+     */
     public void mover(int x){
     	if(barriles.get(x) instanceof BarrilNormal || barriles.get(x) instanceof BarrilVerde) {
     		moverBarrilNormal(x);
@@ -491,6 +587,10 @@ public class DonkeyPoob{
     	 
     	 
 	}
+    
+    /*
+     * Realiza el movimiento del barril azul donde puede bajar por cualquier escalera del mapa
+     */
     private void moverBarriAzul(int x) {
     	for(int i =1 ;i<plataforma.size();i++) {
     		System.out.println("no se si "+ barrilEnEscalera(barriles.get(x)));
@@ -515,6 +615,10 @@ public class DonkeyPoob{
     		}
     	}
     }
+    
+    /*
+     * Realiza el movimiento de los barriles cuyo movimiento es bajar sin tener encuenta las escaleras
+     */
     private void moverBarrilNormal(int x) {
     	for(int i =1 ;i<plataforma.size();i++) {
     		if(barriles.get(x).getY()==plataforma.get(i).getInferior()[1]-20 && barriles.get(x).getX()>=plataforma.get(i).getInferior()[0] && barriles.get(x).getX() <=plataforma.get(i).getSuperior()[0] && i%2!=0 ) {
@@ -533,6 +637,10 @@ public class DonkeyPoob{
     	}
 		
 	}
+    
+    /*
+     * Validad si los barriles estan en una escalera
+     */
     private boolean barrilEnEscalera(barril barril) {
     	boolean f=false;
     	for(int i=0;i<escaleras.size();i++) {
@@ -551,6 +659,10 @@ public class DonkeyPoob{
 		
 		return 1;
 	}
+	
+	/*
+	 * Valida si el jugador esta saltando
+	 */
 	public void jummping(int i,int gravity) {
 		System.out.println("entre aqui "+jugadores.get(i).validarSalto() );
 		if(!jugadores.get(i).validarSalto() ) {
@@ -561,17 +673,36 @@ public class DonkeyPoob{
 		}
 		
 	}
+	
+	/*
+	 * Retorna la cantidad de barriles
+	 * @return
+	 */
 	public int sizeBarriles() {
 		
 		return barriles.size();
 	}
+	
+	/*
+	 * Retorna un elemento de una posicion dada
+	 * @return
+	 */
 	public Elemento getElemento(int i) {
 	
 		return elementos.get(i);
 	}
+	
+	/*
+	 * Retorna el donkeykong
+	 * @return
+	 */
 	public personaje getDonkey() {
 		return Donkey;
 	}
+	
+	/*
+	 * Valida si el jugador gano o no
+	 */
 	public String Gano() {
 		return jugadores.get(0).gano();
 	}
