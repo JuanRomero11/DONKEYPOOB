@@ -265,7 +265,7 @@ public class DonkeyPoob{
   		if(System.nanoTime() -time > time_x_ronda) martillando=false;
   		if(jumping && Jugadores.get(n).validarSalto() && !Escalando && !enAire) {
   			
-  			System.out.println("  adjaoijdoiasjd "+jumping+" "+Jugadores.get(n).validarSalto()+" "+Escalando+" "+enAire);
+  			
   			Jugadores.get(n).moveUp();
   			
   			jumping=Jugadores.get(n).validarSalto();  			
@@ -286,7 +286,7 @@ public class DonkeyPoob{
   		validarPrincesa(Jugadores.get(n));
   		if(System.nanoTime() -time > time_x_ronda) martillando=false;
   		if(!EstaEnLona(Jugadores.get(n)) && !jumping && !Escalando ){
-  			System.out.println(EstaEnLona(Jugadores.get(n))+" "+jumping+" "+Escalando+" "+enAire);
+  			
   			Jugadores.get(n).moveDown(); 
   			enAire=true;
   		}else if(Jugadores.get(n).validarSalto()  && !EstaEnLona(Jugadores.get(n))) {
@@ -304,7 +304,7 @@ public class DonkeyPoob{
   		validarJugador(Jugadores.get(n));
   		validarPrincesa(Jugadores.get(n));
   		if(System.nanoTime() -time > time_x_ronda) martillando=false;
-  		if(Jugadores.get(0).getX()>12) {
+  		if(Jugadores.get(0).getX()>2) {
   			
   			if(!termino) {
   				JugadorNEscalar(n);
@@ -335,7 +335,7 @@ public class DonkeyPoob{
   		validarElementos(Jugadores.get(n)) ;
   		validarJugador(Jugadores.get(n));
   		validarPrincesa(Jugadores.get(n));
-		System.out.println(EstaEnLona(Jugadores.get(n))+" "+jumping+" "+Escalando+" "+enAire);
+		
 
   		for(int i=0;i<escaleras.size();i++) {
   			if(escaleras.get(i).getRoot().equals("EscaleraMario") && Jugadores.get(n).getX()>=escaleras.get(i).getPosicionesX()[0] && Jugadores.get(n).getX()<=escaleras.get(i).getPosicionesX()[1] && Jugadores.get(n).getY()<=escaleras.get(i).getPosicionesY()[0] && Jugadores.get(n).getY()>=escaleras.get(i).getPosicionesY()[1] ) {
@@ -599,7 +599,7 @@ public class DonkeyPoob{
      */
     private void moverBarriAzul(int x) {
     	for(int i =1 ;i<plataforma.size();i++) {
-    		System.out.println("no se si "+ barrilEnEscalera(barriles.get(x)));
+    		
     			if( barrilEnEscalera(barriles.get(x)) ){
         			barriles.get(x).setY(barriles.get(x).getY()+1);
         			break;
@@ -674,9 +674,9 @@ public class DonkeyPoob{
 	 * Valida si el Jugador esta saltando
 	 */
 	public void jummping(int i,int gravity) {
-		System.out.println("entre aqui "+Jugadores.get(i).validarSalto() );
+		
 		if(!Jugadores.get(i).validarSalto() ) {
-			System.out.println("entsadasdsadsadsadsadsadsadsade");
+		
 			Jugadores.get(i).jummping(gravity);
 			jumping=true;           
 			enAire=false;

@@ -229,7 +229,7 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 		
 			for(int i = 0; i < juego.numElementos(); i++){
 				if(!juego.getElemento(i).isVisible()) {
-					System.out.println("entreeeeeeeeeeeeqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+					
 					tableroJuego.deleteElemento(i);
 				}
 			}
@@ -265,7 +265,7 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 			for(int i = 0; i < tableroJuego.numeroBarriles(); i++){
 					
 					if(!juego.getBarril(i).isVisible()) {
-						System.out.println("entreeeeeeeeeeeeqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+						
 						tableroJuego.deleteBarril(i);
 					}else {
 						Sprite s;

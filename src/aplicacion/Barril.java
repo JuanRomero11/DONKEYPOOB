@@ -17,6 +17,8 @@ public abstract class Barril extends Elemento
     private int ini;//posicion de nacimiento
     private int xPos;
     private int yPos;
+    public int xInicial;
+    public int yInicial;
     private int tipe;
     private int vis=0;
     private String color;
@@ -34,6 +36,8 @@ public abstract class Barril extends Elemento
 		mov =root;
 		xPos=x;
 		yPos=y;
+		xInicial=x;
+		yInicial=y;
 		tipe=tipo;
 		time = System.nanoTime();
 		this.MvSec = MvSec;
@@ -112,7 +116,7 @@ public abstract class Barril extends Elemento
     public int getY(){
         return yPos;
     }
-    
+   
     public int getIn(){return ini;}
     
     public String getColor(){return color;}
