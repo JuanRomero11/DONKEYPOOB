@@ -23,7 +23,7 @@ public class DonkeyPoob{
 	private long time;
 	private long time_x_ronda;
 	
-	private ArrayList<Jugador> Jugadores=new ArrayList<Jugador>();
+	public ArrayList<Jugador> Jugadores=new ArrayList<Jugador>();
 	private  ArrayList<Escalera> escaleras=new ArrayList<Escalera>();
 	//donkeykong
 	public Personaje Donkey,princesa;
@@ -103,7 +103,7 @@ public class DonkeyPoob{
 			cualquiera= new Hongo(plataforma.get(lona).getInferior()[0],plataforma.get(3).getInferior()[1]+40,"hongo");
 		  
 		}else if(k==4){
-			cualquiera= new Manzana(plataforma.get(lona).getInferior()[0],plataforma.get(3).getInferior()[1]+40,"hongo");
+			cualquiera= new Manzana(plataforma.get(lona).getInferior()[0],plataforma.get(3).getInferior()[1]+40,"manzana");
 		  
 		}
 		return cualquiera;

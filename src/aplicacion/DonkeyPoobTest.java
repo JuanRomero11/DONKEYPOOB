@@ -41,4 +41,15 @@ class DonkeyPoobTest {
 		}
 		
 	}
+	@Test
+	void CrearJugador() {
+		try {
+			DonkeyPoob juego=new DonkeyPoob();
+			assertTrue(juego.Jugadores.size() >0);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 }
