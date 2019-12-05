@@ -9,11 +9,11 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class tablero extends JPanel{
+public class Tablero extends JPanel{
 	public static final String fondoInit = "resources/fondo2.png";
 	private BufferedImage fondo;
 	protected JButton jugador1, jugador2 ,abrir,controles, salir, JvsD, JvsJ, JvsM, JvsM2 ,playM, playK, goBack,imagencontrol;
-	public tablero(String root){
+	public Tablero(String root){
 		super(null);
 		prepareElementosInicio();
 		

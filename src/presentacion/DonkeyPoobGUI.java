@@ -16,13 +16,13 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
+public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 	
 	//Menu
 	private JFileChooser file;
 	private JPanel principal;
 	private CardLayout layout;
-	private tablero tableroInicio;
+	private Tablero tableroInicio;
 	private BoardJuego tableroJuego;
 	private Clip c;
 	private DonkeyPoob juego;
@@ -31,7 +31,7 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 	
 	private boolean j1Up, j1Down, j1Right, j1Left, j2Up;
 	private boolean invertir=false;
-	private ReplicateGUI(){
+	private DonkeyPoobGUI(){
 		super("Donkey Poob");
 		prepareElementos();
 		prepareAcciones();
@@ -100,14 +100,14 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 	}
 	}
 	public static void main(String[] args) {
-		ReplicateGUI gui = new ReplicateGUI();
+		DonkeyPoobGUI gui = new DonkeyPoobGUI();
 		gui.setVisible(true);
 		
 	}
 	 public void prepararElementosTablero() {
 		 	layout = new CardLayout();	       
 			principal = new JPanel(layout);
-			tableroInicio = new tablero(tablero.fondoInit);
+			tableroInicio = new Tablero(Tablero.fondoInit);
 			add(principal);
 			principal.add(tableroInicio, "tini");
 			layout.show(principal, "tini");
@@ -134,7 +134,7 @@ public class ReplicateGUI extends JFrame implements Runnable, KeyListener{
 		
 	 private void sonidoIntro(){
 			try{
-				InputStream is = ReplicateGUI.class.getResourceAsStream("/sonidos/title.wav");
+				InputStream is = DonkeyPoobGUI.class.getResourceAsStream("/sonidos/title.wav");
 				AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
 				DataLine.Info info = new DataLine.Info(Clip.class, ais.getFormat());
 				c = (Clip) AudioSystem.getLine(info);

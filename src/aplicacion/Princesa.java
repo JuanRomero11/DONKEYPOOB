@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author (your name here)
  * @version (version number or date here)
  */
-public class Princesa extends personaje
+public class Princesa extends Personaje
 {
   
     public Princesa(int x, int y,String root){

@@ -11,11 +11,11 @@ import java.util.ArrayList;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class barrilRojo extends barril
+public class BarrilRojo extends Barril
 {
  
 	
-    public barrilRojo(int x,int y){
+    public BarrilRojo(int x,int y){
         super(x,y, x, 1000000, "barrilrojo5",1);
     }
     

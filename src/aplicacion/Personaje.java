@@ -2,7 +2,7 @@ package aplicacion;
 
 import java.io.Serializable;
 
-public abstract class personaje implements Serializable {
+public abstract class Personaje implements Serializable {
 
 	protected int x;
 	protected int y;
@@ -11,7 +11,7 @@ public abstract class personaje implements Serializable {
 	protected String root;
 	protected boolean visible;
 
-	public personaje(int x, int y, int dx, int dy) {
+	public Personaje(int x, int y, int dx, int dy) {
 		this.x = x;
 		this.y = y;
 		this.dx = dx;

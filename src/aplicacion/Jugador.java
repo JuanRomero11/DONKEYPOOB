@@ -1,7 +1,7 @@
 package aplicacion;
 
 import java.io.Serializable;
-public class jugador{
+public class Jugador{
 
 	protected int x,xInicial;
 	protected int y,yInicial;
@@ -27,7 +27,7 @@ public class jugador{
 	public int pisoy;
 	public int mr=0;
 	public int mi=0;
-	public jugador(int x, int y, String root) {
+	public Jugador(int x, int y, String root) {
 		this.x = x;
 		this.y = y;
 		xPos=x;

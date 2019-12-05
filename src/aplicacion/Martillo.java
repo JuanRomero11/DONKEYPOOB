@@ -1,4 +1,3 @@
-
 package aplicacion;
 
 
@@ -12,9 +11,9 @@ import java.util.ArrayList;
  * @author (your name here)
  * @version (version number or date here)
  */
-public class martillo extends Elemento
+public class Martillo extends Elemento
 {
-    public martillo(int x, int y,String root){
+    public Martillo(int x, int y,String root){
 		super(x,y,20,20);
 		//finals
 	

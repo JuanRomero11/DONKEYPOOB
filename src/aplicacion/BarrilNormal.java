@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class BarrilNormal extends barril
+public class BarrilNormal extends Barril
 {
  
 	

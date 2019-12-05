@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class plataformas {
+public class Plataforma {
 	
 	private int superior[]=new int[2], supe[]=new int[2];
 	private int inferior[]=new int[2], infe[]=new int[2];
@@ -17,7 +17,7 @@ public class plataformas {
 	private double b;
 	private double[] puntos;
 	private ArrayList<Escalera> escaleras=new ArrayList<Escalera>();
-	public plataformas(int[] posicionesIniciales, int[] posicionesFinales) {
+	public Plataforma(int[] posicionesIniciales, int[] posicionesFinales) {
 		
 		this.inferior=posicionesIniciales;
 		this.superior=posicionesFinales;

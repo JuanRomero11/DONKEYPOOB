@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author (your name here)
  * @version (version number or date here)
  */
-public abstract class barril extends Elemento
+public abstract class Barril extends Elemento
 {
     private int ini;//posicion de nacimiento
     private int xPos;
@@ -28,7 +28,7 @@ public abstract class barril extends Elemento
     private int MvSec;
 	private final long segundo = 1000000000;
 	private long time;
-    public barril(int x, int y, int scoreKill, int MvSec,String root,int tipo){
+    public Barril(int x, int y, int scoreKill, int MvSec,String root,int tipo){
 		super(x,y,20,20);
 		//finals
 		mov =root;
