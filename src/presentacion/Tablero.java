@@ -30,7 +30,7 @@ public class Tablero extends JPanel{
 	
 	public void prepareElementosInicio(){
 		removeAll();
-		
+		this.fondo=fondoInit;
 		jugador1 = new Boton("1J", 300, 340);
 		add(jugador1);
 		

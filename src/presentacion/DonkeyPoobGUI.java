@@ -252,7 +252,7 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 					actualizarBarriles();
 					actualizarJugadores();
 					t.sleep(7);
-		}
+				}
 				
 				End();
 		}catch (InterruptedException e) {
