@@ -15,32 +15,28 @@ public class BoardJuego extends JPanel{
 	private Sprite donkey;
 	private Sprite princesa;
 	private Graphics2D k;
-	public int k1;
 	private boolean showAway;
 	public ArrayList<Sprite> barriles;
 	private ArrayList<Sprite> jugadores;
 	private ArrayList<Sprite> elementos;
 	private ArrayList<String> scores;
 	protected Boton reiniciar;
-	
-	public BoardJuego(int n,int k) throws IOException {
-		k=(int) (Math.random()*3);
-		if(k==1) {
-			scores = new ArrayList<String>();
-			addScore();
+	public int k1;
+	public BoardJuego(int n) throws IOException {
+		int k2=(int) (Math.random()*3);
+		if(k2==1) {
 			plataforms=new Sprite(0,0,true,746,600);
 			plataforms.setRoot("fondoJuego1");
-		}else if(k==0) {
-			scores = new ArrayList<String>();
-			addScore();
+		}else if(k2==0) {
 			plataforms=new Sprite(0,0,true,746,600);
 			plataforms.setRoot("fondoJuego0");
-		}else if(k==2) {
-			scores = new ArrayList<String>();
-			addScore();
+		}else if(k2==2) {
 			plataforms=new Sprite(0,0,true,746,600);
 			plataforms.setRoot("fondoJuego2");
 		}
+		
+		scores = new ArrayList<String>();
+		addScore();
 		
 		
 		elementos= new ArrayList<Sprite> ();
@@ -55,7 +51,7 @@ public class BoardJuego extends JPanel{
 		Mario.setRoot("MarioDerecha");
 		jugadores =new ArrayList<Sprite>();
 		jugadores.add(Mario);
-		k1=k;
+		this.k1=k2;
 		
 	}
 	public void End(String boton){

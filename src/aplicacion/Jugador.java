@@ -7,7 +7,7 @@ public class Jugador{
 	protected int y,yInicial;
 	protected int dx;
 	protected int dy;
-	protected static String root;
+	protected static String root,rootInicial;
 	protected boolean visible;
 	protected static final int VELOCIDAD = 30;
 	private static final int LIMIT_Y = 650;
@@ -37,7 +37,13 @@ public class Jugador{
 		this.dy=y;
 		this.limiteY=y;
 		this.pisoy=y;
-		this.root=root;
+		this.rootInicial=root;
+		if(root.equals("Verde")){
+			this.root="MarioCorriendoDerecha"+rootInicial;
+		}else {
+			this.root="MarioCorriendoDerecha";
+		}
+		
 		this.vidas=3;
 		this.score=0;
 		visible = true;
@@ -51,16 +57,20 @@ public class Jugador{
 		 * Realiza el movimiento hacia arriba del jugador
 		 */
 		public void moveUp(){
-			
-			if(getRoot().equals("MarioCorriendoDerecha") ||getRoot().equals("MarioDerecha")) {
-				setRoot("MarioCorriendoDerecha2");
-			}else if (getRoot().equals("Mario") || getRoot().equals("MarioCaminando")) {
-				setRoot("MarioCaminando2");
+			if(rootInicial.equals("Rojo")) {
+				if(getRoot().equals("MarioCorriendoDerecha") ||getRoot().equals("MarioDerecha") ||getRoot().equals("Rojo")) {
+					setRoot("MarioCorriendoDerecha2");
+				}else if (getRoot().equals("Mario") || getRoot().equals("MarioCaminando")) {
+					setRoot("MarioCaminando2");
+				}
+			}else {
+				if(getRoot().equals("MarioCorriendoDerecha"+rootInicial) ||getRoot().equals("MarioDerecha"+rootInicial) ) {
+					setRoot("MarioCorriendoDerecha2"+rootInicial);
+				}else if (getRoot().equals("Mario"+rootInicial) || getRoot().equals("MarioCaminando"+rootInicial)) {
+					setRoot("MarioCaminando2"+rootInicial);
+				}
 			}
-
-				y-=1;
-			
-			
+			y-=1;
 
 		}
 		
@@ -68,12 +78,19 @@ public class Jugador{
 		 * Realiza el movimiento hacia abajo del jugador
 		 */
 		public void moveDown(){
-			if(getRoot().equals("MarioCorriendoDerecha") ||getRoot().equals("MarioDerecha")) {
-				setRoot("marioSaltandoIzq");
-			}else if (getRoot().equals("Mario") || getRoot().equals("MarioCaminando")) {
-				setRoot("marioSaltandoDer");
+			if(rootInicial.equals("Rojo")) {
+				if(getRoot().equals("MarioCorriendoDerecha") ||getRoot().equals("MarioDerecha")) {
+					setRoot("marioSaltandoIzq");
+				}else if (getRoot().equals("Mario") || getRoot().equals("MarioCaminando")) {
+					setRoot("marioSaltandoDer"+rootInicial);
+				}
+			}else {
+				if(getRoot().equals("MarioCorriendoDerecha"+rootInicial) ||getRoot().equals("MarioDerecha"+rootInicial)) {
+					setRoot("marioSaltandoIzq"+rootInicial);
+				}else if (getRoot().equals("Mario"+rootInicial) || getRoot().equals("MarioCaminando"+rootInicial)) {
+					setRoot("marioSaltandoDer"+rootInicial);
+				}
 			}
-			
 			y+=1;
 		}
 		
@@ -82,11 +99,19 @@ public class Jugador{
 		 */
 		public void moveRight(){
 			if(movimiento) {
-				setRoot("marioCorriendoDer");
+				if(rootInicial.equals("Rojo")) {
+					setRoot("marioCorriendoDer");
+				}else {
+					setRoot("marioCorriendoDer"+rootInicial);
+				}
 				x+=5;
 				movimiento=false;
 			}else {
+				if(rootInicial.equals("Rojo")) {
 				setRoot("marioCorriendoDer2");
+				}else {
+					setRoot("marioCorriendoDer2"+rootInicial);
+				}
 				x+=5;
 				movimiento=true;
 			}
@@ -97,11 +122,19 @@ public class Jugador{
 		 */
 		public void moveLeft(){
 			if(movimiento) {
-				setRoot("marioCorriendoIzq");
+				if(rootInicial.equals("Rojo")) {
+					setRoot("marioCorriendoIzq");
+				}else{
+					setRoot("marioCorriendoIzq"+rootInicial);
+				}
 				x-=5;
 				movimiento=false;
 			}else {
-				setRoot("marioCorriendoIzq2");
+				if(rootInicial.equals("Rojo")) {
+					setRoot("marioCorriendoIzq2");
+				}else {
+					setRoot("marioCorriendoIzq2"+rootInicial);
+				}
 				x-=5;
 				movimiento=true;
 			}
@@ -148,34 +181,26 @@ public class Jugador{
 	public void setVisible(boolean v){
 		visible = v;
 	}
-	public void moveNormal() {
-		if(root.equals("MarioCorriendoDerecha")) {
-			setRoot("MarioDerecha");
-		}else if(root.equals("MarioCaminando")){
-			setRoot("Mario");
-		}
-		
-		
-	}
+	
 	
 	/*
 	 * Realiza el movimiento hacia la derecha del jugador teniendo el martillo
 	 */
 	public void moveMartilloRight() {
 		if(mr==0) {
-			setRoot("mariorojo16");
+			setRoot("mariorojo16"+rootInicial);
 			x+=5;
 			mr+=1;
 		}else if(mr==1){
-			setRoot("mariorojo17");
+			setRoot("mariorojo17"+rootInicial);
 			x+=5;
 			mr+=1;
 		}else if(mr==2) {
-			setRoot("mariorojo18");
+			setRoot("mariorojo18"+rootInicial);
 			x+=5;
 			mr+=1;
 		}else {
-			setRoot("mariorojo19");
+			setRoot("mariorojo19"+rootInicial);
 			x+=5;
 			mr-=3;
 		}
@@ -186,19 +211,19 @@ public class Jugador{
 	 */
 	public void moveMartilloLeft() {
 		if(mi==0) {
-			setRoot("mariorojo7");
+			setRoot("mariorojo7"+rootInicial);
 			x-=5;
 			mi+=1;
 		}else if(mi==1){
-			setRoot("mariorojo8");
+			setRoot("mariorojo8"+rootInicial);
 			x-=5;
 			mi+=1;
 		}else if(mi==2) {
-			setRoot("mariorojo9");
+			setRoot("mariorojo9"+rootInicial);
 			x-=5;
 			mi+=1;
 		}else {
-			setRoot("mariorojo10");
+			setRoot("mariorojo10"+rootInicial);
 			x-=5;
 			mi-=3;
 		}
@@ -261,10 +286,10 @@ public class Jugador{
 	 * Valida que el jugador suba por las escaleras
 	 */
 	public void setSubir() {
-		if(!root.equals("marioSubiendoEscalera")) {
-			setRoot("marioSubiendoEscalera");
-		}else if(root.equals("marioSubiendoEscalera")){
-			setRoot("marioSubiendoEscalera2");
+		if(!root.equals("marioSubiendoEscalera"+rootInicial)) {
+			setRoot("marioSubiendoEscalera"+rootInicial);
+		}else if(root.equals("marioSubiendoEscalera"+rootInicial)){
+			setRoot("marioSubiendoEscalera2"+rootInicial);
 		}
 		// TODO Auto-generated method stub
 		
@@ -304,14 +329,6 @@ public class Jugador{
 		this.y=yInicial;
 		
 		
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public void setY(int y) {
-		this.y = y;
 	}
 	
 

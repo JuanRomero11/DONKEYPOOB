@@ -1,5 +1,4 @@
-/**
-package aplicacion;
+/**package aplicacion;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -163,4 +162,4 @@ class DonkeyPoobTest {
 		
 	
 }
-*/
+**/

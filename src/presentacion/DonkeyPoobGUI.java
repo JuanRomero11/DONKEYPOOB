@@ -4,10 +4,9 @@ import aplicacion.*;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
+
 import java.io.*;
 
-import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -26,11 +25,15 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 	private BoardJuego tableroJuego;
 	private Clip c;
 	private DonkeyPoob juego;
-	private int p=0;
+	
 	private Thread t;
-	public int k;
+	
 	private boolean j1Up, j1Down, j1Right, j1Left, j2Up;
-	private boolean invertir=false;
+	
+	private boolean[] elementos=new boolean[]{false,false,false,false,false,false};
+	private boolean[] barriles=new boolean[]{false,false,false,false};
+	private boolean[] aspectoMario=new boolean[]{false,false};
+
 	private DonkeyPoobGUI(){
 		super("Donkey Poob");
 		prepareElementos();
@@ -76,10 +79,12 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 		tableroInicio.jugador1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					prepareElementosJuego(1);
+					tableroInicio.prepareElementosSeleccion();
 				} catch (IOException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				prepareAccionesSeleccionar();
 			}
 		});
 	}
@@ -90,6 +95,100 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 				prepareAcciones();
 			}
 		});
+	}
+	public void prepareAccionesSeleccionar() {
+		tableroInicio.start.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					prepareElementosJuego(1);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		tableroInicio.goBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tableroInicio.fondo=tableroInicio.fondoInit;
+				tableroInicio.prepareElementosInicio();
+				prepareAcciones();
+			}
+		});
+		tableroInicio.hongo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(elementos[0]==false) 
+				{elementos[0]=true;}else {elementos[0]=false;}
+			}
+		});
+		tableroInicio.soga.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(elementos[1]==false) 
+				{elementos[1]=true;}else {elementos[1]=false;}
+			}
+		});
+		tableroInicio.martillo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(elementos[2]==false) 
+				{elementos[2]=true;}else {elementos[2]=false;}
+			}
+		});
+		tableroInicio.cereza.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(elementos[3]==false) 
+				{elementos[3]=true;}else {elementos[3]=false;}
+			}
+		});
+		tableroInicio.corazon.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(elementos[4]==false) 
+				{elementos[4]=true;}else {elementos[4]=false;}
+			}
+		});
+		tableroInicio.manzana.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(elementos[5]==false) 
+				{elementos[5]=true;}else {elementos[5]=false;}
+				
+			}
+		});
+		tableroInicio.marioRojo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				aspectoMario[0]=true;
+				aspectoMario[1]=false;
+			}
+		});
+		tableroInicio.marioVerde.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				aspectoMario[0]=false;
+				aspectoMario[1]=true;
+			}
+		});
+		tableroInicio.barrilAzul.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(barriles[0]==false) 
+				{barriles[0]=true;}else {barriles[0]=false;}
+			}
+		});
+		tableroInicio.barrilAmarillo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(barriles[1]==false) 
+				{barriles[1]=true;}else {barriles[1]=false;}
+			}
+		});
+		tableroInicio.barrilVerde.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(barriles[2]==false) 
+				{barriles[2]=true;}else {barriles[2]=false;}
+			}
+		});
+		tableroInicio.barrilRojo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(barriles[3]==false) 
+				{barriles[3]=true;}else {barriles[3]=false;}
+			}
+		});
+	
+		
 	}
 	public void cerrar(){
 		int res = JOptionPane.showConfirmDialog(null,"Desea salir", "Atencion!", JOptionPane.YES_NO_OPTION);
@@ -107,16 +206,17 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 	 public void prepararElementosTablero() {
 		 	layout = new CardLayout();	       
 			principal = new JPanel(layout);
-			tableroInicio = new Tablero(Tablero.fondoInit);
+			tableroInicio = new Tablero(Tablero.root);
 			add(principal);
 			principal.add(tableroInicio, "tini");
 			layout.show(principal, "tini");
 			sonidoIntro();
 	 }
 	 private void prepareElementosJuego(int players) throws IOException{
-			tableroJuego = new BoardJuego(players,k);
-			juego=new DonkeyPoob(tableroJuego.k1);
+			tableroJuego = new BoardJuego(players);
+			juego=new DonkeyPoob(tableroJuego.k1,barriles,elementos,aspectoMario);
 			prepareElementosJuego();
+			
 			t = new Thread(this);
 			principal.add(tableroJuego, "tjue");
 			layout.show(principal, "tjue");
@@ -125,12 +225,7 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 			
 			
 		}
-	 private void prepareJugadores(){
-
-				actualizarJugadores();
-			
-		}
-		
+	
 	 private void sonidoIntro(){
 			try{
 				InputStream is = DonkeyPoobGUI.class.getResourceAsStream("/sonidos/title.wav");
@@ -218,7 +313,7 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 			if(keyCode == KeyEvent.VK_RIGHT) j1Right = false;
 			if(keyCode == KeyEvent.VK_LEFT) j1Left = false;
 			if(keyCode==KeyEvent.VK_SPACE ) j2Up=false;
-			juego.Jugadornormal(0);
+			
 				
 			
 		}

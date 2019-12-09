@@ -10,19 +10,24 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Tablero extends JPanel{
-	public static final String fondoInit = "resources/fondo2.png";
-	private BufferedImage fondo;
+	public BufferedImage fondoInit;
+	public static String root= "resources/fondo2.png";
+	public BufferedImage fondo;
 	protected JButton jugador1, jugador2 ,abrir,controles, salir, JvsD, JvsJ, JvsM, JvsM2 ,playM, playK, goBack,imagencontrol;
+	protected JButton start,back;
+	protected JButton hongo,soga,martillo,cereza,manzana,corazon,marioRojo,marioVerde,barrilAzul,barrilRojo,barrilAmarillo,barrilVerde;
 	public Tablero(String root){
 		super(null);
 		prepareElementosInicio();
 		
 		try{
+			fondoInit = ImageIO.read(new File("resources/fondo2.png"));
 			fondo = ImageIO.read(new File(root));
 		}catch(IOException e){
 			e.printStackTrace();
 		}
 	}
+	
 	public void prepareElementosInicio(){
 		removeAll();
 		
@@ -35,10 +40,60 @@ public class Tablero extends JPanel{
 		add(controles);
 		salir = new Boton("salir", 300, 515);
 		add(salir);
-
+		
 		
 		 
 		repaint();
+	}
+	public void prepareElementosSeleccion() throws IOException {
+		removeAll();
+		fondo=ImageIO.read(new File("resources/seleccione.png"));
+		hongo = new Boton("hongo",284,120,40,40);
+		add(hongo);
+		
+		soga = new Boton("soga",334,120);
+		add(soga);
+		
+		martillo = new Boton("martillo1",384,120,40,40);
+		add(martillo);
+		
+		cereza = new Boton("cereza",434,120,40,40);
+		add(cereza);
+		
+		corazon = new Boton("corazon",484,120,40,40);
+		add(corazon);
+		
+		manzana = new Boton("manzana",534,120,40,40);
+		add(manzana);
+		
+		marioRojo = new Boton("MarioCorriendoDerecha", 381, 368,40,40);
+		add(marioRojo);
+		
+		marioVerde = new Boton("MarioCorriendoDerechaVerde", 441,368,40,40);
+		add(marioVerde);
+		
+		barrilAzul= new Boton("barrilAzul20", 334, 200,40,40);
+		add(barrilAzul);
+		
+		barrilRojo= new Boton("barrilRojo", 384, 200,40,40);
+		add(barrilRojo); 
+		
+		barrilVerde= new Boton("barrilVerdeee", 434, 200,40,40);
+		add(barrilVerde);
+		
+		barrilAmarillo= new Boton("barril", 484, 200,40,40);
+		add(barrilAmarillo);
+		
+		start =new Boton("Start",480,480,200,80);
+		add(start);
+		
+		goBack = new Boton("back",210,480,200,80);
+		add(goBack);
+		
+		repaint();
+		
+		
+		
 	}
 	public void prepareElementosControl() {
 		removeAll();
