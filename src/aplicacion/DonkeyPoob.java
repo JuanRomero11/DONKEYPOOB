@@ -811,6 +811,36 @@ public class DonkeyPoob{
 		// TODO Auto-generated method stub
 		return princesa;
 	}
-	
+	public void barrilesParaJugar(int[] barriles)throws DonkeyPoobException {
+		int[] barrilesNivel = convertir(barriles);
+		if (barrilesNivel.length == 0) {
+			throw new DonkeyPoobException(DonkeyPoobException.SIN_BARRIL);
+		
+		}
+	}
+	public void sorpresasParaJugar(int[] sorpresas)throws DonkeyPoobException {
+		int[] sorpresasNivel = convertir(sorpresas);
+		if (sorpresasNivel.length == 0) {
+			throw new DonkeyPoobException(DonkeyPoobException.SIN_SORPRESAS);
+		
+		}
+	}
+	public int[] convertir(int[] objetos) {
+		int cantidad = 0;
+		for(int i  = 0; i < objetos.length; i++) {
+			if (objetos[i]==1) {
+				cantidad++;
+			}
+		}
+		int[] barrilesNivel = new int[cantidad];
+		int posicion = 0;
+		for(int i  = 0; i < objetos.length; i++) {
+			if (objetos[i]==1) {
+				objetos[posicion]= i+1;
+				posicion++;
+			}
+		}
+		return barrilesNivel;
+	}
   
 }
