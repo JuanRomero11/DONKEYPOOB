@@ -192,7 +192,6 @@ public class DonkeyPoob{
 	        barriles.add(gota);
 		}
 		if(UnbarrilDisponible()) {
-		
 		 if(barriles.get(barriles.size()-1).getY()>191){
 		
 			
@@ -263,7 +262,7 @@ public class DonkeyPoob{
 			}
 		}
 		if(r==barrilesDisponibles.length) todos=false;
-		return false;
+		return todos;
 	}
 
 	/*
