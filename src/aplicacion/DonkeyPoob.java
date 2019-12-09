@@ -35,15 +35,16 @@ public class DonkeyPoob{
 	public boolean Escalando=false;
 	public boolean enMovimiento=true;
 	public boolean martillando=false;
+	public int esc;
 	
 	
-	public DonkeyPoob() throws IOException{
+	public DonkeyPoob(int escenario) throws IOException{
+		esc=escenario;
 		prepareDonkeyPrincesa();
 		preparePlataformas();
 		prepareBarriles();
 		prepareJugadores();
 		prepareEscaleras();
-		
 		int k=(int) (Math.random()*3+1);
 		for(int i=0;i<k;i++) {
 		
@@ -88,7 +89,7 @@ public class DonkeyPoob{
 	private Elemento elementoAzar() {
 		int lona= (int) Math.random()*plataforma.size()+2;
 		
-		int k=(int) (Math.random()*5);
+		int k=(int) (Math.random()*6);
 		Elemento cualquiera = null;
 		if(k==0) {
 			 cualquiera=new Martillo(plataforma.get(lona).getInferior()[0],plataforma.get(2).getInferior()[1]+40,"martillo");
@@ -105,6 +106,9 @@ public class DonkeyPoob{
 		}else if(k==4){
 			cualquiera= new Manzana(plataforma.get(lona).getInferior()[0],plataforma.get(3).getInferior()[1]+40,"manzana");
 		  
+		}else if(k==5){
+			cualquiera= new Soga(plataforma.get(lona).getInferior()[0],plataforma.get(3).getInferior()[1]+40,"cuerda");
+		  
 		}
 		return cualquiera;
 	}
@@ -112,34 +116,87 @@ public class DonkeyPoob{
 	/*
 	 * Crea las escaleras tanto de los Jugadores como de los barriles y guarda sus respectivas coordenadas
 	 */
-	private void prepareEscaleras() {
-		EscaleraBarril nueva =new EscaleraBarril(217,251,570,470);
-		EscaleraMario nuevaUno =new EscaleraMario(624,653,570,471);	
-		EscaleraMario nuevaDos =new EscaleraMario(92,122,490,391);
-		EscaleraBarril nuevaTres =new EscaleraBarril(303,332,490,390);
-		EscaleraBarril nuevaCuatro =new EscaleraBarril(144,171,410,309);
-		EscaleraMario nuevaCinco =new EscaleraMario(377,408,410,310);
-		EscaleraMario nuevaSeis =new EscaleraMario(602,630,410,310);
-		EscaleraMario nuevaSiete =new EscaleraMario(72,104,329,230);
-		EscaleraMario nuevaOcho =new EscaleraMario(203,235,329,230);
-		EscaleraBarril nuevaNueve =new EscaleraBarril(579,610,329,229);
-		EscaleraBarril nuevaDiez =new EscaleraBarril(243,281,249,170);
-		EscaleraMario nuevaOnce =new EscaleraMario(598,626,249,172);
-		EscaleraMario nuevaDoce =new EscaleraMario(186,212,191,102);
-		escaleras = new ArrayList<Escalera>();
-		escaleras.add(nueva);
-		escaleras.add(nuevaUno);
-		escaleras.add(nuevaDos);
-		escaleras.add(nuevaTres);
-		escaleras.add(nuevaCuatro);
-		escaleras.add(nuevaCinco);
-		escaleras.add(nuevaSeis);	
-		escaleras.add(nuevaSiete);
-		escaleras.add(nuevaOcho);
-		escaleras.add(nuevaNueve);
-		escaleras.add(nuevaDiez);
-		escaleras.add(nuevaOnce);
-		escaleras.add(nuevaDoce);
+	public void prepareEscaleras() {
+		System.out.println(esc+""+"www");
+		if(esc==0) {
+			EscaleraMario nuevaUnos =new EscaleraMario(338,364,570,470);
+			EscaleraBarril nuevas =new EscaleraBarril(510,539,570,470);
+			EscaleraMario nuevaDoss =new EscaleraMario(664,691,491,387);
+			EscaleraBarril nuevaTres =new EscaleraBarril(306,334,490,387);
+			EscaleraMario nuevaCuatro =new EscaleraMario(94,122,490,387);
+			EscaleraBarril nuevaCinco =new EscaleraBarril(149,171,413,309);
+			EscaleraMario nuevaSeis =new EscaleraMario(602,629,411,309);
+			EscaleraBarril nuevaSiete =new EscaleraBarril(579,609,329,228);
+			EscaleraMario nuevaOcho =new EscaleraMario(76,104,330,228);
+			EscaleraMario nuevaNueve =new EscaleraMario(599,623,251,168);
+			EscaleraMario nuevaDiez =new EscaleraMario(429,453,189,103);
+			escaleras = new ArrayList<Escalera>();
+			escaleras.add(nuevaUnos);
+			escaleras.add(nuevas);
+			escaleras.add(nuevaDoss);
+			escaleras.add(nuevaTres);
+			escaleras.add(nuevaCuatro);
+			escaleras.add(nuevaCinco);
+			escaleras.add(nuevaSeis);
+			escaleras.add(nuevaSiete);
+			escaleras.add(nuevaOcho);
+			escaleras.add(nuevaNueve);
+			escaleras.add(nuevaDiez);
+		}
+		else if(esc==1) {
+			EscaleraBarril nueva =new EscaleraBarril(217,251,570,470);
+			EscaleraMario nuevaUno =new EscaleraMario(624,653,570,471);	
+			EscaleraMario nuevaDos =new EscaleraMario(92,122,490,391);
+			EscaleraBarril nuevaTres =new EscaleraBarril(303,332,490,390);
+			EscaleraBarril nuevaCuatro =new EscaleraBarril(144,171,410,309);
+			EscaleraMario nuevaCinco =new EscaleraMario(377,408,410,310);
+			EscaleraMario nuevaSeis =new EscaleraMario(602,630,410,310);
+			EscaleraMario nuevaSiete =new EscaleraMario(72,104,329,230);
+			EscaleraMario nuevaOcho =new EscaleraMario(203,235,329,230);
+			EscaleraBarril nuevaNueve =new EscaleraBarril(579,610,329,229);
+			EscaleraBarril nuevaDiez =new EscaleraBarril(243,281,249,170);
+			EscaleraMario nuevaOnce =new EscaleraMario(598,626,249,172);
+			EscaleraMario nuevaDoce =new EscaleraMario(186,212,191,102);
+			escaleras = new ArrayList<Escalera>();
+			escaleras.add(nueva);
+			escaleras.add(nuevaUno);
+			escaleras.add(nuevaDos);
+			escaleras.add(nuevaTres);
+			escaleras.add(nuevaCuatro);
+			escaleras.add(nuevaCinco);
+			escaleras.add(nuevaSeis);	
+			escaleras.add(nuevaSiete);
+			escaleras.add(nuevaOcho);
+			escaleras.add(nuevaNueve);
+			escaleras.add(nuevaDiez);
+			escaleras.add(nuevaOnce);
+			escaleras.add(nuevaDoce);
+		}else if(esc==2) {
+			EscaleraMario nuevaUno =new EscaleraMario(519,546,570,471);
+			EscaleraMario nuevaDos =new EscaleraMario(632,659,489,389);
+			EscaleraBarril nuevaTres =new EscaleraBarril(305,333,489,389);
+			EscaleraMario nuevaCuatro =new EscaleraMario(95,122,489,389);
+			EscaleraBarril nuevaCinco =new EscaleraBarril(145,161,410,310);
+			EscaleraMario nuevaSeis =new EscaleraMario(379,407,410,310);
+			EscaleraMario nuevaSiete =new EscaleraMario(580,612,328,228);
+			EscaleraMario nuevaOcho =new EscaleraMario(76,103,328,228);
+			EscaleraMario nuevaNueve =new EscaleraMario(350,375,251,169);
+			EscaleraMario nuevaDiez =new EscaleraMario(430,454,190,427);
+			
+			escaleras = new ArrayList<Escalera>();
+			escaleras.add(nuevaUno);
+			escaleras.add(nuevaDos);
+			escaleras.add(nuevaTres);
+			escaleras.add(nuevaCuatro);
+			escaleras.add(nuevaCinco);
+			escaleras.add(nuevaSeis);
+			escaleras.add(nuevaSiete);
+			escaleras.add(nuevaOcho);
+			escaleras.add(nuevaNueve);
+			escaleras.add(nuevaDiez);
+			
+		}
+		
 
 	}
 	
@@ -300,6 +357,7 @@ public class DonkeyPoob{
 	 * Realiza el movimiento hacia la izquierda del Jugador o los Jugadores 	
 	 */
   	public void JugadorNLeft(int n){
+  		System.out.println(esc);
   		validarElementos(Jugadores.get(n)) ;
   		validarJugador(Jugadores.get(n));
   		validarPrincesa(Jugadores.get(n));
@@ -501,7 +559,13 @@ public class DonkeyPoob{
 			martillando=true;
 			time = System.nanoTime();
 			time_x_ronda = segundo*30;
+		}else if(elemento instanceof Soga) {
+			if(!EstaEnLona(Jugadores.get(0))) {
+				Jugadores.get(0).setY(Jugadores.get(0).getY()-70);
+			}
+			
 		}
+		
 		
 	}
 	

@@ -28,7 +28,7 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 	private DonkeyPoob juego;
 	private int p=0;
 	private Thread t;
-	
+	public int k;
 	private boolean j1Up, j1Down, j1Right, j1Left, j2Up;
 	private boolean invertir=false;
 	private DonkeyPoobGUI(){
@@ -114,10 +114,9 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 			sonidoIntro();
 	 }
 	 private void prepareElementosJuego(int players) throws IOException{
-			tableroJuego = new BoardJuego(players);
-			juego=new DonkeyPoob();
+			tableroJuego = new BoardJuego(players,k);
+			juego=new DonkeyPoob(tableroJuego.k1);
 			prepareElementosJuego();
-			
 			t = new Thread(this);
 			principal.add(tableroJuego, "tjue");
 			layout.show(principal, "tjue");
