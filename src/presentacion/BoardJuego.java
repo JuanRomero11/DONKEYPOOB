@@ -24,8 +24,9 @@ public class BoardJuego extends JPanel{
 	public int k1;
 	public BoardJuego(int n) throws IOException {
 		int k2=(int) (Math.random()*3);
+		plataforms=new Sprite(0,0,true,746,600);
 		if(k2==1) {
-			plataforms=new Sprite(0,0,true,746,600);
+			//plataforms=new Sprite(0,0,true,746,600);
 			if(n>=2) {
 				plataforms.setRoot("fondoJuego12");
 			}else {
@@ -33,7 +34,7 @@ public class BoardJuego extends JPanel{
 			}
 			
 		}else if(k2==0) {
-			plataforms=new Sprite(0,0,true,746,600);
+			//plataforms=new Sprite(0,0,true,746,600);
 			if(n>=2) {
 			plataforms.setRoot("fondoJuego02");
 			}else {
@@ -41,7 +42,7 @@ public class BoardJuego extends JPanel{
 			}
 		}else if(k2==2) {
 			if(n>=2) {
-				plataforms=new Sprite(0,0,true,746,600);
+				//plataforms=new Sprite(0,0,true,746,600);
 				plataforms.setRoot("fondoJuego22");
 			}else {
 				plataforms.setRoot("fondoJuego2");

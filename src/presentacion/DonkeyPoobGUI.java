@@ -25,7 +25,10 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 	private BoardJuego tableroJuego;
 	private Clip c;
 	public static DonkeyPoob juego;
-	
+	private JMenuBar barraMenu;
+	private JMenu menu;
+	private JMenuItem nuevo, abrir, guardar, salir, importar;
+	private Icon icono;
 	private Thread t;
 	
 	private boolean j1Up, j1Down, j1Right, j1Left, j2Up;
@@ -50,6 +53,27 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 		setResizable(false);
 		setLocationRelativeTo(null);
 		prepararElementosTablero();
+		prepareElementosMenu();
+	}
+	private void prepareElementosMenu() {
+		barraMenu = new JMenuBar();
+		menu = new JMenu("Menu");
+		nuevo = new JMenuItem("Nuevo");
+		abrir = new JMenuItem("Abrir");
+		guardar = new JMenuItem("Guardar");
+		salir = new JMenuItem("Salir");
+		importar = new JMenuItem("Importar");
+		menu.add(nuevo);
+		menu.addSeparator();
+		menu.add(abrir);
+		menu.addSeparator();
+		menu.add(guardar);
+		menu.addSeparator();
+		menu.add(importar);
+		menu.addSeparator();
+		menu.add(salir);
+		barraMenu.add(menu);
+		setJMenuBar(barraMenu);
 	}
 	public void refresque(){
         this.revalidate();
@@ -59,6 +83,11 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 		tableroInicio.salir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cerrar();
+			}
+		});
+		guardar.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				guardar();
 			}
 		});
 		tableroInicio.controles.addActionListener(new ActionListener() {
@@ -239,7 +268,7 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 			t = new Thread(this);
 			principal.add(tableroJuego, "tjue");
 			layout.show(principal, "tjue");
-			setSize(new Dimension(740,620));
+			setSize(new Dimension(740,660));
 			t.start();
 			
 			
@@ -287,8 +316,25 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 			e.printStackTrace();
 		}
 		}
+	 private void guardar() {
+			if(juego == null) {
+				JOptionPane.showMessageDialog(null, DonkeyPoobException.SIN_JUEGO, "cuidado!", JOptionPane.WARNING_MESSAGE, icono);
+			}else {
+				JFileChooser chooser = new JFileChooser();
+				chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+				int result = chooser.showSaveDialog(this);
+				if (result == JFileChooser.APPROVE_OPTION) {
+					File f = new File("./"+chooser.getSelectedFile().getName()+".dat");
+					try {
+						juego.salvar(f);
+					}catch(DonkeyPoobException e) {
+						JOptionPane.showMessageDialog(null, e.getMessage(), "。uidado!", JOptionPane.WARNING_MESSAGE, icono);
+					}
+				}
+			}
+		}
 	 private void actualizarScore() {
-			if(juego.puntajes().length>=2) {
+			if(juego.puntajes().length>=3) {
 				tableroJuego.setScore(0, juego.puntajes()[0]);
 				tableroJuego.setScore(1, juego.puntajes()[1]);
 				tableroJuego.setScore(2, juego.puntajes()[2]);
@@ -494,5 +540,6 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 			}
 		
 	 }
-	
+	 
+		
 }

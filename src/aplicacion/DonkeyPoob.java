@@ -13,7 +13,7 @@ import presentacion.DonkeyPoobGUI;
 public class DonkeyPoob{
 	public static final int PLATAFORMA_X_NIVEL = 7;         
 	public ArrayList<Plataforma> plataforma; 
-	
+	private static DonkeyPoob juego = null;
 	public ArrayList<Barril> barriles=new ArrayList<Barril>();
 	public ArrayList<Elemento> elementos=new ArrayList<Elemento>();
 	private boolean visible=true;
@@ -827,7 +827,50 @@ public class DonkeyPoob{
 		// TODO Auto-generated method stub
 		return princesa;
 	}
-
+	public void barrilesParaJugar(int[] barriles)throws DonkeyPoobException {
+		int[] barrilesNivel = convertir(barriles);
+		if (barrilesNivel.length == 0) {
+			throw new DonkeyPoobException(DonkeyPoobException.SIN_BARRIL);
+		
+		}
+	}
+	public void sorpresasParaJugar(int[] sorpresas)throws DonkeyPoobException {
+		int[] sorpresasNivel = convertir(sorpresas);
+		if (sorpresasNivel.length == 0) {
+			throw new DonkeyPoobException(DonkeyPoobException.SIN_SORPRESAS);
+		
+		}
+	}
+	public int[] convertir(int[] objetos) {
+		int cantidad = 0;
+		for(int i  = 0; i < objetos.length; i++) {
+			if (objetos[i]==1) {
+				cantidad++;
+			}
+		}
+		int[] barrilesNivel = new int[cantidad];
+		int posicion = 0;
+		for(int i  = 0; i < objetos.length; i++) {
+			if (objetos[i]==1) {
+				objetos[posicion]= i+1;
+				posicion++;
+			}
+		}
+		return barrilesNivel;
+	}
+	public void salvar (File archivo) throws DonkeyPoobException {
+		if (juego == null) {
+			//throw new DonkeyPoobException(DonkeyPoobException.SIN_JUEGO);
+		}
+		try{
+			ObjectOutputStream out = new ObjectOutputStream( new FileOutputStream(archivo));
+			out.writeObject(juego);
+			out.close();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+	}
 	
 	
   
