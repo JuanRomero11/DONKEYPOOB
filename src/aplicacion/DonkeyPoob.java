@@ -331,7 +331,7 @@ public class DonkeyPoob{
      * Retorna una Jugador en una posicion dada de su Arraylist
      * @return
      */
-    public Jugador getJugador(int i){
+    public static Jugador getJugador(int i){
 		return Jugadores.get(i);
 	}
     
