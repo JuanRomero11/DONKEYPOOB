@@ -13,7 +13,7 @@ public class Tablero extends JPanel{
 	public BufferedImage fondoInit;
 	public static String root= "resources/fondo2.png";
 	public BufferedImage fondo;
-	protected JButton jugador1, jugador2 ,abrir,controles, salir, JvsD, JvsJ, JvsM, JvsM2 ,playM, playK, goBack,imagencontrol;
+	protected JButton jugador1, jugador2 ,abrir,controles, salir, JvsM1, JvsJ, JvsM, JvsM2 ,playM, playK, goBack,imagencontrol;
 	protected JButton start,back;
 	protected JButton hongo,soga,martillo,cereza,manzana,corazon,marioRojo,marioVerde,barrilAzul,barrilRojo,barrilAmarillo,barrilVerde;
 	public Tablero(String root){
@@ -45,6 +45,7 @@ public class Tablero extends JPanel{
 		 
 		repaint();
 	}
+	
 	public void prepareElementosSeleccion() throws IOException {
 		removeAll();
 		fondo=ImageIO.read(new File("resources/seleccione.png"));
@@ -105,18 +106,23 @@ public class Tablero extends JPanel{
 	}
 	
 	
-	public void prepareElementos2J(){
+	public void prepareElementos2J() throws IOException{
+		
 		removeAll();
+		
 		JvsJ = new Boton("JvsJ", 340, 300);
 		add(JvsJ);
 		
-		JvsM = new Boton("JvsM", 340, 360);
+		JvsM= new Boton("JvsM", 340, 360);
 		add(JvsM);
 		JvsM2 = new Boton("JvsM2",340,420);
 		add(JvsM2);
+		JvsM1= new Boton("JvsM1", 340, 480);
+		add(JvsM1);
 		
-		goBack = new Boton("atras", 320, 540);
+		goBack = new Boton("back", 320, 540);
 		add(goBack);
+		
 		repaint();
 	}
 	public void paintComponent(Graphics g) {

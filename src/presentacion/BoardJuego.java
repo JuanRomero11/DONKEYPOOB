@@ -20,25 +20,53 @@ public class BoardJuego extends JPanel{
 	private ArrayList<Sprite> jugadores;
 	private ArrayList<Sprite> elementos;
 	private ArrayList<String> scores;
-	protected Boton reiniciar;
+	protected Boton reiniciar,guardar,abrir;
 	public int k1;
 	public BoardJuego(int n) throws IOException {
 		int k2=(int) (Math.random()*3);
 		if(k2==1) {
 			plataforms=new Sprite(0,0,true,746,600);
-			plataforms.setRoot("fondoJuego1");
+			if(n>=2) {
+				plataforms.setRoot("fondoJuego12");
+			}else {
+				plataforms.setRoot("fondoJuego1");
+			}
+			
 		}else if(k2==0) {
 			plataforms=new Sprite(0,0,true,746,600);
-			plataforms.setRoot("fondoJuego0");
+			if(n>=2) {
+			plataforms.setRoot("fondoJuego02");
+			}else {
+				plataforms.setRoot("fondoJuego0");
+			}
 		}else if(k2==2) {
-			plataforms=new Sprite(0,0,true,746,600);
-			plataforms.setRoot("fondoJuego2");
+			if(n>=2) {
+				plataforms=new Sprite(0,0,true,746,600);
+				plataforms.setRoot("fondoJuego22");
+			}else {
+				plataforms.setRoot("fondoJuego2");
+			}
 		}
-		
+		if(n==2) {
+			Sprite Mario=new Sprite(2,550,true,20,20);
+			Mario.setRoot("MarioDerecha");
+			Sprite luigi=new Sprite(2,550,true,20,20);
+			luigi.setRoot("MarioDerecha");
+			jugadores =new ArrayList<Sprite>();
+			jugadores.add(Mario);
+			jugadores.add(luigi);
+			this.k1=k2;
+		}else {
+			Sprite Mario=new Sprite(2,550,true,20,20);
+			Mario.setRoot("MarioDerecha");
+			
+			jugadores =new ArrayList<Sprite>();
+			jugadores.add(Mario);
+			
+			this.k1=k2;
+		}
 		scores = new ArrayList<String>();
 		addScore();
-		
-		
 		elementos= new ArrayList<Sprite> ();
 		Sprite BarrilUno=new Sprite(0,211,true,20,20);
 		BarrilUno.setRoot("barril");
@@ -46,26 +74,29 @@ public class BoardJuego extends JPanel{
 		barriles.add(BarrilUno);
 		
 		
-		
-		Sprite Mario=new Sprite(2,550,true,20,20);
-		Mario.setRoot("MarioDerecha");
-		jugadores =new ArrayList<Sprite>();
-		jugadores.add(Mario);
-		this.k1=k2;
-		
 	}
 	public void End(String boton){
 		if(boton.equals("gano")) {
 			reiniciar = new Boton("winner", 10, 70);  add(reiniciar);
+			
 			repaint();
 		}else {
+			
 			reiniciar = new Boton("restart", 10, 70);  add(reiniciar);
 			repaint();
 		}
 	}
 	public void addScore(){
-		scores.add("1");
-		scores.add("0");
+		if(jugadores.size()>=2) {
+			scores.add("1");
+			scores.add("0");
+			scores.add("1");
+			scores.add("0");
+		}else {
+			scores.add("1");
+			scores.add("0");
+		}
+		
 	}
 	public void setScore(int n,int i) {
 		scores.set(n, Integer.toString(i));
@@ -76,11 +107,26 @@ public class BoardJuego extends JPanel{
         plataforms.paint((Graphics2D) g);
         donkey.paint((Graphics2D) g);
         princesa.paint((Graphics2D) g);
-        g.setFont(new Font("Tahoma", Font.BOLD, 20));
-        g.setColor(Color.RED);
-        g.drawString(scores.get(0),420 ,40);
-        g.setColor(Color.white);
-        g.drawString(scores.get(1), 650, 55);
+        if(jugadores.size()==1) {
+        	 g.setFont(new Font("Tahoma", Font.BOLD, 20));
+             g.setColor(Color.RED);
+             
+             g.drawString(scores.get(0),420 ,40);
+             g.setColor(Color.white);
+             g.drawString(scores.get(1), 650, 55);
+        }else {
+        	g.setFont(new Font("Tahoma", Font.BOLD, 20));
+            g.setColor(Color.RED);
+            
+            g.drawString(scores.get(0),453 ,35);
+            g.setColor(Color.white);
+            g.drawString(scores.get(1), 598,45);
+            g.setColor(Color.RED);
+            g.drawString(scores.get(0),458 ,85);
+            g.setColor(Color.white);
+            g.drawString(scores.get(1), 598, 93);
+        }
+       
       
         for(Sprite s:barriles) {
         	s.paint((Graphics2D) g);

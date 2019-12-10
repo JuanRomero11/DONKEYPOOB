@@ -23,26 +23,26 @@ public class DonkeyPoob{
 	private long time;
 	private long time_x_ronda;
 	
-	public ArrayList<Jugador> Jugadores=new ArrayList<Jugador>();
+	public static ArrayList<Jugador> Jugadores=new ArrayList<Jugador>();
 	private  ArrayList<Escalera> escaleras=new ArrayList<Escalera>();
 	//donkeykong
 	public Personaje Donkey,princesa;
 	//acabo
 	public boolean termino;
 	//Jugador
-	public boolean jumping=false;
-	public boolean enAire=false;
-	public boolean Escalando=false;
-	public boolean enMovimiento=true;
-	public boolean martillando=false;
+	
+	
+	
 	private boolean[] elementosDisponibles;
 	private boolean[] barrilesDisponibles;
 	private boolean[] aspectoMario;
+	public int players;
 	
-	public DonkeyPoob(int escenario,boolean[] barriles,boolean[] elementos, boolean[] jugadores) throws IOException{
+	public DonkeyPoob(int escenario,boolean[] barriles,boolean[] elementos, boolean[] jugadores,int players) throws IOException{
 		this.elementosDisponibles=elementos;
 		this.barrilesDisponibles=barriles;
 		this.aspectoMario=jugadores;
+		this.players=players;
 		prepareDonkeyPrincesa();
 		preparePlataformas();
 		prepareBarriles();
@@ -161,16 +161,26 @@ public class DonkeyPoob{
 	 * Crea el o los Jugadores 
 	 */
 	private void prepareJugadores() {
-		if(aspectoMario[0]) {
-			Jugador mario= new Jugador(2,550,"Rojo"); 
-			Jugadores.add(mario);
-		}else if(aspectoMario[1]){
-			Jugador mario= new Jugador(2,550,"Verde"); 
-			Jugadores.add(mario);
+		if(players==1) {
+			if(aspectoMario[0]) {
+				Jugador mario= new Jugador(2,550,"Rojo"); 
+				Jugadores.add(mario);
+			}else if(aspectoMario[1]){
+				Jugador mario= new Jugador(2,550,"Verde"); 
+				Jugadores.add(mario);
+			}else {
+				Jugador mario= new Jugador(2,550,"Rojo"); 
+				Jugadores.add(mario);
+			}
 		}else {
-			Jugador mario= new Jugador(2,550,"Rojo"); 
-			Jugadores.add(mario);
+
+					Jugador mario= new Jugador(40,550,"Rojo"); 
+					Jugador Luigi= new Jugador(2,550,"Verde"); 
+					Jugadores.add(mario);
+					Jugadores.add(Luigi);
+				
 		}
+		
 		
 		
 	}
@@ -332,18 +342,18 @@ public class DonkeyPoob{
      */
   	public void JugadorNUp(int n){ 	
   		validarElementos(Jugadores.get(n)) ;
-  		if(System.nanoTime() -time > time_x_ronda) martillando=false;
-  		if(jumping && Jugadores.get(n).validarSalto() && !Escalando && !enAire) {
+  		if(System.nanoTime() -time > time_x_ronda) Jugadores.get(n).martillando=false;
+  		if(Jugadores.get(n).jumping && Jugadores.get(n).validarSalto() && !Jugadores.get(n).Escalando && !Jugadores.get(n).enAire) {
   			
   			
   			Jugadores.get(n).moveUp();
   			
-  			jumping=Jugadores.get(n).validarSalto();  			
-  		}if(enAire) {
-  			jumping=false;
-  		}if(Escalando) {
-  			jumping=false;
-  			enAire=false;
+  			Jugadores.get(n).jumping=Jugadores.get(n).validarSalto();  			
+  		}if(Jugadores.get(n).enAire) {
+  			Jugadores.get(n).jumping=false;
+  		}if(Jugadores.get(n).Escalando) {
+  			Jugadores.get(n).jumping=false;
+  			Jugadores.get(n).enAire=false;
   		}
   		}
   	
@@ -354,14 +364,14 @@ public class DonkeyPoob{
   		validarElementos(Jugadores.get(n)) ;
   		validarJugador(Jugadores.get(n));
   		validarPrincesa(Jugadores.get(n));
-  		if(System.nanoTime() -time > time_x_ronda) martillando=false;
-  		if(!EstaEnLona(Jugadores.get(n)) && !jumping && !Escalando ){
+  		if(System.nanoTime() -time > time_x_ronda) Jugadores.get(n).martillando=false;
+  		if(!EstaEnLona(Jugadores.get(n)) && !Jugadores.get(n).jumping && !Jugadores.get(n).Escalando ){
   			
   			Jugadores.get(n).moveDown(); 
-  			enAire=true;
+  			Jugadores.get(n).enAire=true;
   		}else if(Jugadores.get(n).validarSalto()  && !EstaEnLona(Jugadores.get(n))) {
-  			jumping=Jugadores.get(n).validarSalto();
-  			enAire= false;
+  			Jugadores.get(n).jumping=Jugadores.get(n).validarSalto();
+  			Jugadores.get(n).enAire= false;
   		}
   		
   		}
@@ -373,13 +383,13 @@ public class DonkeyPoob{
   		validarElementos(Jugadores.get(n)) ;
   		validarJugador(Jugadores.get(n));
   		validarPrincesa(Jugadores.get(n));
-  		if(System.nanoTime() -time > time_x_ronda) martillando=false;
-  		if(Jugadores.get(0).getX()>2) {
+  		if(System.nanoTime() -time > time_x_ronda) Jugadores.get(n).martillando=false;
+  		if(Jugadores.get(n).getX()>2) {
   			
   			if(!termino) {
   				JugadorNEscalar(n);
   				JugadorNDown(n);
-  				if(!martillando) {
+  				if(!Jugadores.get(n).martillando) {
   					if(!invertir) {
   	  	  	  	  		Jugadores.get(n).moveLeft();
   	  	  	  		}else {
@@ -409,10 +419,10 @@ public class DonkeyPoob{
 
   		for(int i=0;i<escaleras.size();i++) {
   			if(escaleras.get(i).getRoot().equals("EscaleraMario") && Jugadores.get(n).getX()>=escaleras.get(i).getPosicionesX()[0] && Jugadores.get(n).getX()<=escaleras.get(i).getPosicionesX()[1] && Jugadores.get(n).getY()<=escaleras.get(i).getPosicionesY()[0] && Jugadores.get(n).getY()>=escaleras.get(i).getPosicionesY()[1] ) {
-  				Escalando=true;
+  				Jugadores.get(n).Escalando=true;
   				Jugadores.get(n).setSubir();
-  				jumping=false;
-  				enAire=false;
+  				Jugadores.get(n).jumping=false;
+  				Jugadores.get(n).enAire=false;
   				Jugadores.get(n).moveUp();
   				break;
   			
@@ -420,8 +430,8 @@ public class DonkeyPoob{
   			
   			else if(i==escaleras.size()-1 && (!escaleras.get(i).getRoot().equals("EscaleraMario") || Jugadores.get(n).getX()<escaleras.get(i).getPosicionesX()[0] || Jugadores.get(n).getX()>escaleras.get(i).getPosicionesX()[1] ||  Jugadores.get(n).getY()>=escaleras.get(i).getPosicionesY()[0] || Jugadores.get(n).getY()<=escaleras.get(i).getPosicionesY()[1] )) {
   				
-  				Escalando=false;
-  				enAire=true;
+  				Jugadores.get(n).Escalando=false;
+  				Jugadores.get(n).enAire=true;
   				break;
   			}
   		}
@@ -438,19 +448,19 @@ public class DonkeyPoob{
   			}
   			else if(elementos.get(i).getX()>=Jugador.getX() && elementos.get(i).getX()<=Jugador.getX()+20 && elementos.get(i).getY()>=Jugador.getY() && elementos.get(i).getY()<=Jugador.getY()+20) {
   				
-  				activeElemento(elementos.get(i));
+  				activeElemento(elementos.get(i),Jugador);
   				elementos.get(i).setVisible(false);
   				
   				break;
   			}
   			else if((elementos.get(i).getX()+20>=Jugador.getX() && elementos.get(i).getX()+20<=Jugador.getX()+20 && elementos.get(i).getY()>=Jugador.getY() && elementos.get(i).getY()<=Jugador.getY()+20)) {
-  				activeElemento(elementos.get(i));
+  				activeElemento(elementos.get(i),Jugador);
   				elementos.get(i).setVisible(false);
   				
   				break;
   			}
   			else if((elementos.get(i).getX()<=Jugador.getX()+20 && elementos.get(i).getX()+20>=Jugador.getX()+20 && elementos.get(i).getY()>=Jugador.getY() && elementos.get(i).getY()<=Jugador.getY()+20)) {
-  				activeElemento(elementos.get(i));
+  				activeElemento(elementos.get(i),Jugador);
   				elementos.get(i).setVisible(false);
   				
   				break;
@@ -469,17 +479,17 @@ public class DonkeyPoob{
   				break;
   			}
   			if(barriles.get(i).getX()>=Jugador.getX() && barriles.get(i).getX()<=Jugador.getX()+20 && barriles.get(i).getY()>=Jugador.getY() && barriles.get(i).getY()<=Jugador.getY()+20) {
-  				activeBarril(barriles.get(i));
+  				activeBarril(barriles.get(i),Jugador);
   				
   				break;
   			}
   			else if((barriles.get(i).getX()+20>=Jugador.getX() && barriles.get(i).getX()+20<=Jugador.getX()+20 && barriles.get(i).getY()>=Jugador.getY() && barriles.get(i).getY()<=Jugador.getY()+20)) {
-  				activeBarril(barriles.get(i));
+  				activeBarril(barriles.get(i),Jugador);
   				
   				break;
   			}
   			else if((barriles.get(i).getX()<=Jugador.getX()+20 && barriles.get(i).getX()+20>=Jugador.getX()+20 && barriles.get(i).getY()>=Jugador.getY() && barriles.get(i).getY()<=Jugador.getY()+20)) {	
-  				activeBarril(barriles.get(i));
+  				activeBarril(barriles.get(i),Jugador);
   				
   				break;
   			}
@@ -494,15 +504,15 @@ public class DonkeyPoob{
   		
   			if(princesa.getX()>=Jugador.getX() && princesa.getX()<=Jugador.getX()+20 && princesa.getY()>=Jugador.getY() && princesa.getY()<=Jugador.getY()+20) {
   				termino=true;
-  				Jugadores.get(0).gano=1;
+  				Jugador.gano=1;
   			}
   			else if((princesa.getX()+20>=Jugador.getX() && princesa.getX()+20<=Jugador.getX()+20 && princesa.getY()>=Jugador.getY() && princesa.getY()<=Jugador.getY()+20)) {
   				termino=true;
-  				Jugadores.get(0).gano=1;
+  				Jugador.gano=1;
   			}
   			else if((princesa.getX()<=Jugador.getX()+20 && princesa.getX()+20>=Jugador.getX()+20 && princesa.getY()>=Jugador.getY() && princesa.getY()<=Jugador.getY()+20)) {	
   				termino=true;
-  				Jugadores.get(0).gano=1;
+  				Jugador.gano=1;
   			}
   			
   		
@@ -522,8 +532,8 @@ public class DonkeyPoob{
   	/*
   	 * Valida que barriles quitan o dan una vida o puntos
   	 */
-	private void activeBarril(Barril barril) {
-		if(martillando) {
+	private void activeBarril(Barril barril,Jugador jugador) {
+		if(jugador.martillando) {
 			if(barril instanceof BarrilVerde) {
 				Jugador.sumeVida(1);
 				barril.setVisible(false);
@@ -553,7 +563,7 @@ public class DonkeyPoob{
 	/*
 	 * Valida que hace cada sorpresa
 	 */
-	private void activeElemento(Elemento elemento) {
+	private void activeElemento(Elemento elemento,Jugador Jugador) {
 		if(elemento instanceof Corazon) {
 			Jugador.sumeVida(1);
 		}else if(elemento instanceof Cereza) {
@@ -568,7 +578,7 @@ public class DonkeyPoob{
 			}
 			
 		}else if(elemento instanceof Martillo) {
-			martillando=true;
+			Jugador.martillando=true;
 			time = System.nanoTime();
 			time_x_ronda = segundo*30;
 		}
@@ -579,7 +589,13 @@ public class DonkeyPoob{
 	 * Valida el puntaje del Jugador durante las rondas de la partida
 	 */
   	public int[] puntajes() {
-  		return new int[] {Jugador.vidas,Jugador.score};
+  		int[] lista;
+  		if(Jugadores.size()>=2) {
+  			lista=new int[] {Jugadores.get(0).vidas,Jugadores.get(0).score,Jugadores.get(1).vidas,Jugadores.get(1).score};
+  		}else {
+  			lista= new int[] {Jugadores.get(0).vidas,Jugadores.get(0).score};
+  		}
+  		return lista;
   	}
   	
   	/*
@@ -591,16 +607,16 @@ public class DonkeyPoob{
   		for(int i =0 ;i<plataforma.size();i++) {
     		if( Jugador.getY()==plataforma.get(i).getInferior()[1]-20 && Jugador.getX()>=plataforma.get(i).getInferior()[0] && Jugador.getX() <=plataforma.get(i).getSuperior()[0] ) {
     			bandera=true;
-    			enAire=false;
-    			jumping=false;
+    			Jugador.enAire=false;
+    			Jugador.jumping=false;
 
     			break;
     		}
     		else if(Jugador.getY()==plataforma.get(i).getInferior()[1]-20 && ( Jugador.getX()<plataforma.get(i).getInferior()[0] || Jugador.getX() >plataforma.get(i).getSuperior()[0] )){
     			bandera=false;
-    			jumping=false;
+    			Jugador.jumping=false;
     			break;
-    		}else if(Jugador.getY()!=plataforma.get(i).getInferior()[1]-20 && i==-1 && !jumping ){
+    		}else if(Jugador.getY()!=plataforma.get(i).getInferior()[1]-20 && i==-1 && !Jugador.jumping ){
     			bandera=false;
     			break;
     		}
@@ -614,13 +630,13 @@ public class DonkeyPoob{
 	public void JugadorNRight(int n){
 		validarElementos(Jugadores.get(n)) ;
 		validarJugador(Jugadores.get(n));
-		if(System.nanoTime() -time > time_x_ronda) martillando=false;
+		if(System.nanoTime() -time > time_x_ronda) Jugadores.get(n).martillando=false;
 		if(Jugadores.get(0).getX()<710 ) {
 			if(!termino) {
 				
 	  	  		JugadorNEscalar(n);
 	  	  		JugadorNDown(n);
-	  	  		if(!martillando) {
+	  	  		if(!Jugadores.get(n).martillando) {
 					if(!invertir) {
 						Jugadores.get(n).moveRight();
 					}else {
@@ -769,8 +785,8 @@ public class DonkeyPoob{
 		if(!Jugadores.get(i).validarSalto() ) {
 		
 			Jugadores.get(i).jummping(gravity);
-			jumping=true;           
-			enAire=false;
+			Jugadores.get(i).jumping=true;           
+			Jugadores.get(i).enAire=false;
 		}
 		
 	}
@@ -811,36 +827,8 @@ public class DonkeyPoob{
 		// TODO Auto-generated method stub
 		return princesa;
 	}
-	public void barrilesParaJugar(int[] barriles)throws DonkeyPoobException {
-		int[] barrilesNivel = convertir(barriles);
-		if (barrilesNivel.length == 0) {
-			throw new DonkeyPoobException(DonkeyPoobException.SIN_BARRIL);
-		
-		}
-	}
-	public void sorpresasParaJugar(int[] sorpresas)throws DonkeyPoobException {
-		int[] sorpresasNivel = convertir(sorpresas);
-		if (sorpresasNivel.length == 0) {
-			throw new DonkeyPoobException(DonkeyPoobException.SIN_SORPRESAS);
-		
-		}
-	}
-	public int[] convertir(int[] objetos) {
-		int cantidad = 0;
-		for(int i  = 0; i < objetos.length; i++) {
-			if (objetos[i]==1) {
-				cantidad++;
-			}
-		}
-		int[] barrilesNivel = new int[cantidad];
-		int posicion = 0;
-		for(int i  = 0; i < objetos.length; i++) {
-			if (objetos[i]==1) {
-				objetos[posicion]= i+1;
-				posicion++;
-			}
-		}
-		return barrilesNivel;
-	}
+
+	
+	
   
 }

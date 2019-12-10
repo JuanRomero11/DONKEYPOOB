@@ -24,6 +24,13 @@ public class Jugador{
 	public boolean saltando=false;
 	public boolean falling=true;
 	public boolean movimiento=true;
+	///asdsadas
+	public boolean jumping=false;
+	public boolean enAire=false;
+	public boolean Escalando=false;
+	public boolean enMovimiento=true;
+	public boolean martillando=false;
+	//sdfdf
 	public int pisoy;
 	public int mr=0;
 	public int mi=0;
@@ -58,7 +65,7 @@ public class Jugador{
 		 */
 		public void moveUp(){
 			if(rootInicial.equals("Rojo")) {
-				if(getRoot().equals("MarioCorriendoDerecha") ||getRoot().equals("MarioDerecha") ||getRoot().equals("Rojo")) {
+				if(getRoot().equals("MarioCorriendoDerecha") ||getRoot().equals("MarioDerecha")) {
 					setRoot("MarioCorriendoDerecha2");
 				}else if (getRoot().equals("Mario") || getRoot().equals("MarioCaminando")) {
 					setRoot("MarioCaminando2");
