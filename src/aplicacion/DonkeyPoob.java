@@ -79,7 +79,7 @@ public class DonkeyPoob{
 	/*
 	 * Crea los elementos 
 	 */
-	private void prepareElementos() {
+	public void prepareElementos() {
 		if(elementos.size()>0) {
 			Elemento nuevo=elementoAzar();
 			if(nuevo.getX()==elementos.get(0).getX() && nuevo.getY()==elementos.get(0).getY()) {
@@ -440,7 +440,7 @@ public class DonkeyPoob{
   	/*
   	 * Validad si el Jugador ya uso el o los elementos de la partida
   	 */
-  	private void validarElementos(Jugador Jugador) {
+  	public void validarElementos(Jugador Jugador) {
   		for(int i=0;i<elementos.size();i++) {
   			if(!elementos.get(i).isVisible()) {
   				elementos.remove(i);

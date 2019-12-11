@@ -162,7 +162,80 @@ class DonkeyPoobTest {
 		}
 	}
 	
+	@Test
+	void CrearSorpresas()  {
+		try {
+			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
+			assertTrue(juego.elementos.size() >=0);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+	}
 	
+	@Test
+	void PrepareBarrilRojo()  {
+		try {
+			barriles[barriles.length-1]=true;
+			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
+			for(int i=0;i<700;i++) {
+				juego.mover(0); 
+			}
+			juego.prepareBarriles();
+			
+			assertTrue(juego.barriles.size()>=2);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@Test
+	void PrepareBarrilVerde()  {
+		try {
+			barriles[barriles.length-2]=true;
+			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
+			for(int i=0;i<700;i++) {
+				juego.mover(0); 
+			}
+			juego.prepareBarriles();
+			
+			assertTrue(juego.barriles.size()>=2);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@Test
+	void PrepareBarrilAmarillo()  {
+		try {
+			barriles[barriles.length-2]=true;
+			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
+			for(int i=0;i<700;i++) {
+				juego.mover(0); 
+			}
+			juego.prepareBarriles();
+			
+			assertTrue(juego.barriles.size()>=2);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@Test
+	void PrepareBarrilAzul()  {
+		try {
+			barriles[0]=true;
+			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
+			for(int i=0;i<700;i++) {
+				juego.mover(0); 
+			}
+			juego.prepareBarriles();
+			
+			assertTrue(juego.barriles.size()>=2);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}}
 }
 
