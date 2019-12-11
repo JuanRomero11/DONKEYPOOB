@@ -161,6 +161,7 @@ public class DonkeyPoob{
 	 * Crea el o los Jugadores 
 	 */
 	private void prepareJugadores() {
+		System.out.println(players);
 		if(players==1) {
 			if(aspectoMario[0]) {
 				Jugador mario= new Jugador(2,550,"Rojo"); 
@@ -472,7 +473,7 @@ public class DonkeyPoob{
   	/*
   	 * Valida si el Jugador hace contacto con los barriles 
   	 */
-  	private void validarJugador(Jugador Jugador) {
+  	public void validarJugador(Jugador Jugador) {
   		for(int i=0;i<barriles.size();i++) {
   			if(!barriles.get(i).isVisible()) {
   				barriles.remove(i);
@@ -480,12 +481,11 @@ public class DonkeyPoob{
   			}
   			if(barriles.get(i).getX()>=Jugador.getX() && barriles.get(i).getX()<=Jugador.getX()+20 && barriles.get(i).getY()>=Jugador.getY() && barriles.get(i).getY()<=Jugador.getY()+20) {
   				activeBarril(barriles.get(i),Jugador);
-  				
   				break;
   			}
   			else if((barriles.get(i).getX()+20>=Jugador.getX() && barriles.get(i).getX()+20<=Jugador.getX()+20 && barriles.get(i).getY()>=Jugador.getY() && barriles.get(i).getY()<=Jugador.getY()+20)) {
   				activeBarril(barriles.get(i),Jugador);
-  				
+  		
   				break;
   			}
   			else if((barriles.get(i).getX()<=Jugador.getX()+20 && barriles.get(i).getX()+20>=Jugador.getX()+20 && barriles.get(i).getY()>=Jugador.getY() && barriles.get(i).getY()<=Jugador.getY()+20)) {	
@@ -532,7 +532,8 @@ public class DonkeyPoob{
   	/*
   	 * Valida que barriles quitan o dan una vida o puntos
   	 */
-	private void activeBarril(Barril barril,Jugador jugador) {
+	public void activeBarril(Barril barril,Jugador jugador) {
+		
 		if(jugador.martillando) {
 			if(barril instanceof BarrilVerde) {
 				Jugador.sumeVida(1);
@@ -547,7 +548,7 @@ public class DonkeyPoob{
 			
 				Jugador.setRoot("MarioMuerto");
 				Jugador.sumeVida(-1);
-				
+				System.out.println("ENTRE PIROBO ENTRE OME");
 				if(Jugador.vidas==0) {
 					termino=true;
 				}else {

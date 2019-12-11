@@ -34,10 +34,10 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 	private boolean j1Up, j1Down, j1Right, j1Left, j2Up;
 	private boolean  j3Up, j2Down, j2Right, j2Left,j4Up;
 	private boolean[] elementos=new boolean[]{false,false,false,false,false,false};
-	private boolean[] barriles=new boolean[]{false,false,false,false};
+	public boolean[] barriles=new boolean[]{false,false,false,false};
 	private boolean[] aspectoMario=new boolean[]{false,false};
 
-	private DonkeyPoobGUI(){
+	public DonkeyPoobGUI(){
 		super("Donkey Poob");
 		prepareElementos();
 		prepareAcciones();
@@ -260,7 +260,7 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 			layout.show(principal, "tini");
 			sonidoIntro();
 	 }
-	 private void prepareElementosJuego(int players) throws IOException{
+	 public void prepareElementosJuego(int players) throws IOException{
 			tableroJuego = new BoardJuego(players);
 			juego=new DonkeyPoob(tableroJuego.k1,barriles,elementos,aspectoMario,players);
 			prepareElementosJuego();
@@ -333,8 +333,9 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 				}
 			}
 		}
+	 
 	 private void actualizarScore() {
-			if(juego.puntajes().length>=3) {
+			if(juego.players>=2) {
 				tableroJuego.setScore(0, juego.puntajes()[0]);
 				tableroJuego.setScore(1, juego.puntajes()[1]);
 				tableroJuego.setScore(2, juego.puntajes()[2]);
@@ -390,7 +391,7 @@ public class DonkeyPoobGUI extends JFrame implements Runnable, KeyListener{
 			
 			}
 		private void actualizarJugadores() {
-			for(int i = 0; i < DonkeyPoob.Jugadores.size(); i++){
+			for(int i = 0; i < juego.players; i++){
 				Sprite s=null;
 					s = tableroJuego.getJugador(i);	
 					s.setX(juego.getJugador(i).getX());
