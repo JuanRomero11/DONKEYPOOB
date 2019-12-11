@@ -25,11 +25,6 @@ public class BarrilAzul extends Barril
 		
 	}
 
-	@Override
-	public void fall(DonkeyPoob DonkeyPoob) {
-		// TODO Auto-generated method stub
-		
-	}
 	public void setRoot(String s) {
     	super.setRoot(s);
     }

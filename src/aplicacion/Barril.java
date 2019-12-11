@@ -44,7 +44,7 @@ public abstract class Barril extends Elemento
 		setRoot(mov);
 		alive = true;
 	}
-    public abstract void fall(DonkeyPoob DonkeyPoob);
+
     
     /*
      * returna la posicion en x del barril

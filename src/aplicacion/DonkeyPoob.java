@@ -1,5 +1,9 @@
 package aplicacion;
-
+/**
+ * Clase fachada del juego. Representa el juego DonkeyPoob
+ * @author Juan Guillermo Romero y Sebastián Villamarín Rodríguez
+ *
+ */
 
 import java.awt.Component;
 import java.io.*;
@@ -68,7 +72,7 @@ public class DonkeyPoob{
 		
 	}
 	
-	/*
+	/**
 	 * Crea el DonkeyKong y la princesa
 	 */
 	private void prepareDonkeyPrincesa() {
@@ -76,7 +80,7 @@ public class DonkeyPoob{
 		princesa = new Princesa(300,171,"princesa");
 	}
 	
-	/*
+	/**
 	 * Crea los elementos 
 	 */
 	public void prepareElementos() {
@@ -95,7 +99,7 @@ public class DonkeyPoob{
 		
 	}
 	
-	/*
+	/**
 	 * Crea elementos al azar y los ubica en diferentes ubicaciones
 	 */
 	private Elemento elementoAzar() {
@@ -103,7 +107,7 @@ public class DonkeyPoob{
 		while(cualquiera ==null ) {
 			int lona= (int) Math.random()*plataforma.size()+2;
 			
-			int k=(int) (Math.random()*5);
+			int k=(int) (Math.random()*6);
 			System.out.println(k+" "+lona);
 			
 			if(k==0 && elementosDisponibles[2]) {
@@ -118,8 +122,11 @@ public class DonkeyPoob{
 			}else if(k==3  && elementosDisponibles[0]){
 				cualquiera= new Hongo(plataforma.get(lona).getInferior()[0],plataforma.get(3).getInferior()[1]+40,"hongo");
 			  
-			}else if(k==4  && elementosDisponibles[1]){
+			}else if(k==4  && elementosDisponibles[5]){
 				cualquiera= new Manzana(plataforma.get(lona).getInferior()[0],plataforma.get(3).getInferior()[1]+40,"manzana");
+				
+			}else if(k==5  && elementosDisponibles[1]){
+				cualquiera= new Soga(plataforma.get(lona).getInferior()[0],plataforma.get(3).getInferior()[1]+40,"soga");
 			}
 			
 		}
@@ -127,7 +134,7 @@ public class DonkeyPoob{
 		
 	}
 	
-	/*
+	/**
 	 * Crea las escaleras tanto de los Jugadores como de los barriles y guarda sus respectivas coordenadas
 	 */
 	private void prepareEscaleras() {
@@ -157,7 +164,7 @@ public class DonkeyPoob{
 
 	}
 	
-	/*
+	/**
 	 * Crea el o los Jugadores 
 	 */
 	private void prepareJugadores() {
@@ -186,7 +193,7 @@ public class DonkeyPoob{
 		
 	}
 	
-	/*
+	/**
 	 * retorna la cantidad de elementos que hay
 	 * @return
 	 */
@@ -194,7 +201,7 @@ public class DonkeyPoob{
 		return elementos.size();
 	}
 	
-	/*
+	/**
 	 * Crea los barriles de una forma aleatoria
 	 */
 	public void prepareBarriles() {
@@ -276,7 +283,7 @@ public class DonkeyPoob{
 		return todos;
 	}
 
-	/*
+	/**
 	 * Crea las plataformas y  guarda sus respectivas coordenadas
 	 */
 	public void preparePlataformas() throws IOException{
@@ -297,7 +304,7 @@ public class DonkeyPoob{
 		plataforma.add(p5);	
 	}
 
-	/*
+	/**
 	 * Retorna si es juego ya se acabo o no
 	 * @returns
 	 */
@@ -320,7 +327,7 @@ public class DonkeyPoob{
        
     } 
     
-    /*
+    /**
      * Retorna una barril en una posicion dada de su Arraylist
      * @return
      */
@@ -328,7 +335,7 @@ public class DonkeyPoob{
     	return barriles.get(i);
 	}
     
-    /*
+    /**
      * Retorna una Jugador en una posicion dada de su Arraylist
      * @return
      */
@@ -338,7 +345,7 @@ public class DonkeyPoob{
     
   //Move el Jugador
     
-    /*
+    /**
      * Realiza el salto para el o los Jugadores
      */
   	public void JugadorNUp(int n){ 	
@@ -358,7 +365,7 @@ public class DonkeyPoob{
   		}
   		}
   	
-  	/*
+  	/**
   	 * Realiza la caída del Jugador ya sea de un salto o al bajar de una plataforma
   	 */
   	public void JugadorNDown(int n){
@@ -377,7 +384,7 @@ public class DonkeyPoob{
   		
   		}
 
-	/*
+	/**
 	 * Realiza el movimiento hacia la izquierda del Jugador o los Jugadores 	
 	 */
   	public void JugadorNLeft(int n){
@@ -409,7 +416,7 @@ public class DonkeyPoob{
   		
   		}
   	
-  	/*
+  	/**
   	 * Hace que el Jugador pueda subir de una plataforma a otra mediante la escalera
   	 */
   	public void JugadorNEscalar(int n){ 
@@ -438,7 +445,7 @@ public class DonkeyPoob{
   		}
 		}
   	
-  	/*
+  	/**
   	 * Validad si el Jugador ya uso el o los elementos de la partida
   	 */
   	public void validarElementos(Jugador Jugador) {
@@ -470,7 +477,7 @@ public class DonkeyPoob{
   		}
   	}
   	
-  	/*
+  	/**
   	 * Valida si el Jugador hace contacto con los barriles 
   	 */
   	public void validarJugador(Jugador Jugador) {
@@ -497,7 +504,7 @@ public class DonkeyPoob{
   		}
   	}
   	
-  	/*
+  	/**
   	 * Valida si el Jugador llego a la posicion de la princesa y termina el juego
   	 */
   	private void validarPrincesa(Jugador Jugador) {
@@ -518,7 +525,7 @@ public class DonkeyPoob{
   		
   	}
   	
-  	/*
+  	/**
   	 * Reinicia el juego tanto para el Jugador como para los barriles
   	 */
   	private void reinicieJuego() {
@@ -529,7 +536,7 @@ public class DonkeyPoob{
 		termino=false;
 	}
   	
-  	/*
+  	/**
   	 * Valida que barriles quitan o dan una vida o puntos
   	 */
 	public void activeBarril(Barril barril,Jugador jugador) {
@@ -561,7 +568,7 @@ public class DonkeyPoob{
 		
 	}
 	
-	/*
+	/**
 	 * Valida que hace cada sorpresa
 	 */
 	private void activeElemento(Elemento elemento,Jugador Jugador) {
@@ -582,11 +589,15 @@ public class DonkeyPoob{
 			Jugador.martillando=true;
 			time = System.nanoTime();
 			time_x_ronda = segundo*30;
+		}else if(elemento instanceof Soga) {
+			for(int i=0;i<Jugadores.size();i++) {
+				Jugadores.get(i).setY(Jugadores.get(i).getY()-70);
+			}
 		}
 		
 	}
 	
-	/*
+	/**
 	 * Valida el puntaje del Jugador durante las rondas de la partida
 	 */
   	public int[] puntajes() {
@@ -599,7 +610,7 @@ public class DonkeyPoob{
   		return lista;
   	}
   	
-  	/*
+  	/**
   	 * Valida si el Jugador esta o no en una plataforma
   	 */
 	private boolean EstaEnLona(Jugador Jugador) {
@@ -625,7 +636,7 @@ public class DonkeyPoob{
 		return bandera;
   	}
 	
-	/*
+	/**
 	 * Realiza el movimiento hacia la derecha del Jugador o los Jugadores 	
 	 */
 	public void JugadorNRight(int n){
@@ -651,7 +662,7 @@ public class DonkeyPoob{
 		}
 
 	
-  	/*
+  	/**
   	 * Valida si la ronda ya termino
   	 */
     public boolean isRondaFinished(){
@@ -662,7 +673,7 @@ public class DonkeyPoob{
 		return ans;
 	}
     
-    /*
+    /**
      * Valida el movimiento respectivo de cada barril
      */
     public void mover(int x){
@@ -679,7 +690,7 @@ public class DonkeyPoob{
     	 
 	}
     
-    /*
+    /**
      * Realiza el movimiento del barril azul donde puede bajar por cualquier escalera del mapa
      */
     private void moverBarriAzul(int x) {
@@ -707,7 +718,7 @@ public class DonkeyPoob{
     	}
     }
     
-    /*
+    /**
      * Realiza el movimiento de los barriles cuyo movimiento es bajar sin tener encuenta las escaleras
      */
     private void moverBarrilNormal(int x) {
@@ -729,7 +740,7 @@ public class DonkeyPoob{
 		
 	}
     
-    /*
+    /**
      * Validad si los barriles estan en una escalera
      */
     private boolean barrilEnEscalera(Barril barril) {
@@ -778,7 +789,7 @@ public class DonkeyPoob{
 		return 1;
 	}
 	
-	/*
+	/**
 	 * Valida si el Jugador esta saltando
 	 */
 	public void jummping(int i,int gravity) {
@@ -792,7 +803,7 @@ public class DonkeyPoob{
 		
 	}
 	
-	/*
+	/**
 	 * Retorna la cantidad de barriles
 	 * @return
 	 */
@@ -801,7 +812,7 @@ public class DonkeyPoob{
 		return barriles.size();
 	}
 	
-	/*
+	/**
 	 * Retorna un elemento de una posicion dada
 	 * @return
 	 */
@@ -828,6 +839,10 @@ public class DonkeyPoob{
 		// TODO Auto-generated method stub
 		return princesa;
 	}
+	/**
+	 * Valida si el usuario selecciono barriles
+	 * @param barriles con las que se va a jugar
+	 */
 	public void barrilesParaJugar(int[] barriles)throws DonkeyPoobException {
 		int[] barrilesNivel = convertir(barriles);
 		if (barrilesNivel.length == 0) {
@@ -835,6 +850,10 @@ public class DonkeyPoob{
 		
 		}
 	}
+	/**
+	 * Valida si el usuario selecciono sorpresas
+	 * @param sorpresas con las que se va a jugar
+	 */
 	public void sorpresasParaJugar(int[] sorpresas)throws DonkeyPoobException {
 		int[] sorpresasNivel = convertir(sorpresas);
 		if (sorpresasNivel.length == 0) {
@@ -842,6 +861,12 @@ public class DonkeyPoob{
 		
 		}
 	}
+	/**
+	 * Convierte el formato en el que vienen los elementos seleccionados (mappeo segun posicion: 1 si esta, o 0 si no esta el elemento) a una lista de 
+	 * los nÃºmeros de los elementos con los que se va a jugar 
+	 * @param elementos seleccionados 
+	 * @return elementos seleccionados con el nuevo formato
+	 */
 	public int[] convertir(int[] objetos) {
 		int cantidad = 0;
 		for(int i  = 0; i < objetos.length; i++) {
@@ -859,6 +884,10 @@ public class DonkeyPoob{
 		}
 		return barrilesNivel;
 	}
+	/**
+	 * Salva el estado actual del juego.
+	 * @param archivo donde se va a guardar
+	 */
 	public void salvar (File archivo) throws DonkeyPoobException {
 		if (juego == null) {
 			//throw new DonkeyPoobException(DonkeyPoobException.SIN_JUEGO);
