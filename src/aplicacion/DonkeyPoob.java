@@ -108,7 +108,7 @@ public class DonkeyPoob{
 			int lona= (int) Math.random()*plataforma.size()+2;
 			
 			int k=(int) (Math.random()*6);
-			System.out.println(k+" "+lona);
+			
 			
 			if(k==0 && elementosDisponibles[2]) {
 				 cualquiera=new Martillo(plataforma.get(lona).getInferior()[0],plataforma.get(2).getInferior()[1]+40,"martillo");
@@ -168,7 +168,7 @@ public class DonkeyPoob{
 	 * Crea el o los Jugadores 
 	 */
 	private void prepareJugadores() {
-		System.out.println(players);
+		
 		if(players==1) {
 			if(aspectoMario[0]) {
 				Jugador mario= new Jugador(2,550,"Rojo"); 
@@ -555,7 +555,7 @@ public class DonkeyPoob{
 			
 				Jugador.setRoot("MarioMuerto");
 				Jugador.sumeVida(-1);
-				System.out.println("ENTRE PIROBO ENTRE OME");
+				
 				if(Jugador.vidas==0) {
 					termino=true;
 				}else {
