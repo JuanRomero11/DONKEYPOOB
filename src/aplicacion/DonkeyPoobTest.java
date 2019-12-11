@@ -15,7 +15,7 @@ class DonkeyPoobTest {
 	public int players;
 
 	@Test
-	void CrearTablero()  {
+	void DeberiaCrearTablero()  {
 		try {
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
 		} catch (IOException e) {
@@ -25,7 +25,7 @@ class DonkeyPoobTest {
 		
 	}
 	@Test
-	void CrearPlataformas()  {
+	void DeberiaCrearPlataformas()  {
 		try {
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
 			assertTrue(juego.plataforma.size() >0);
@@ -37,7 +37,7 @@ class DonkeyPoobTest {
 	}
 	
 	@Test
-	void CrearBarriles()  {
+	void DeberiaCrearBarriles()  {
 		try {
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
 			assertTrue(juego.barriles.size() >0);
@@ -48,7 +48,7 @@ class DonkeyPoobTest {
 		
 	}
 	@Test
-	void CrearJugador() {
+	void DeberiaCrearJugador() {
 		try {
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
 			assertTrue(juego.Jugadores.size() >0);
@@ -59,7 +59,7 @@ class DonkeyPoobTest {
 		
 	}
 	@Test
-	void JugadorLeft() {
+	void DeberiaMoverJugadorIzquierda() {
 		try {
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
 			
@@ -73,7 +73,7 @@ class DonkeyPoobTest {
 		
 	}
 	@Test
-	void JugadorRight() {
+	void DeberiaMoverJugadorDerecha() {
 		try {
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
 			juego.JugadorNRight(0);
@@ -86,7 +86,7 @@ class DonkeyPoobTest {
 	}
 	
 	@Test
-	void NoJugadorUP() {
+	void NoDeberiaJugadorMoverseArriba() {
 		try {
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
 			juego.JugadorNUp(0);
@@ -98,11 +98,11 @@ class DonkeyPoobTest {
 		
 	}
 	@Test
-	void NoJugadorDown() {
+	void NoDeberiaJugadorMoverseAbajo() {
 		try {
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
 			juego.JugadorNDown(0);
-			assertTrue(juego.Jugadores.get(0).y!=juego.Jugadores.get(0).yInicial);
+			assertTrue(juego.Jugadores.get(0).y==juego.Jugadores.get(0).yInicial);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -110,7 +110,7 @@ class DonkeyPoobTest {
 		
 	}
 	@Test
-	void MoverBarriles()  {
+	void DeberiaMoverBarriles()  {
 		try {
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
 			juego.mover(0);
@@ -123,7 +123,7 @@ class DonkeyPoobTest {
 	}
 	
 	@Test
-	void jumping()  {
+	void DeberiaSaltarJugador()  {
 		try {
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
 			juego.jummping(0,5);
@@ -137,7 +137,7 @@ class DonkeyPoobTest {
 		
 	}
 	@Test
-	void jumpingComplete()  {
+	void DeberiaJugadorSaltarHastaLaLonaYBajar()  {
 		try {
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
 			juego.jummping(0,5);
@@ -153,7 +153,7 @@ class DonkeyPoobTest {
 		
 	}
 	@Test
-	void NoDownJumping()  {
+	void NoDeberiaBajarSiEstaSaltando()  {
 		try {
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
 			juego.jummping(0,5);
@@ -167,7 +167,7 @@ class DonkeyPoobTest {
 	}
 	
 	@Test
-	void CrearSorpresas()  {
+	void DeberiaCrearSorpresas()  {
 		try {
 			elementos[0]=true;
 			elementos[1]=true;
@@ -181,7 +181,7 @@ class DonkeyPoobTest {
 	}
 	
 	@Test
-	void PrepareBarrilRojo()  {
+	void DeberiaPrepareBarrilRojo()  {
 		try {
 			barriles[barriles.length-1]=true;
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
@@ -197,7 +197,7 @@ class DonkeyPoobTest {
 		}
 	}
 	@Test
-	void PrepareBarrilRojoDosJugadores()  {
+	void DeberiaPrepareBarrilRojoDosJugadores()  {
 		try {
 			barriles[barriles.length-1]=true;
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 2);
@@ -213,7 +213,7 @@ class DonkeyPoobTest {
 		}
 	}
 	@Test
-	void PrepareBarrilVerde()  {
+	void DeberiaPrepareBarrilVerde()  {
 		try {
 			barriles[barriles.length-2]=true;
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
@@ -229,7 +229,7 @@ class DonkeyPoobTest {
 		}
 	}
 	@Test
-	void PrepareBarrilVerdeDosJugadores()  {
+	void DeberiaPrepareBarrilVerdeDosJugadores()  {
 		try {
 			barriles[barriles.length-2]=true;
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 2);
@@ -245,7 +245,7 @@ class DonkeyPoobTest {
 		}
 	}
 	@Test
-	void PrepareBarrilAmarillo()  {
+	void DeberiaPrepareBarrilAmarillo()  {
 		try {
 			barriles[barriles.length-2]=true;
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
@@ -261,7 +261,7 @@ class DonkeyPoobTest {
 		}
 	}
 	@Test
-	void PrepareBarrilAmarilloDosJugadores()  {
+	void DeberiaPrepareBarrilAmarilloDosJugadores()  {
 		try {
 			barriles[barriles.length-2]=true;
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 2);
@@ -277,7 +277,7 @@ class DonkeyPoobTest {
 		}
 	}
 	@Test
-	void PrepareBarrilAzul()  {
+	void DeberiaPrepareBarrilAzul()  {
 		try {
 			barriles[0]=true;
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
@@ -292,7 +292,7 @@ class DonkeyPoobTest {
 			e.printStackTrace();
 		}}
 	@Test
-	void PrepareBarrilAzuDosJugadores()  {
+	void DeberiaPrepareBarrilAzuDosJugadores()  {
 		try {
 			barriles[0]=true;
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 2);
@@ -308,7 +308,7 @@ class DonkeyPoobTest {
 		}}
 	//lomio
 	@Test
-	void MarioMuereBarrilAmarillo()   {
+	void DeberiaMarioMuereBarrilAmarillo()   {
 		
 			barriles[1]=true;
 			DonkeyPoob juego;
@@ -334,7 +334,7 @@ class DonkeyPoobTest {
 			}
 	}
 	@Test
-	void MarioMuereBarrilAzul()   {
+	void DeberiaMarioMuereBarrilAzul()   {
 		
 			barriles[0]=true;
 			DonkeyPoob juego;
@@ -364,7 +364,7 @@ class DonkeyPoobTest {
 			}
 	}
 	@Test
-	void MarioMuereBarrilVerde()   {
+	void DeberiaMarioMuereBarrilVerde()   {
 		
 			barriles[2]=true;
 			DonkeyPoob juego;
@@ -394,7 +394,7 @@ class DonkeyPoobTest {
 			}
 	}
 	@Test
-	void MarioMuereCualquierBarril()   {
+	void DeberiaMarioMuereCualquierBarril()   {
 		
 			barriles[0]=true;
 			barriles[1]=true;
@@ -426,7 +426,7 @@ class DonkeyPoobTest {
 	}
 	
 	@Test
-	void CrearTableroDosJugadores()  {
+	void DeberiaCrearTableroDosJugadores()  {
 		try {
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 2);
 		} catch (IOException e) {
@@ -436,7 +436,7 @@ class DonkeyPoobTest {
 		
 	}
 	@Test
-	void jugadorDosRight()   {
+	void DeberiajugadorDosRight()   {
 			
 			try {
 				DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 2);
@@ -449,7 +449,7 @@ class DonkeyPoobTest {
 			}
 	}
 	@Test
-	void jugadorDosLeft()   {
+	void DeberiajugadorDosLeft()   {
 		try {
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 2);
 			//juego.JugadorNRight(0);
@@ -461,7 +461,7 @@ class DonkeyPoobTest {
 		}
 	}
 	@Test
-	void NoJugadorDosUP() {
+	void NoDeberiaJugadorDosUP() {
 		try {
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 2);
 			juego.JugadorNUp(1);
@@ -473,7 +473,7 @@ class DonkeyPoobTest {
 		
 	}
 	@Test
-	void NoJugadorDosDown() {
+	void NoDeberiaJugadorDosDown() {
 		try {
 			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 2);
 			juego.JugadorNDown(1);
@@ -484,7 +484,175 @@ class DonkeyPoobTest {
 		}
 		
 	}
-
+	@Test
+	void DeberiaCrearManzana() {
+		try {
+			elementos[5]=true;
+			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
+			
+			assertTrue(juego.elementos.get(0) instanceof Manzana);
+			elementos[5]=false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	@Test
+	void DeberiaCrearCorazon() {
+		try {
+			elementos[4]=true;
+			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
+			
+			assertTrue(juego.elementos.get(0) instanceof Corazon);
+			elementos[4]=false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	@Test
+	void DeberiaCrearSoga() {
+		try {
+			elementos[1]=true;
+			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
+			
+			assertTrue(juego.elementos.get(0) instanceof Soga);
+			elementos[1]=false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	@Test
+	void DeberiaCrearMartillo() {
+		try {
+			elementos[2]=true;
+			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
+			
+			assertTrue(juego.elementos.get(0) instanceof Martillo);
+			elementos[2]=false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	@Test
+	void DeberiaCrearCereza() {
+		try {
+			elementos[3]=true;
+			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
+			
+			assertTrue(juego.elementos.get(0) instanceof Cereza);
+			elementos[3]=false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	@Test
+	void DeberiaCrearHongo() {
+		try {
+			elementos[0]=true;
+			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
+			
+			assertTrue(juego.elementos.get(0) instanceof Hongo);
+			elementos[0]=false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	////fsdfsdfdsfsdsfdsfds
+	@Test
+	void NoDeberiaCrearManzana() {
+		try {
+			elementos[4]=true;
+			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
+			
+			assertFalse(juego.elementos.get(0) instanceof Manzana);
+			elementos[4]=false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	@Test
+	void NoDeberiaCrearCorazon() {
+		try {
+			elementos[2]=true;
+			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
+			
+			assertFalse(juego.elementos.get(0) instanceof Corazon);
+			elementos[2]=false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	@Test
+	void NoDeberiaCrearSoga() {
+		try {
+			elementos[5]=true;
+			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
+			
+			assertFalse(juego.elementos.get(0) instanceof Soga);
+			elementos[5]=false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	@Test
+	void NoDeberiaCrearMartillo() {
+		try {
+			elementos[4]=true;
+			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
+			
+			assertFalse(juego.elementos.get(0) instanceof Martillo);
+			elementos[4]=false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	@Test
+	void NoDeberiaCrearCereza() {
+		try {
+			elementos[5]=true;
+			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
+			
+			assertFalse(juego.elementos.get(0) instanceof Cereza);
+			elementos[5]=false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	@Test
+	void NoDeberiaCrearHongo() {
+		try {
+			elementos[1]=true;
+			DonkeyPoob juego=new DonkeyPoob(1, barriles, elementos, aspectoMario, 1);
+			
+			assertFalse(juego.elementos.get(0) instanceof Hongo);
+			elementos[1]=false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 }
